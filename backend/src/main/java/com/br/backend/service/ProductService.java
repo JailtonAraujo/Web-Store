@@ -11,5 +11,5 @@ public interface ProductService {
 	
 	public Optional<Product>findById( Long productId );
 	
-	public List<Product> findByCategory(Long categoryId);
+	public List<Product> findByCategory(Long categoryId) throws Exception;
 }

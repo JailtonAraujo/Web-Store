@@ -39,4 +39,12 @@ public class ProductController {
 		throw new NoResultException("Product not found!");
 		
 	}
+	
+	
+	@GetMapping("/category/{id}")
+	public ResponseEntity<List<Product>> findByCategory( @PathVariable(value = "id") Long categoryId ) throws Exception{
+		
+		return ResponseEntity.ok(this.productService.findByCategory(categoryId));
+		
+	}
 }
