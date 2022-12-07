@@ -1,29 +1,42 @@
 <header>
     <div class="content-header-top">
-        <img src="assets/online-shopping.png" alt="brand_img" class="brand">
+       <div class="brand">
+        <img src="assets/online-shopping.png" alt="brand_img">
+       </div>
         <div class="content-search">
-            <div class="search-input">
+            <div class="search-form">
                 <input type="name" id="name" name="name" placeholder="Buscar produtos">
-                <button class="btn-search"> buscar </button>
+                <button class="btn-search"> <fa-icon [icon]="faSearch"></fa-icon> </button>
             </div>
-        </div>
-        <div class="options-user">
-            <ul>
-                <li>Crie sua conta</li>
-                <li>Entre</li>
-                <li>Suas compras</li>
-                <li>Carrinho de compras</li>
+
+            <ul class="categorys">
+                <li>Categorias</li>
+                <li>Ofertas do dia</li>
+                <li>Mais populares</li>
             </ul>
+
+            
         </div>
+       
+            <ul class="options-user">
+                <li> <a href="#">Crie sua conta</a> </li>
+                <li> <a href="#">Entre</a> </li>
+                <li> <a href="#">Minhas compras</a> </li>
+                <li id="cart-element"><button type="button" class="btn btn-primary position-relative" title="Carrinho de comprars">
+                   <fa-icon [icon]="faCart" ></fa-icon>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                      9
+                      <span class="visually-hidden">unread messages</span>
+                    </span>
+                  </button></li>
+            </ul>
+      
     </div>
-    <div class="nav-bar">
-        <nav>
+    <!-- <div class="categorys">
             <ul>
                 <li>Categorias</li>
                 <li>Ofertas do dia</li>
                 <li>Mais populares</li>
             </ul>
-        </nav>
-       
-    </div>
+    </div> -->
 </header>

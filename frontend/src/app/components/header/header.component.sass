@@ -1,6 +1,8 @@
+
 header
     width: 100%
-    padding: 0.4em 1em
+    background-color: #483D8B
+    padding: 0.6em 1em
     display: flex
     flex-direction: column
     justify-content: center
@@ -10,10 +12,43 @@ header
     width: 70%
     display: flex
     justify-content: space-between
-    align-items: center
-    .options-user
-        ul
+    .content-search
+        width: 50%
+        .search-form
+            display: flex
+            padding: 0.5em 0.1em
+            background: #fff
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px
+            border-radius: 5px
+            input
+                width: 100%
+                border: none
+                outline: none
+                padding: 0em 0.4em
+                background: none
+                color: #000
+            button
+                border: none
+                background: none
+                padding: 0em 0.8em
+                border-left: 1px solid #aaa
+                text-align: center
+        .categorys
+            color: #fff
+            padding: 0.5em 0em
             display: flex
             gap: 1em
+            margin: 0
             li
                 list-style: none
+
+.options-user
+        margin: 0
+        display: flex
+        align-items: center
+        height: 100%
+        gap: 1em
+        color: #fff
+        li
+            list-style: none
+   
