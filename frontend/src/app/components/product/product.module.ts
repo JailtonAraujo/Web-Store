@@ -5,6 +5,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ProductListComponent } from './product-list/product-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { PublicComponentsModule } from 'src/app/publics/public-components.module';
+import { RouterModule } from '@angular/router';
 
 const components =[
   ProductComponentComponent,
@@ -13,19 +15,18 @@ const components =[
 ]
 
 @NgModule({
-  declarations: [
-    ProductComponentComponent,
-    ProductDetailsComponent,
-    ProductListComponent
-  ],
-  imports: [
-    CommonModule,
-    FontAwesomeModule,
-    AppRoutingModule
-  ],
-
-  exports:[
-    components
-  ]
+    declarations: [
+        components
+    ],
+    exports: [
+        components
+    ],
+    imports: [
+        CommonModule,
+        FontAwesomeModule,
+        AppRoutingModule,
+        PublicComponentsModule,
+        RouterModule
+    ]
 })
 export class ProductModule { }
