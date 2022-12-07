@@ -4,6 +4,7 @@ import { ProductComponentComponent } from './product-component/product-component
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 const components =[
   ProductComponentComponent,
@@ -19,8 +20,10 @@ const components =[
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    AppRoutingModule
   ],
+
   exports:[
     components
   ]
