@@ -1,51 +1,105 @@
+@use '../../../sassvariables/colors'
+    
 .container
     padding: 3em 1em
 
 .content-product-details
-    width: 1100px
+    width: 1000px
     margin: 0 auto
     display: flex
     justify-content: space-between
     gap: 2em
-    padding: 1.6em 2em
+    padding: 1.6em 1em
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px
     border-radius: 5px
 
 //content left
 .content-left
     width: 500px
-    border: 1px solid #aaa
     display: flex
     flex-direction: column
     align-items: center
-    border-radius: 5px
     padding: 1em
     
     img
         width: 75%
-    .description-product
-        padding: 1em 0em
-        text-align: justify
-        .title
             padding-top: 1em
-    .description-product::before
+    #others-info::before
         content: ''
-        background: #aaa
         height: 1px
+        width: 100%
+        background: #aaa
         display: block
+        margin-bottom: 1em 
+        margin-top: 0.3em 
+    #others-info
+        li
+            margin: 0.7em 0em
 
 
 //Contente right
 .content-right
-    width: 350px
-    padding: 0.8em 1em
-    border: 1px solid #aaa
-    border-radius: 5px
+    width: 400px
+    .content-info
+        border: 1px solid #aaa
+        padding: 1em
+        border-radius: 5px
     .top-info
         display: flex
         justify-content: space-between
         align-items: center
         font-size: 0.9em
+        padding-bottom: 1em
         #icon-favority
             font-size: 1.4em
-            color: #1E90FF
+            color: colors.$third-color
+    #name-product
+        width: 100%
+        font-weight: 500
+        font-size: 1.2em
+    #price-product
+        h4
+            font-size: 1.5em
+            font-weight: 400
+        span
+            color: colors.$second-color
+            font-weight: 500
+    .description-product
+        padding-bottom: 1em
+        text-align: justify
+    .options
+        border: 1px solid #aaa
+        border-radius: 5px
+        margin-top: 1em
+        .actions
+            display: flex
+            flex-direction: column
+            justify-content: center
+            width: 100%
+            gap: 0.5em
+            padding: 0.4em 2em
+        #quantity-product
+            display: flex
+            justify-content: center
+            align-items: center
+            padding: 0.8em 0em
+            gap: 0.2em
+            span
+                font-size: 0.8em
+                color: #aaa
+            .form-select
+                width: 8em
+        .options-frete
+            gap: 0.4em
+            display: flex
+            flex-direction: column
+            padding: 1em 2em
+            span
+                color: colors.$second-color
+        .options-frete::before
+            content: ''
+            background: #aaa
+            height: 1px
+            display: block
+            margin-bottom: 1em
+

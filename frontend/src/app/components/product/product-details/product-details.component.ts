@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartSolid, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular} from '@fortawesome/free-regular-svg-icons';
 
 @Component({
@@ -9,8 +9,10 @@ import { faHeart as faHeartRegular} from '@fortawesome/free-regular-svg-icons';
 })
 export class ProductDetailsComponent implements OnInit {
 
+  //Icons
   faHeartRegular = faHeartRegular;
   faHeartSolid = faHeartSolid;
+  faTruckFast = faTruckFast;
 
   constructor() { }
 
