@@ -28,14 +28,16 @@ class BackendApplicationTests {
 
 		for (int i = 0; i <= 10; i++) {
 
-			Category category = new Category().builder().id(1L).name("Eletronicos").build();
+			Category category = new Category().builder().id(3L).name("Moda").build();
 
-			Product product = new Product().builder().name("Lorem ipsum dapibus aenean").descrition(
-					"Lorem ipsum dapibus aenean nullam vehicula senectus aptent lorem consectetur, purus duis commodo cursus nec tortor lobortis taciti eleifend ut, feugiat sollicitudin in integer odio mollis potenti pellentesque est, proin primis laoreet venenatis sed netus aenean enim. habitant scelerisque lacus porta placerat platea hendrerit dictumst senectus eleifend, malesuada interdum justo vitae quisque vitae purus litora nibh, in odio dolor ultrices in sed sollicitudin sociosqu. posuere laoreet aenean diam orci nisl cubilia augue, quam mauris suspendisse vestibulum urna etiam,")
-					.price(50.0).isNew(true).quantity(40).category(category).build();
+			Product product = new Product().builder().name("sollicitudin in integer odio").descrition(
+					"Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut deleniti ullam, eos illo quidem vero\r\n"
+							+ "                    praesentium repellendus inventore, eaque animi dolore. Accusamus numquam fuga sapiente magnam.\r\n"
+							+ "                    Eveniet alias voluptatum nesciunt")
+					.price(87.20).isNew(true).quantity(842).category(category).build();
 
 			ImgProduct imgProduct = new ImgProduct().builder()
-					.url("https://cdn-icons-png.flaticon.com/512/3659/3659898.png").product(product).build();
+					.url("https://cdn-icons-png.flaticon.com/512/4223/4223397.png").product(product).build();
 
 			List<ImgProduct> imgProducts = new ArrayList<ImgProduct>();
 			imgProducts.add(imgProduct);

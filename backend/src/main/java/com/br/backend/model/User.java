@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_custumer")
-public class Customer extends Person implements Serializable{
+@Entity(name = "tbl_user")
+public class User extends Person implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
