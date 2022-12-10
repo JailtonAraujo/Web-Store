@@ -1,18 +1,9 @@
 <div class="container">
     <div class="list-products">
-        <div class="content-list">
-        <app-product-component></app-product-component>
-        <app-product-component></app-product-component>
-        <app-product-component></app-product-component>
-        <app-product-component></app-product-component>
-        <app-product-component></app-product-component>
-        <app-product-component></app-product-component>
-        <app-product-component></app-product-component>
-        <app-product-component></app-product-component>
-        <app-product-component></app-product-component>
-        <app-product-component></app-product-component>
-        <app-product-component></app-product-component>
-        <app-product-component></app-product-component>
-    </div>
+    <ul class="content-list">
+        <li *ngFor="let product of ListProduct">
+            <app-product-component [Product]="product"></app-product-component>
+        </li>    
+    </ul>
     </div>
 </div>

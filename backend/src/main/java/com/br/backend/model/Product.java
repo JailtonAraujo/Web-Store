@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -52,7 +53,7 @@ public class Product implements Serializable{
 	@ForeignKey(name = "FK_tblcategory_tblproduct")
 	private Category category;
 	
-	@OneToMany(mappedBy = "product",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<ImgProduct> images;
+	@OneToOne(mappedBy = "product",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private ImgProduct image;
 
 }

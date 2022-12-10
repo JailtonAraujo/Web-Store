@@ -7,7 +7,7 @@ import com.br.backend.model.Product;
 
 public interface ProductService {
 
-	public List<Product> findAllProducts();
+	public List<Product> findAllProducts()throws Exception;
 	
 	public Optional<Product>findById( Long productId );
 	

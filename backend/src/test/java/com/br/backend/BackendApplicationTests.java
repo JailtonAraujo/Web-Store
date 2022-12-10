@@ -38,11 +38,8 @@ class BackendApplicationTests {
 
 			ImgProduct imgProduct = new ImgProduct().builder()
 					.url("https://cdn-icons-png.flaticon.com/512/4223/4223397.png").product(product).build();
+			product.setImage(imgProduct);
 
-			List<ImgProduct> imgProducts = new ArrayList<ImgProduct>();
-			imgProducts.add(imgProduct);
-
-			product.setImages(imgProducts);
 
 			this.productRepositoty.save(product);
 

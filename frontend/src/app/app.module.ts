@@ -7,6 +7,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NgxbootstrapModule } from './publics/ngxbootstrap.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HttpClientModule } from '@angular/common/http';
 
 import { PublicComponentsModule } from './publics/public-components.module';
 import { ProductModule } from './components/product/product.module';
@@ -23,7 +24,8 @@ import { ProductModule } from './components/product/product.module';
     NgxbootstrapModule,
     FontAwesomeModule,
     ProductModule,
-    PublicComponentsModule
+    PublicComponentsModule,
+    HttpClientModule
   ], exports:[
     HomeComponent
   ],

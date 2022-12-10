@@ -22,9 +22,9 @@ public class ProductServiceImpl implements ProductService{
 
 	
 	@Override
-	public List<Product> findAllProducts() {
+	public List<Product> findAllProducts() throws Exception {
 		
-		return productRepositoty.findAll();
+		return customProductRepository.findAllProductsPagination();
 	}
 
 

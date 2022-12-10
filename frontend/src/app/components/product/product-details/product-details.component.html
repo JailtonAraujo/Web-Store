@@ -1,7 +1,7 @@
 <app-header></app-header>
 <main>
     <div class="container">
-        <div class="content-product-details">
+        <div class="content-product-details" >
             <div class="content-left">
                 <img src="https://cdn-icons-png.flaticon.com/512/3659/3659898.png" alt="img_product">
              
@@ -15,25 +15,21 @@
                         <li>Nihil ab atque laboriosam! Voluptatibus distinctio</li>
                     </ul>
             </div>
-            <div class="content-right">
+            <div class="content-right" *ngIf="product">
                 <div class="content-info">
                 <div class="top-info">
-                    <span>Novo | 121 Vendidos</span>
+                    <span>{{product!.isNew ? 'Novo' : 'Usado'}} | 121 Vendidos</span>
                     <span id="icon-favority"> <fa-icon [icon]="faHeartRegular"></fa-icon> </span>
                 </div>
                 <p id="name-product">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam architecto eveniet nesciunt saepe
-                    quis
-                    voluptates ea!
+                   {{product.name}}
                 </p>
                 <div class="description-product">
                     <h4 class="title"> Descrição:</h4>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut deleniti ullam, eos illo quidem vero
-                    praesentium repellendus inventore, eaque animi dolore. Accusamus numquam fuga sapiente magnam.
-                    Eveniet alias voluptatum nesciunt.
+                    {{product.descrition}}
                 </div>
                 <div id="price-product">
-                    <h4>R$ 200,00</h4> em <span>10x R$20,00 sem juros</span>
+                    <h4>R$ {{product.price}},00</h4> em <span>10x R${{product.price/10}} sem juros</span>
                 </div>
             </div>
             <div class="options">
@@ -48,7 +44,7 @@
                         <option value="6">6 Unidades</option>
                         <option value="7">7 Unidades</option>
                       </select>
-                      <span>(140) dispo...</span>
+                      <span>({{product.quantity}}) dispo...</span>
                 </div>
                 <div class="actions">
                 <a routerLink="product/details" type="button" class="btn btn-outline-success">Comprar Agora!</a>
