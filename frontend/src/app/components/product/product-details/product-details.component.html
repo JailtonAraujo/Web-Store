@@ -1,9 +1,9 @@
 <app-header></app-header>
 <main>
     <div class="container">
-        <div class="content-product-details" >
+        <div class="content-product-details" *ngIf="product" >
             <div class="content-left">
-                <img src="https://cdn-icons-png.flaticon.com/512/3659/3659898.png" alt="img_product">
+                <img [src]="product.image!.url" alt="img_product">
              
                     <ul id="others-info">
                         <h4>Outras informações:</h4>
@@ -29,7 +29,7 @@
                     {{product.descrition}}
                 </div>
                 <div id="price-product">
-                    <h4>R$ {{product.price}},00</h4> em <span>10x R${{product.price/10}} sem juros</span>
+                    <h4>R$ {{product.price.toFixed(2)}}</h4> em <span>10x R${{(product.price/10).toFixed(2)}} sem juros</span>
                 </div>
             </div>
             <div class="options">

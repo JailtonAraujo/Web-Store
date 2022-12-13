@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { PublicComponentsModule } from './publics/public-components.module';
 import { ProductModule } from './components/product/product.module';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProductModule } from './components/product/product.module';
     FontAwesomeModule,
     ProductModule,
     PublicComponentsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({}, {})
   ], exports:[
     HomeComponent
   ],

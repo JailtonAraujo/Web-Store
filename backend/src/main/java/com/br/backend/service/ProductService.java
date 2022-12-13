@@ -3,11 +3,14 @@ package com.br.backend.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+
+import com.br.backend.DTO.ObjectPaginate;
 import com.br.backend.model.Product;
 
 public interface ProductService {
 
-	public List<Product> findAllProducts()throws Exception;
+	public Page<Product> findAllProducts(ObjectPaginate paginate)throws Exception;
 	
 	public Optional<Product>findById( Long productId );
 	

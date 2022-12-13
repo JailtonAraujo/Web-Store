@@ -4,8 +4,14 @@ import { HeaderComponent } from '../components/header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 
+import {NgxPaginationModule} from 'ngx-pagination';
+
 const components = [
-  HeaderComponent
+  HeaderComponent,
+]
+
+const modules = [
+  NgxPaginationModule
 ]
 
 @NgModule({
@@ -15,10 +21,12 @@ const components = [
   imports: [
     CommonModule,
     FontAwesomeModule,
-    RouterModule
+    RouterModule,
+    modules
   ],
   exports:[
-    components
+    components,
+    modules
   ]
 })
 export class PublicComponentsModule { }

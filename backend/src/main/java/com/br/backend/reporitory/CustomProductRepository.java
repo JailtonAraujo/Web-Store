@@ -1,8 +1,12 @@
 package com.br.backend.reporitory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
+import com.br.backend.DTO.ObjectPaginate;
 import com.br.backend.model.ImgProduct;
 import com.br.backend.model.Product;
 
@@ -52,9 +56,14 @@ public class CustomProductRepository {
 				product.setImage(imgProduct);
 				
 				products.add(product);
+				
 			}
 			
+			
+			
+			
 			return products;
+
 			
 		} catch (Exception e) {
 			throw new Exception(e);
@@ -62,7 +71,7 @@ public class CustomProductRepository {
 		
 	}
 	
-	public List<Product> findAllProductsPagination() throws Exception {
+	public Page<Product> findAllProductsPagination( ObjectPaginate paginate ) throws Exception {
 		
 		Query query = entityManager.createNativeQuery("select tbl_product.id, tbl_product.name, tbl_product.price, tbl_imgproduct.url as imgProduct\r\n"
 				+ "from tbl_product\r\n"
@@ -71,7 +80,7 @@ public class CustomProductRepository {
 		
 		try {
 			
-			List<Object[]> objects = query.setMaxResults(16).getResultList();
+			List<Object[]> objects = query.setMaxResults(paginate.getLimit()).setFirstResult(paginate.getOffset()).getResultList();
 			
 			List<Product> products = new ArrayList<Product>();
 			
@@ -90,12 +99,24 @@ public class CustomProductRepository {
 				products.add(product);
 				
 			}
+		
 			
-			return products;
+			Page<Product> page = new PageImpl<Product>(products, PageRequest.of(0, paginate.getLimit()), this.countAllElements());
+			
+			return page;
 			
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
+	}
+	
+	
+	public int countAllElements() {
+		
+		String total = entityManager.createNativeQuery("select count(1) from tbl_product").getSingleResult().toString();
+		
+		return Integer.parseInt(total);
+		
 	}
 	
 }

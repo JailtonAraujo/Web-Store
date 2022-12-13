@@ -26,13 +26,13 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-
     this.findProductById(Number(id));
   }
 
   public findProductById(id:Number){
     this.productService.findProductById(id).subscribe((resp)=>{
       this.product = resp;
+      console.log(resp)
     })
   }
 

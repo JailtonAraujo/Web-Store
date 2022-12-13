@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../model/Product';
 import { Observable } from 'rxjs';
+import { ObjectPaginate } from '../model/ObjectPaginate';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class ProductService {
 
   constructor(private http:HttpClient) { }
 
-  public getAllproducts():Observable<Array<Product>>{
-    return this.http.get<Array<Product>>(`${this.UrlApiProducts}/`);
+  public getAllproducts(paginate:ObjectPaginate){
+    return this.http.post<any>(`${this.UrlApiProducts}/`,paginate);
   }
 
   public findProductById(id:Number){

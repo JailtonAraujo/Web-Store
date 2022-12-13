@@ -1,4 +1,4 @@
 <app-header></app-header>
 <main>
-  <app-product-list [ListProduct]="ListProduc"></app-product-list>
+  <app-product-list [ListProduct]="ListProduc" (offset)="getProductsPaginate($event)" [totalElements]="totalElements"></app-product-list>
 </main>
