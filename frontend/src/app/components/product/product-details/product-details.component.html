@@ -53,10 +53,32 @@
 
                 <div class="options-frete">
                     <span> <fa-icon [icon]="faTruckFast"></fa-icon> Prazos e entragas</span>
-                    <button type="button" class="btn btn-warning">Calcular frete!</button>
+                    <button type="button" class="btn btn-warning" (click)="openModal(template)" >Calcular frete!</button>
                 </div>
             </div>
             </div>
         </div>
     </div>
 </main>
+
+<!--Modal calc frete-->
+<ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Calcular frete e prazos.</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-calc-frete">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="Somente numeros" [(ngModel)]="cep" #icep="ngModel">
+            <label for="floatingInput">CEP:</label>
+          </div>
+        <button type="button" class="btn btn-info"  (click)="searchCep()" >Buscar</button>
+      </div>
+
+    </div>
+  </ng-template>
+  <!--Modal calc frete-->

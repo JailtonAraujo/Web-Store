@@ -7,6 +7,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { PublicComponentsModule } from 'src/app/publics/public-components.module';
 
+import { NgxbootstrapModule } from 'src/app/publics/ngxbootstrap.module';
+
 import { RouterModule } from '@angular/router';
 
 const components =[
@@ -27,7 +29,8 @@ const components =[
         FontAwesomeModule,
         AppRoutingModule,
         PublicComponentsModule,
-        RouterModule
+        RouterModule,
+        NgxbootstrapModule
     ]
 })
 export class ProductModule { }

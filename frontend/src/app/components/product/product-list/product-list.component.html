@@ -6,7 +6,13 @@
         </li>   
     </ul>
     <div class="paginate">
-        <pagination-controls (pageChange)="changePage(p = $event)" [responsive]="true" class="my-pagination"></pagination-controls>
+        <pagination-controls 
+        (pageChange)="changePage(p = $event)" 
+        [responsive]="true"
+        nextLabel="Proximo"
+        previousLabel="Enterior" 
+        class="my-pagination"
+        ></pagination-controls>
     </div> 
     </div>
 </div>

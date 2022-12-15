@@ -6,12 +6,16 @@ import { RouterModule } from '@angular/router';
 
 import {NgxPaginationModule} from 'ngx-pagination';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 const components = [
   HeaderComponent,
 ]
 
 const modules = [
-  NgxPaginationModule
+  NgxPaginationModule,
+  FormsModule,
+  ReactiveFormsModule
 ]
 
 @NgModule({

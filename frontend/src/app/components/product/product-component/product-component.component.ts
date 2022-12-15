@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { faHeart as faHeartSolid, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { Product } from 'src/app/model/Product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-component',
@@ -10,7 +11,7 @@ import { Product } from 'src/app/model/Product';
 })
 export class ProductComponentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   iconFavority = faHeartRegular;
   isFavority:Boolean = false;

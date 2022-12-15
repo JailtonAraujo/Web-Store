@@ -1,4 +1,3 @@
-import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from 'src/app/model/Product';
 import { ProductService } from 'src/app/services/product.service';
@@ -27,7 +26,7 @@ export class ProductListComponent implements OnInit {
   changePage(event:any){
       const offset = (Number(event-1) * Number(16));
       this.offset.emit(offset);
-
+      window.scrollTo(0,0);
   }
 
 }
