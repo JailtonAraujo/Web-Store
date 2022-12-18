@@ -5,7 +5,8 @@ import { Product } from 'src/app/model/Product';
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-
+import { OrderService } from 'src/app/services/order.service';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-product-details',
@@ -27,7 +28,8 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(private productService:ProductService,
     private route:ActivatedRoute,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private orderService:OrderService
     ) { }
 
   ngOnInit(): void {
@@ -46,8 +48,13 @@ export class ProductDetailsComponent implements OnInit {
     })
   }
 
-  searchCep(){
-    console.log(this.cep)
+  public calFretePrazo (){
+
+    this.orderService.calFretePrazo('4002054901').subscribe((response)=>{
+      console.log(response.Servicos.cServico);
+    })
+
   }
+
 
 }
