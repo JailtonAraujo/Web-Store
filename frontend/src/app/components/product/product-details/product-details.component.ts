@@ -5,8 +5,7 @@ import { Product } from 'src/app/model/Product';
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { OrderService } from 'src/app/services/order.service';
-import { stringify } from 'querystring';
+import { FreteService } from 'src/app/services/frete.service';
 
 @Component({
   selector: 'app-product-details',
@@ -18,6 +17,7 @@ export class ProductDetailsComponent implements OnInit {
   modalRef?: BsModalRef;
 
   cep:string = '';
+  loading:boolean = false;
 
   //Icons
   faHeartRegular = faHeartRegular;
@@ -29,7 +29,7 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private productService:ProductService,
     private route:ActivatedRoute,
     private modalService: BsModalService,
-    private orderService:OrderService
+    private freteService:FreteService
     ) { }
 
   ngOnInit(): void {
@@ -44,14 +44,14 @@ export class ProductDetailsComponent implements OnInit {
   public findProductById(id:Number){
     this.productService.findProductById(id).subscribe((resp)=>{
       this.product = resp;
-      console.log(resp)
     })
   }
 
   public calFretePrazo (){
-
-    this.orderService.calFretePrazo('4002054901').subscribe((response)=>{
+    this.loading = true;
+    this.freteService.calFretePrazo(this.cep).subscribe((response)=>{
       console.log(response.Servicos.cServico);
+      this.loading = false;
     })
 
   }

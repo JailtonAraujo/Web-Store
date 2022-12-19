@@ -24,9 +24,9 @@ public class ProductServiceImpl implements ProductService{
 
 	
 	@Override
-	public Page<Product> findAllProducts(ObjectPaginate objectPaginate) throws Exception {
+	public Page<Product> findAllProducts(int limit, int offset) throws Exception {
 		
-		return customProductRepository.findAllProductsPagination(objectPaginate);
+		return customProductRepository.findAllProductsPagination(limit, offset);
 	}
 
 

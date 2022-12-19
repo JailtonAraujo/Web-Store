@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.backend.DTO.ObjectPaginate;
@@ -28,9 +29,10 @@ public class ProductController {
 	@Autowired
 	protected ProductService productService;
 	
-	@PostMapping("/")
-	public ResponseEntity<Page<Product>> findAllProducts( @RequestBody ObjectPaginate objectPaginate ) throws Exception{
-		return ResponseEntity.ok(this.productService.findAllProducts(objectPaginate));
+	@GetMapping("/")
+	public ResponseEntity<Page<Product>> findAllProducts( @RequestParam(name = "limit",defaultValue = "16") int limit,
+			@RequestParam(name="offset", defaultValue = "0") int offset ) throws Exception{
+		return ResponseEntity.ok(this.productService.findAllProducts(limit, offset));
 	}
 
 	

@@ -71,7 +71,7 @@ public class CustomProductRepository {
 		
 	}
 	
-	public Page<Product> findAllProductsPagination( ObjectPaginate paginate ) throws Exception {
+	public Page<Product> findAllProductsPagination( int limit, int offset ) throws Exception {
 		
 		Query query = entityManager.createNativeQuery("select tbl_product.id, tbl_product.name, tbl_product.price, tbl_imgproduct.url as imgProduct\r\n"
 				+ "from tbl_product\r\n"
@@ -80,7 +80,7 @@ public class CustomProductRepository {
 		
 		try {
 			
-			List<Object[]> objects = query.setMaxResults(paginate.getLimit()).setFirstResult(paginate.getOffset()).getResultList();
+			List<Object[]> objects = query.setMaxResults(limit).setFirstResult(offset).getResultList();
 			
 			List<Product> products = new ArrayList<Product>();
 			
@@ -101,7 +101,7 @@ public class CustomProductRepository {
 			}
 		
 			
-			Page<Product> page = new PageImpl<Product>(products, PageRequest.of(0, paginate.getLimit()), this.countAllElements());
+			Page<Product> page = new PageImpl<Product>(products, PageRequest.of(0, limit), this.countAllElements());
 			
 			return page;
 			

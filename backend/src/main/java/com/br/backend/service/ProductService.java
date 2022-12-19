@@ -10,7 +10,7 @@ import com.br.backend.model.Product;
 
 public interface ProductService {
 
-	public Page<Product> findAllProducts(ObjectPaginate paginate)throws Exception;
+	public Page<Product> findAllProducts(int limit, int offset)throws Exception;
 	
 	public Optional<Product>findById( Long productId );
 	

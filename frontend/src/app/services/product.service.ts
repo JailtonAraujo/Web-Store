@@ -14,8 +14,8 @@ export class ProductService {
 
   constructor(private http:HttpClient) { }
 
-  public getAllproducts(paginate:ObjectPaginate){
-    return this.http.post<any>(`${this.UrlApiProducts}/`,paginate);
+  public getAllproducts({limit,offset}:any){
+    return this.http.get<any>(`${this.UrlApiProducts}/?limit=${limit}&offset=${offset}`);
   }
 
   public findProductById(id:Number){

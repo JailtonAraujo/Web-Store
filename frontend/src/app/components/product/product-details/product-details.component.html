@@ -76,7 +76,8 @@
             <input type="email" class="form-control" id="floatingInput" placeholder="Somente numeros" [(ngModel)]="cep" #icep="ngModel">
             <label for="floatingInput">CEP:</label>
           </div>
-        <button type="button" class="btn btn-info" (click)="calFretePrazo()" >Buscar</button>
+        <button type="button" class="btn btn-info" (click)="calFretePrazo()" *ngIf="!loading">Buscar</button>
+        <button type="button" class="btn btn-info" disabled *ngIf="loading">Aguarde...</button>
       </div>
 
     </div>
