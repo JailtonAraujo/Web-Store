@@ -54,6 +54,11 @@
                 <div class="options-frete">
                     <span> <fa-icon [icon]="faTruckFast"></fa-icon> Prazos e entragas</span>
                     <button type="button" class="btn btn-warning" (click)="openModal(template)" >Calcular frete!</button>
+                    <div class="info-frete" *ngIf="resultCalcFrete.destino">
+                        <span>Eviar para {{resultCalcFrete.destino}}.</span>
+                        <span>Valor: R$ {{resultCalcFrete.valor}}</span>
+                        <span>Prazo medio de {{resultCalcFrete.prazo}} dias!</span>
+                    </div>
                 </div>
             </div>
             </div>
@@ -73,11 +78,15 @@
 
       <div class="form-calc-frete">
         <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="Somente numeros" [(ngModel)]="cep" #icep="ngModel">
+            <input type="email" class="form-control" id="floatingInput" placeholder="Somente numeros*" [(ngModel)]="cep" #icep="ngModel">
             <label for="floatingInput">CEP:</label>
           </div>
         <button type="button" class="btn btn-info" (click)="calFretePrazo()" *ngIf="!loading">Buscar</button>
         <button type="button" class="btn btn-info" disabled *ngIf="loading">Aguarde...</button>
+      </div>
+
+      <div class="message-error" *ngIf="messageError">
+        {{messageError}}
       </div>
 
     </div>

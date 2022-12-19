@@ -22,101 +22,134 @@ public class CustomProductRepository {
 
 	@Autowired
 	private EntityManager entityManager;
-	
-	
-	public List<Product> findByCategory(Long categoryId) throws Exception{
-		
-		
-		Query query = entityManager.createNativeQuery("select tbl_product.id, tbl_product.name, tbl_product.price, tbl_imgproduct.url as imgProduct\r\n"
-				+ "from tbl_product\r\n"
-				+ "inner join tbl_imgproduct on tbl_imgproduct.product_id = tbl_product.id\r\n"
-				+ "inner join tbl_category on tbl_product.category_id = tbl_category.id\r\n"
-				+ "where tbl_category.id = ?");
+
+	public List<Product> findByCategory(Long categoryId) throws Exception {
+
+		Query query = entityManager.createNativeQuery(
+				"select tbl_product.id, tbl_product.name, tbl_product.price, tbl_imgproduct.url as imgProduct\r\n"
+						+ "from tbl_product\r\n"
+						+ "inner join tbl_imgproduct on tbl_imgproduct.product_id = tbl_product.id\r\n"
+						+ "inner join tbl_category on tbl_product.category_id = tbl_category.id\r\n"
+						+ "where tbl_category.id = ?");
 		query.setParameter(1, categoryId);
-		
-		
+
 		try {
-			
+
 			List<Object[]> objects = query.setMaxResults(10).getResultList();
-			
+
 			List<Product> products = new ArrayList<Product>();
-			
-			
-			for(Object [] object : objects  ) {
-				
+
+			for (Object[] object : objects) {
+
 				Product product = new Product().builder().id(Long.parseLong(object[0].toString()))
 						.name(object[1].toString()).price(Double.valueOf(object[2].toString())).build();
-				
-				
-				
+
 				ImgProduct imgProduct = new ImgProduct().builder().url(object[3].toString()).build();
-				
-				
-				
+
 				product.setImage(imgProduct);
-				
+
 				products.add(product);
-				
+
 			}
-			
-			
-			
-			
+
 			return products;
 
-			
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		
+
 	}
-	
-	public Page<Product> findAllProductsPagination( int limit, int offset ) throws Exception {
-		
-		Query query = entityManager.createNativeQuery("select tbl_product.id, tbl_product.name, tbl_product.price, tbl_imgproduct.url as imgProduct\r\n"
-				+ "from tbl_product\r\n"
-				+ "inner join tbl_imgproduct on tbl_imgproduct.product_id = tbl_product.id\r\n"
-				+ "inner join tbl_category on tbl_product.category_id = tbl_category.id\r\n");
-		
+
+	public Page<Product> findAllProductsPagination(int limit, int offset) throws Exception {
+
+		Query query = entityManager.createNativeQuery(
+				"select tbl_product.id, tbl_product.name, tbl_product.price, tbl_imgproduct.url as imgProduct\r\n"
+						+ "from tbl_product\r\n"
+						+ "inner join tbl_imgproduct on tbl_imgproduct.product_id = tbl_product.id\r\n"
+						+ "inner join tbl_category on tbl_product.category_id = tbl_category.id\r\n");
+
 		try {
-			
+
 			List<Object[]> objects = query.setMaxResults(limit).setFirstResult(offset).getResultList();
-			
+
 			List<Product> products = new ArrayList<Product>();
-			
-			for (Object [] object : objects) {
-				
+
+			for (Object[] object : objects) {
+
 				Product product = new Product().builder().id(Long.parseLong(object[0].toString()))
 						.name(object[1].toString()).price(Double.valueOf(object[2].toString())).build();
-				
-				
+
 				ImgProduct imgProduct = new ImgProduct().builder().url(object[3].toString()).build();
-				
-				
-				
+
 				product.setImage(imgProduct);
-				
+
 				products.add(product);
-				
+
 			}
-		
-			
+
 			Page<Product> page = new PageImpl<Product>(products, PageRequest.of(0, limit), this.countAllElements());
-			
+
 			return page;
-			
+
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
 	}
-	
-	
-	public int countAllElements() {
-		
-		String total = entityManager.createNativeQuery("select count(1) from tbl_product").getSingleResult().toString();
-		
-		return Integer.parseInt(total);
-		
+
+	public Page<Product> findProductByNameOrCategory(int limit, int offset, String name) throws Exception {
+
+		Query query = entityManager.createNativeQuery(
+				"select tbl_product.id, tbl_product.name, tbl_product.price, tbl_imgproduct.url as imgProduct\r\n"
+						+ "from tbl_product\r\n"
+						+ "inner join tbl_imgproduct on tbl_imgproduct.product_id = tbl_product.id\r\n"
+						+ "inner join tbl_category on tbl_product.category_id = tbl_category.id\r\n"
+						+ "where tbl_product.name like '" + name + "%' or tbl_category.name like'" + name + "%'");
+
+		try {
+
+			List<Object[]> objects = query.setMaxResults(limit).setFirstResult(offset).getResultList();
+
+			List<Product> products = new ArrayList<Product>();
+
+			for (Object[] object : objects) {
+
+				Product product = new Product().builder().id(Long.parseLong(object[0].toString()))
+						.name(object[1].toString()).price(Double.valueOf(object[2].toString())).build();
+
+				ImgProduct imgProduct = new ImgProduct().builder().url(object[3].toString()).build();
+
+				product.setImage(imgProduct);
+
+				products.add(product);
+
+			}
+
+			Page<Product> page = new PageImpl<Product>(products, PageRequest.of(0, limit),
+					this.countAllElementsByNameOrCategory(name));
+
+			return page;
+
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
 	}
-	
+
+	public int countAllElementsByNameOrCategory(String name) {
+
+		String total = entityManager.createNativeQuery("select count(1) from tbl_product inner join tbl_category\r\n"
+				+ "on tbl_product.category_id = tbl_category.id where tbl_product.name like '" + name
+				+ "%' or tbl_category.name like'" + name + "%'").getSingleResult().toString();
+
+		return Integer.parseInt(total);
+
+	}
+
+	public int countAllElements() {
+
+		String total = entityManager.createNativeQuery("select count(1) from tbl_product").getSingleResult().toString();
+
+		return Integer.parseInt(total);
+
+	}
+
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { faHeart as faHeartSolid, faTruckFast } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartRegular} from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { Product } from 'src/app/model/Product';
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
@@ -16,21 +16,29 @@ export class ProductDetailsComponent implements OnInit {
 
   modalRef?: BsModalRef;
 
-  cep:string = '';
-  loading:boolean = false;
+  cep: string = '';
+  loading: boolean = false;
+
+  messageError = "";
 
   //Icons
   faHeartRegular = faHeartRegular;
   faHeartSolid = faHeartSolid;
   faTruckFast = faTruckFast;
 
-  product!:Product;
+  product!: Product;
 
-  constructor(private productService:ProductService,
-    private route:ActivatedRoute,
+  resultCalcFrete = {
+    valor: 0,
+    prazo: 0,
+    destino: ''
+  }
+
+  constructor(private productService: ProductService,
+    private route: ActivatedRoute,
     private modalService: BsModalService,
-    private freteService:FreteService
-    ) { }
+    private freteService: FreteService
+  ) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -41,17 +49,40 @@ export class ProductDetailsComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  public findProductById(id:Number){
-    this.productService.findProductById(id).subscribe((resp)=>{
+  public findProductById(id: Number) {
+    this.productService.findProductById(id).subscribe((resp) => {
       this.product = resp;
     })
   }
 
-  public calFretePrazo (){
+  public calFretePrazo() {
+
     this.loading = true;
-    this.freteService.calFretePrazo(this.cep).subscribe((response)=>{
-      console.log(response.Servicos.cServico);
-      this.loading = false;
+    this.messageError = "";
+
+    this.freteService.searchCep(this.cep).subscribe((res) => {
+
+      if(res.erro){
+        this.messageError = "Cep não encontrado!"
+        this.loading = false;
+        return;
+      }
+
+      this.resultCalcFrete.destino = `${res.localidade}-${res.uf}`;
+
+      this.freteService.calFretePrazo(this.cep).subscribe((response) => {
+       
+        this.resultCalcFrete = {...this.resultCalcFrete, valor:response.Servicos.cServico.Valor, 
+          prazo:response.Servicos.cServico.PrazoEntrega};
+
+        this.loading = false;
+        this.modalRef?.hide()
+      })
+
+    },error=>{
+        this.messageError = "Cep invalido!"
+        this.loading = false;
+        console.log(error)
     })
 
   }

@@ -56,4 +56,12 @@ public class ProductController {
 		return ResponseEntity.ok(this.productService.findByCategory(categoryId));
 		
 	}
+	
+	@GetMapping("/search")
+	public ResponseEntity<Page<Product>> searchProductByNameOrCategory( @RequestParam(name = "limit",defaultValue = "16") int limit,
+			@RequestParam(name="offset", defaultValue = "0") int offset, @RequestParam(name = "name") String name) throws Exception{
+		
+		return ResponseEntity.ok(this.productService.findProductByNameOrCategory(limit, offset, name));
+		
+	}
 }

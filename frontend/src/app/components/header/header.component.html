@@ -5,10 +5,10 @@
         <span>My-Store</span>
        </a>
         <div class="content-search">
-            <div class="search-form">
-                <input type="name" id="name" name="name" placeholder="Buscar produtos">
-                <button class="btn-search"> <fa-icon [icon]="faSearch"></fa-icon> </button>
-            </div>
+            <form class="search-form">
+                <input type="name" id="name" name="name" placeholder="Buscar por nome, categoria..." [(ngModel)]="nameSearch">
+                <button class="btn-search" (click)="handleNameSearch()" > <fa-icon [icon]="faSearch"></fa-icon> </button>
+            </form>
 
             <ul class="categorys">
                 <li>Categorias</li>

@@ -15,4 +15,6 @@ public interface ProductService {
 	public Optional<Product>findById( Long productId );
 	
 	public List<Product> findByCategory(Long categoryId) throws Exception;
+	
+	public Page<Product> findProductByNameOrCategory (int limit, int offset, String name)throws Exception;
 }

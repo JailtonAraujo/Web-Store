@@ -16,8 +16,7 @@ export class FreteService {
   }
 
    public searchCep(cep:string){
-
-    return this.http.get<any>(`viacep.com.br/ws/${cep}/json/`);
+    return this.http.get<any>(`https://viacep.com.br/ws/${cep}/json/`);
 
    }  
 }

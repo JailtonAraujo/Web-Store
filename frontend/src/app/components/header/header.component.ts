@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { faSearch, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
@@ -8,12 +8,22 @@ import { faSearch, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 })
 export class HeaderComponent implements OnInit {
 
+  @Output() emiterNameSearch = new EventEmitter<String>();
+
+  nameSearch:String = "";
+
   faSearch = faSearch;
   faCart = faCartShopping
+
+  
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  handleNameSearch(){
+    this.emiterNameSearch.emit(this.nameSearch);
   }
 
 }

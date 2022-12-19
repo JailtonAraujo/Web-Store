@@ -43,4 +43,11 @@ public class ProductServiceImpl implements ProductService{
 		return customProductRepository.findByCategory(categoryId);
 	}
 
+
+	@Override
+	public Page<Product> findProductByNameOrCategory(int limit, int offset, String name) throws Exception {
+		
+		return customProductRepository.findProductByNameOrCategory(limit, offset, name);
+	}
+
 }

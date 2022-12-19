@@ -1,4 +1,5 @@
-<app-header></app-header>
+<app-header (emiterNameSearch)="SearchProduct($event)" ></app-header>
 <main>
+  <p *ngIf="ListProduc.length == 0" class="not-result">Nenhum resultado relacionado a "{{nameSearch}}"! </p>
   <app-product-list [ListProduct]="ListProduc" (offset)="getProductsPaginate($event)" [totalElements]="totalElements"></app-product-list>
 </main>
