@@ -12,12 +12,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { PublicComponentsModule } from './publics/public-components.module';
 import { ProductModule } from './components/product/product.module';
 import { StoreModule } from '@ngrx/store';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { FlashMessageComponent } from './components/flash-message/flash-message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
+    FlashMessageComponent
   ],
   imports: [
     BrowserModule,

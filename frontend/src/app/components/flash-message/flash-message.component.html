@@ -1,0 +1,10 @@
+<div class="container-message" *ngIf="messageService.alert.message">
+    <div [classList]="'alert '+messageService.alert.status" role="alert">
+       <div class="message">
+        <span>Message do sistema: </span>
+        {{messageService.alert.message}}
+       </div>
+       <button (click)="messageService.removerMessage()" ><fa-icon [icon]="faXmarm"></fa-icon> </button>
+      </div>
+    
+</div>
