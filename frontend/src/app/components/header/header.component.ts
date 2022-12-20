@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() emiterNameSearch = new EventEmitter<String>();
   @Output() emiterCategory = new EventEmitter<Number>();
+  @Output() emiterOfferOfDay = new EventEmitter<Number>();
 
   nameSearch:String = "";
 
@@ -29,6 +30,10 @@ export class HeaderComponent implements OnInit {
 
   public handleSearchByCategory(num:Number){
     this.emiterCategory.emit(num);
+  }
+
+  public handlerOfferOfDay(){
+    this.emiterOfferOfDay.emit(1);
   }
 
 }

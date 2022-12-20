@@ -63,5 +63,14 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  public findOfferOfDay(num:Number){
+    this.categoryId = 0;
+    this.nameSearch = '';
+    this.productService.getAllproducts({limit:16,offset:0}).subscribe((res)=>{
+      this.ListProduc = res.content;
+      this.totalElements = res.totalElements;
+    })
+  }
+
 
 }
