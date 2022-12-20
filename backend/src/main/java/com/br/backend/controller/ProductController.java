@@ -50,10 +50,11 @@ public class ProductController {
 	}
 	
 	
-	@GetMapping("/category/{id}")
-	public ResponseEntity<List<Product>> findByCategory( @PathVariable(value = "id") Long categoryId ) throws Exception{
+	@GetMapping("/category")
+	public ResponseEntity<Page<Product>> findByCategory( @RequestParam(value = "id") Long categoryId, 
+			@RequestParam(name = "offset") int offset) throws Exception{
 		
-		return ResponseEntity.ok(this.productService.findByCategory(categoryId));
+		return ResponseEntity.ok(this.productService.findByCategory(categoryId,offset));
 		
 	}
 	

@@ -11,7 +11,22 @@
             </form>
 
             <ul class="categorys">
-                <li>Categorias</li>
+                
+                <li class="select-category">
+                    <div class="btn-group" dropdown>
+                        <button id="button-basic" dropdownToggle type="button" aria-controls="dropdown-basic">
+                          Categorias<span class="caret"></span>
+                        </button>
+                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                            role="menu" aria-labelledby="button-basic">
+                          <li role="menuitem"><button class="dropdown-item" (click)="handleSearchByCategory(1)" >Eletronicos</button></li>
+                          <li role="menuitem"><button class="dropdown-item" (click)="handleSearchByCategory(2)">Eletrodomésticos</button></li>
+                          <li role="menuitem"><button class="dropdown-item"(click)="handleSearchByCategory(3)">Moda</button></li>
+                          
+                        </ul>
+                      </div>
+                </li>
+
                 <li>Ofertas do dia</li>
                 <li>Mais populares</li>
             </ul>

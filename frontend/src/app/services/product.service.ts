@@ -25,4 +25,8 @@ export class ProductService {
     return this.http.get<any>(`${this.UrlApiProducts}/search?limit=${limit}&offset=${offset}&name=${name}`);
   }
 
+  public findProductsByCategory({category,offset}:any){
+    return this.http.get<any>(`${this.UrlApiProducts}/category?id=${category}&offset=${offset}`);
+  }
+
 }

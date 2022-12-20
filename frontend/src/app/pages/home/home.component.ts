@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
 
   nameSearch!:String | null;
 
+  categoryId!:Number;
+
   constructor(private productService:ProductService) { }
 
   ngOnInit(): void {
@@ -30,7 +32,11 @@ export class HomeComponent implements OnInit {
         console.log(res);
       })
 
-    }else{
+    } else if(this.categoryId > 0){
+      this.productService.findProductsByCategory({category:this.categoryId,offset})
+    }
+    
+    else{
     this.productService.getAllproducts({limit:16,offset}).subscribe((res)=>{
       this.ListProduc = res.content;
       this.totalElements = res.totalElements;
@@ -41,9 +47,19 @@ export class HomeComponent implements OnInit {
 
   public SearchProduct(nameSearch:String){
     this.nameSearch = nameSearch;
+    this.categoryId=0;
     this.productService.searchProduct({limit:16,offset:0,name:nameSearch}).subscribe((res)=>{
       this.ListProduc = res.content;
       this.totalElements = res.totalElements;
+    })
+  }
+
+  publicFindByCategory(category:Number){
+    this.categoryId = category;
+    this.nameSearch = '';
+    this.productService.findProductsByCategory({category:category,offset:0}).subscribe((response)=>{
+      this.ListProduc = response.content;
+      this.totalElements = response.totalElements;
     })
   }
 

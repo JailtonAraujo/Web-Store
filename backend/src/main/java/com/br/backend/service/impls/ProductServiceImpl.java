@@ -38,9 +38,9 @@ public class ProductServiceImpl implements ProductService{
 
 
 	@Override
-	public List<Product> findByCategory(Long categoryId) throws Exception {
+	public Page<Product> findByCategory(Long categoryId,int offset) throws Exception {
 		
-		return customProductRepository.findByCategory(categoryId);
+		return customProductRepository.findByCategory(categoryId,offset);
 	}
 
 

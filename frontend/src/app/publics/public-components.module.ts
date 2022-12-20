@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxbootstrapModule } from './ngxbootstrap.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -26,6 +27,7 @@ const modules = [
     CommonModule,
     FontAwesomeModule,
     RouterModule,
+    NgxbootstrapModule,
     modules
   ],
   exports:[

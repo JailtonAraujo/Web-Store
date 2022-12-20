@@ -23,7 +23,7 @@ public class CustomProductRepository {
 	@Autowired
 	private EntityManager entityManager;
 
-	public List<Product> findByCategory(Long categoryId) throws Exception {
+	public Page<Product> findByCategory(Long categoryId, int offset) throws Exception {
 
 		Query query = entityManager.createNativeQuery(
 				"select tbl_product.id, tbl_product.name, tbl_product.price, tbl_imgproduct.url as imgProduct\r\n"
@@ -35,7 +35,7 @@ public class CustomProductRepository {
 
 		try {
 
-			List<Object[]> objects = query.setMaxResults(10).getResultList();
+			List<Object[]> objects = query.setMaxResults(10).setFirstResult(offset).getResultList();
 
 			List<Product> products = new ArrayList<Product>();
 
@@ -52,7 +52,9 @@ public class CustomProductRepository {
 
 			}
 
-			return products;
+			Page<Product> page = new PageImpl<Product>(products, PageRequest.of(0, 16), this.countAllElementsByCategory(categoryId));
+
+			return page;
 
 		} catch (Exception e) {
 			throw new Exception(e);
@@ -147,6 +149,16 @@ public class CustomProductRepository {
 	public int countAllElements() {
 
 		String total = entityManager.createNativeQuery("select count(1) from tbl_product").getSingleResult().toString();
+
+		return Integer.parseInt(total);
+
+	}
+	
+	public int countAllElementsByCategory(Long categoryId) {
+
+		String total = entityManager.createNativeQuery("select count(1) from tbl_product inner join tbl_category\r\n"
+				+ "on tbl_product.category_id = tbl_category.id\r\n"
+				+ "where tbl_category.id = "+categoryId+"").getSingleResult().toString();
 
 		return Integer.parseInt(total);
 

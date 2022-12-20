@@ -9,6 +9,7 @@ import { faSearch, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 export class HeaderComponent implements OnInit {
 
   @Output() emiterNameSearch = new EventEmitter<String>();
+  @Output() emiterCategory = new EventEmitter<Number>();
 
   nameSearch:String = "";
 
@@ -24,6 +25,10 @@ export class HeaderComponent implements OnInit {
 
   handleNameSearch(){
     this.emiterNameSearch.emit(this.nameSearch);
+  }
+
+  public handleSearchByCategory(num:Number){
+    this.emiterCategory.emit(num);
   }
 
 }

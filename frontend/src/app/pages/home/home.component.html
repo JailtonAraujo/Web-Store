@@ -1,5 +1,32 @@
-<app-header (emiterNameSearch)="SearchProduct($event)" ></app-header>
+<app-header (emiterNameSearch)="SearchProduct($event)" (emiterCategory)="publicFindByCategory($event)"></app-header>
+
 <main>
+
+  <!--Carroucel-->
+  <div class="container-hero">
+    <div class="content-hero">
+      <carousel>
+        <slide>
+          <img
+            src="https://sportbuzz.uol.com.br/media/_versions/sportbuzz_eletronicos_em_oferta_widelg.jpg"
+            alt="first slide" style="display: block; width: 100%;">
+        </slide>
+        <slide>
+          <img
+            src="https://images.unsplash.com/photo-1483389127117-b6a2102724ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+            alt="second slide" style="display: block; width: 100%;">
+        </slide>
+        <slide>
+          <img
+            src="https://images.unsplash.com/photo-1601933973783-43cf8a7d4c5f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+            alt="third slide" style="display: block; width: 100%;">
+        </slide>
+      </carousel>
+    </div>
+  </div>
+  <!--Carroucel-->
+
   <p *ngIf="ListProduc.length == 0" class="not-result">Nenhum resultado relacionado a "{{nameSearch}}"! </p>
-  <app-product-list [ListProduct]="ListProduc" (offset)="getProductsPaginate($event)" [totalElements]="totalElements"></app-product-list>
+  <app-product-list [ListProduct]="ListProduc" (offset)="getProductsPaginate($event)"
+    [totalElements]="totalElements"></app-product-list>
 </main>
