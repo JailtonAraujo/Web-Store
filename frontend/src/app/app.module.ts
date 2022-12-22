@@ -15,6 +15,7 @@ import { StoreModule } from '@ngrx/store';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { FlashMessageComponent } from './components/flash-message/flash-message.component';
+import { FinalizeOrderComponent } from './pages/finalize-order/finalize-order.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FlashMessageComponent } from './components/flash-message/flash-message.
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    FlashMessageComponent
+    FlashMessageComponent,
+    FinalizeOrderComponent
   ],
   imports: [
     BrowserModule,

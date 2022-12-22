@@ -64,6 +64,7 @@ a
             font-size: 1.5em
         .form-group
             width: 100%
+            position: relative
             display: flex
             flex-direction: column
             gap: 0.3em
@@ -72,6 +73,13 @@ a
                 border: none
                 border-radius: 5px
                 padding: 0.5em 0.4em
+            .bth-change-icon
+                position: absolute
+                background: none
+                font-size: 1.2em
+                border: none
+                right: 18px
+                bottom: 5px
         .btns
             width: 100%
             display: flex
@@ -90,3 +98,10 @@ a
                 border-radius: 5px
             a
                 color: #fff
+
+            
+.separator
+    width: 100%
+    margin: 1em 0em
+    height: 1px
+    background-color: colors.$second-background-color

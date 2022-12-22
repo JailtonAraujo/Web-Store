@@ -1,0 +1,66 @@
+@use '../../sassvariables/colors'
+
+header
+    background-color: colors.$second-background-color
+
+.container-header
+    padding: 0.6em 2em
+    border-bottom: 1px solid #000
+    width: 100%
+    color: #fff
+    display: flex
+    justify-content: space-between
+    align-items: center
+    .brand
+        a
+            color: #fff
+
+.container-main
+    width: 100%
+    padding-top: 1em 
+    display: flex
+    flex-direction: column
+    align-items: center
+    .content-main
+        width: 800px
+
+.frete-container,
+.pay-container,
+.resume-order
+    width: 100%
+    padding: 1em 0em
+    .content
+        width: 100%
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px
+        border-radius: 5px
+        margin: 0.8em 0em
+        padding: 1em 0.7em
+
+.frete-container
+    .content
+        button
+            border: none
+            background: none
+
+.pay-container
+    .content
+        .options-pay
+            width: 100%
+            padding: 0
+            margin: 0
+            li
+                width: 100%
+                list-style: none
+                display: flex
+                justify-content: space-between
+                align-items: center
+
+
+.resume-order
+    .finalize
+        width: 100%
+        display: flex
+        justify-content: space-between
+        align-items: center
+
+

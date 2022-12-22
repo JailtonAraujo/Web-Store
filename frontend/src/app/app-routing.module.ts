@@ -4,12 +4,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProductDetailsComponent } from './components/product/product-details/product-details.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { FinalizeOrderComponent } from './pages/finalize-order/finalize-order.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
   {path:'login',component:LoginComponent},
   {path:'register', component:RegisterComponent},
-  {path:'product/details/:id',component:ProductDetailsComponent}
+  {path:'product/details/:id',component:ProductDetailsComponent},
+  {path:'order/finalize/:id',component:FinalizeOrderComponent}
 ];
 
 @NgModule({
