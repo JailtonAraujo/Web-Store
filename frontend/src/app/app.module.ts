@@ -17,6 +17,10 @@ import { RegisterComponent } from './pages/register/register.component';
 import { FlashMessageComponent } from './components/flash-message/flash-message.component';
 import { FinalizeOrderComponent } from './pages/finalize-order/finalize-order.component';
 
+//redux
+import { orderReducer } from './store/orderReducer';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +39,9 @@ import { FinalizeOrderComponent } from './pages/finalize-order/finalize-order.co
     ProductModule,
     PublicComponentsModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({
+      orderReducer:orderReducer
+    })
   ], exports:[
     HomeComponent
   ],
