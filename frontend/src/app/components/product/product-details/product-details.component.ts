@@ -6,6 +6,10 @@ import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FreteService } from 'src/app/services/frete.service';
+import { Order } from 'src/app/model/Order';
+import { Store } from '@ngrx/store';
+import { setOrder } from 'src/app/store/orderReducer';
+import { OrderItem } from 'src/app/model/OrderItem';
 
 @Component({
   selector: 'app-product-details',
@@ -27,6 +31,7 @@ export class ProductDetailsComponent implements OnInit {
   faTruckFast = faTruckFast;
 
   product!: Product;
+  quaitityProduct:Number = 1
 
   resultCalcFrete = {
     valor: 0,
@@ -37,7 +42,8 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private productService: ProductService,
     private route: ActivatedRoute,
     private modalService: BsModalService,
-    private freteService: FreteService
+    private freteService: FreteService,
+    private store:Store<{orderReducer:Order}>
   ) { }
 
   ngOnInit(): void {
@@ -84,6 +90,25 @@ export class ProductDetailsComponent implements OnInit {
         this.loading = false;
         console.log(error)
     })
+  }
+
+  public addProductInOrder (){
+
+    let listOrderItem:Array<OrderItem> = [];
+
+    const orderItem:OrderItem = {
+      product:this.product,
+      quantidade:this.quaitityProduct
+    }
+
+      listOrderItem.push(orderItem);   
+
+      const order:Order ={
+        listOrderItem:listOrderItem,
+        total:0
+      }
+
+    this.store.dispatch(setOrder({payload:order}))
 
   }
 

@@ -35,7 +35,7 @@
             <div class="options">
                 <div id="quantity-product">
                     <label for="form-select">Quantidade:</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" [(ngModel)]="quaitityProduct">
                         <option value="1" selected>1 Unidade</option>
                         <option value="2">2 Unidades</option>
                         <option value="3">3 Unidades</option>
@@ -47,7 +47,8 @@
                       <span>({{product.quantity}}) dispo...</span>
                 </div>
                 <div class="actions">
-                <a routerLink="/order/finalize/{{product.id}}"  type="button" class="btn btn-outline-success">Comprar Agora!</a>
+                <a routerLink="/order/finalize/{{product.id}}"  type="button" class="btn btn-outline-success"
+                (click)="addProductInOrder()">Comprar Agora!</a>
                 <button type="button" class="btn btn-outline-primary"> Adicionar ao carrinho!</button>
             </div>
 

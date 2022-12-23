@@ -49,16 +49,38 @@
             </div>
             <div class="content">
                 <ul class="product-list">
-                    <li>
-                        <div class="prod-card">
+                    <li *ngFor="let orderItem of (Order$ | async)!.listOrderItem">
 
+                        <div class="prod-card">
+                            <div class="content-card">
+                                <div class="image">
+                                    <img [src]="orderItem.product.image?.url" alt="img_product" id="img-product">
+                                </div>
+
+                                <div class="info">
+                                    <span id="name">{{orderItem.product.name}}</span>
+                                    <span id="price">R$ {{orderItem.product.price.toFixed(2)}}</span>
+                                    <span id="buy-by">vendido por: MyStore</span>
+                                    <select class="form-select" aria-label="Default select example" disabled>
+                                        <option [value]="orderItem.quantidade" selected>{{orderItem.quantidade+' Unidades'}}</option>
+                                        <option value="2">2 Unidades</option>
+                                        <option value="3">3 Unidades</option>
+                                        <option value="4">4 Unidades</option>
+                                        <option value="5">5 Unidades</option>
+                                        <option value="6">6 Unidades</option>
+                                      </select>
+                                </div>
+
+                            </div>
                         </div>
+                        <div class="separator"></div>
+
                     </li>
                 </ul>
-                <div class="separator"></div>
+                <!-- <div class="separator"></div> -->
                 <div class="finalize">
                     <button class="btn btn-warning" >Finalizar pedido</button>
-                    <span>Total: R$250,00</span>
+                    <span>Total: R$  {{ ((Order$ | async)!.total).toFixed(2) }}</span>
                 </div>
             </div>
         </div>
