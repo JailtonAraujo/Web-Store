@@ -1,5 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { faSearch, faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
+import { CartOrders } from 'src/app/model/CartOrders';
+import { OrderItem } from 'src/app/model/OrderItem';
 
 @Component({
   selector: 'app-header',
@@ -17,9 +21,11 @@ export class HeaderComponent implements OnInit {
   faSearch = faSearch;
   faCart = faCartShopping
 
-  
+  constructor(
+    private cartReducer:Store<{cartReducer:CartOrders}>
+  ) { }
 
-  constructor() { }
+  cart$ = this.cartReducer.select('cartReducer').pipe(map(state => state));
 
   ngOnInit(): void {
   }

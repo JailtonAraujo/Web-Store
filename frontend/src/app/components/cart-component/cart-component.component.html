@@ -1,0 +1,62 @@
+<header>
+    <div class="container-header">
+    <div class="brand">
+       <a href="#">
+        <img src="assets/online-shopping.png" alt="img_brand">
+        MyStore
+       </a>
+    </div>
+    <h3>
+        Carrinho de comprars
+    </h3>
+    <div></div>
+</div>
+</header>
+<main>
+
+    <div class="container-cart">
+
+    <div class="resume-order">
+        <div class="title">
+           
+        </div>
+        <div class="content">
+            <ul class="product-list">
+               
+                <li *ngFor="let orderItem of (cart$ | async)!.listOrderItem">
+
+                    <div class="prod-card">
+                        <div class="content-card">
+                            <div class="image">
+                                <img [src]="orderItem.product.image?.url" alt="img_product" id="img-product">
+                            </div>
+
+                            <div class="info">
+                                <span id="name"> <span>{{orderItem.product.name}}</span> <!--<span>R$ {{orderItem.product.price.toFixed(2)}}</span>-->  </span>
+                                <span id="price">R$ {{orderItem.product.price.toFixed(2)}}</span>
+                                <span id="buy-by">vendido por: MyStore</span>
+                                <select class="form-select" aria-label="Default select example" disabled>
+                                    <option [value]="orderItem.quantidade" selected>{{orderItem.quantidade+' Unidades'}}</option>
+                                    <option value="2">2 Unidades</option>
+                                    <option value="3">3 Unidades</option>
+                                    <option value="4">4 Unidades</option>
+                                    <option value="5">5 Unidades</option>
+                                    <option value="6">6 Unidades</option>
+                                  </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="separator"></div>
+
+                </li>
+            </ul>
+            <!-- <div class="separator"></div> -->
+            <div class="finalize">
+                <button class="btn btn-warning" >Finalizar pedido</button>
+                <span>Total: R$ {{ ((cart$ | async)!.total).toFixed(2)}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+</main>

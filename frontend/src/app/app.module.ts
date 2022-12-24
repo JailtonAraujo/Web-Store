@@ -19,6 +19,8 @@ import { FinalizeOrderComponent } from './pages/finalize-order/finalize-order.co
 
 //redux
 import { orderReducer } from './store/orderReducer';
+import { cartReducer } from './store/cartReducer';
+import { CartComponentComponent } from './components/cart-component/cart-component.component';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { orderReducer } from './store/orderReducer';
     LoginComponent,
     RegisterComponent,
     FlashMessageComponent,
-    FinalizeOrderComponent
+    FinalizeOrderComponent,
+    CartComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { orderReducer } from './store/orderReducer';
     PublicComponentsModule,
     HttpClientModule,
     StoreModule.forRoot({
-      orderReducer:orderReducer
+      orderReducer:orderReducer,
+      cartReducer:cartReducer
     })
   ], exports:[
     HomeComponent

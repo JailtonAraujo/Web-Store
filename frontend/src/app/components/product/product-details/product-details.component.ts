@@ -10,6 +10,8 @@ import { Order } from 'src/app/model/Order';
 import { Store } from '@ngrx/store';
 import { setOrder } from 'src/app/store/orderReducer';
 import { OrderItem } from 'src/app/model/OrderItem';
+import { CartOrders } from 'src/app/model/CartOrders';
+import { addOnCart } from 'src/app/store/cartReducer';
 
 @Component({
   selector: 'app-product-details',
@@ -43,7 +45,8 @@ export class ProductDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private freteService: FreteService,
-    private store:Store<{orderReducer:Order}>
+    private store:Store<{orderReducer:Order}>,
+    private cartReducer:Store<{cartReducer:CartOrders}>
   ) { }
 
   ngOnInit(): void {
@@ -109,6 +112,16 @@ export class ProductDetailsComponent implements OnInit {
       }
 
     this.store.dispatch(setOrder({payload:order}))
+  }
+
+  public addProductInCart (){
+
+    const orderItem:OrderItem = {
+      product:this.product,
+      quantidade:this.quaitityProduct
+    }
+
+    this.cartReducer.dispatch(addOnCart({payload:orderItem}));
 
   }
 

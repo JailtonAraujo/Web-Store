@@ -38,13 +38,15 @@
                 <li> <a routerLink="/register">Crie sua conta</a> </li>
                 <li> <a routerLink="/login">Entre</a> </li>
                 <li> <a href="#">Minhas compras</a> </li>
-                <li id="cart-element"><button type="button" class="btn btn-primary position-relative" title="Carrinho de comprars">
+                <li id="cart-element"><a routerLink="/cart" type="button" class="btn btn-primary position-relative" title="Carrinho de comprars">
                    <fa-icon [icon]="faCart" ></fa-icon>
+
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                      9
+                      {{ ((cart$ | async)!.listOrderItem)!.length  }}
                       <span class="visually-hidden">unread messages</span>
+
                     </span>
-                  </button></li>
+                  </a></li>
             </ul>
       
     </div>
