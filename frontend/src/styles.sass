@@ -10,7 +10,7 @@ main
     background-color: colors.$primary-background-color
 
 footer
-    height: 8vh
+    min-height: 8vh
 
 .container
     width: 100%
@@ -40,6 +40,46 @@ a
     text-align: center
     color: red
     font-size: 1em
+
+/*Elemet input custom styles*/
+
+.input-custom-number
+    width: 4em
+    display: flex
+    justify-content: center
+    align-items: center
+    background-color: #aaa
+    border-radius: 12px
+    .decrement,
+    .increment
+        border: none
+        background: none
+        font-size: 1.2em
+        font-weight: bold
+        width: 100%
+        background-color: colors.$second-background-color
+        color: #fff
+    .decrement
+        border-bottom-left-radius: 12px
+        border-top-left-radius: 12px
+    .increment
+        border-bottom-right-radius: 12px
+        border-top-right-radius: 12px
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button
+        -webkit-appearance: none
+    .attibut-value
+        border: none
+        background: none
+        color: #000
+        font: 1em
+        outline: none
+        text-align: center
+        width: 1.5em
+        padding: 0.2em
+        font-weight: bold
+    
+/*Elemet input custom styles*/
 
 
 .container-auth

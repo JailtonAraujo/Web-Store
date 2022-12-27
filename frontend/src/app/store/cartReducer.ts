@@ -1,10 +1,17 @@
+import { isNgTemplate } from "@angular/compiler";
 import { createReducer, createAction, on, props } from "@ngrx/store";
-import { exists } from "fs";
 import { CartOrders } from "../model/CartOrders";
 import { OrderItem } from "../model/OrderItem";
 
 enum actionsTypes {
-    addOnCartType="addOnCart"
+    addOnCartType="addOnCart",
+    removeOnCartType='removeOnCard',
+    changeQuantityType = 'changeQuantity'
+}
+
+export interface changeQuant{
+    idPrduct:Number,
+    quant:Number
 }
 
 export const initialState: CartOrders = {
@@ -23,14 +30,33 @@ const verifyIfAlreadyExists = (itemOrder:OrderItem,listOrderItem:Array<OrderItem
 
 const calcTotal = (list:Array<OrderItem>) =>{
 
-    let total = 0 
-    
-    list.map((item)=>{
+    let total = 0;
 
+    list.map((item)=>{
      total = total + (Number(item.quantidade) * item.product.price);
  })
 
  return total;
+}
+
+// change quantity at a object orderItem
+const handlerChange = (listOrderItem:Array<OrderItem>,changeQuant:changeQuant) =>{
+    
+    let objTemp = listOrderItem.filter((item)=>{
+        return item.product.id === changeQuant.idPrduct
+    })
+
+    const index = listOrderItem.indexOf(objTemp[0]) ;
+
+    listOrderItem = listOrderItem.filter((item)=>{
+        return item.product.id !== changeQuant.idPrduct;
+    })
+
+   const obj:OrderItem = {...objTemp[0], quantidade:changeQuant.quant}
+
+   listOrderItem.splice(index, 0, obj);
+
+  return listOrderItem;
 }
 
 export const addOnCart = createAction (
@@ -38,11 +64,21 @@ export const addOnCart = createAction (
     props<{payload:OrderItem}>()
 )
 
+export const removeOntCart = createAction (
+    actionsTypes.removeOnCartType,
+    props<{payload:Number}>()
+)
+
+export const changeQuantity = createAction(
+    actionsTypes.changeQuantityType,
+    props<{payload:changeQuant}>()
+)
+
 
 export const cartReducer = createReducer(
     initialState,
     on(addOnCart,(state, {payload})=>{
-
+        //Verify if product already in listOrdem
         if(!verifyIfAlreadyExists(payload,state.listOrderItem)){
             let list:Array<OrderItem> = [];
             list = [...list, ...state.listOrderItem]
@@ -51,6 +87,22 @@ export const cartReducer = createReducer(
             state = {...state, total:Number(calcTotal(state.listOrderItem))}
         }
 
+        return state;
+    }),
+
+    //Remove product at the cart
+    on(removeOntCart,(state,{payload})=>{
+        state = {...state, listOrderItem:state.listOrderItem.filter((item)=>{ 
+            return item.product.id !== payload;
+        })}
+        state = {...state, total:Number(calcTotal(state.listOrderItem))}
+        return state;
+    }),
+
+    on(changeQuantity,(state,{payload})=>{
+
+        state = {...state, listOrderItem:handlerChange(state.listOrderItem,payload)}
+        state = {...state, total:Number(calcTotal(state.listOrderItem))}
         return state;
     })
 )

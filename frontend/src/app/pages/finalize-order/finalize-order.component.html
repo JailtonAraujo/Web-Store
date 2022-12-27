@@ -1,7 +1,7 @@
 <header>
     <div class="container-header">
     <div class="brand">
-       <a href="#">
+       <a routerLink="/">
         <img src="assets/online-shopping.png" alt="img_brand">
         MyStore
        </a>
@@ -61,14 +61,11 @@
                                     <span id="name">{{orderItem.product.name}}</span>
                                     <span id="price">R$ {{orderItem.product.price.toFixed(2)}}</span>
                                     <span id="buy-by">vendido por: MyStore</span>
-                                    <select class="form-select" aria-label="Default select example" disabled>
-                                        <option [value]="orderItem.quantidade" selected>{{orderItem.quantidade+' Unidades'}}</option>
-                                        <option value="2">2 Unidades</option>
-                                        <option value="3">3 Unidades</option>
-                                        <option value="4">4 Unidades</option>
-                                        <option value="5">5 Unidades</option>
-                                        <option value="6">6 Unidades</option>
-                                      </select>
+                                    <div class="input-custom-number">
+                                        <button class="decrement" (click)="decrementValue(orderItem.product.id,orderItem.quantidade)">-</button>
+                                            <input type="number" minlength="1" maxlength="7" class="attibut-value" readonly [value]="orderItem.quantidade">
+                                        <button class="increment" (click)="incrementValue(orderItem.product.id,orderItem.quantidade)">+</button>
+                                    </div>
                                 </div>
 
                             </div>

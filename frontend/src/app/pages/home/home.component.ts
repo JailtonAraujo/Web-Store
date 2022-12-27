@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class HomeComponent implements OnInit {
 
-  ListProduc!:Array<Product>;
+  ListProduc:Array<Product>=[];
 
   totalElements!:number;
 
