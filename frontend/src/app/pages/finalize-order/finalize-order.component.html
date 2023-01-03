@@ -1,87 +1,148 @@
 <header>
     <div class="container-header">
-    <div class="brand">
-       <a routerLink="/">
-        <img src="assets/online-shopping.png" alt="img_brand">
-        MyStore
-       </a>
+        <div class="brand">
+            <a routerLink="/">
+                <img src="assets/online-shopping.png" alt="img_brand">
+                MyStore
+            </a>
+        </div>
+        <h3>
+            Finalizar pedido!
+        </h3>
+        <div></div>
     </div>
-    <h3>
-        Finalizar pedido!
-    </h3>
-    <div></div>
-</div>
 </header>
 <main>
 
     <div class="container-main">
         <div class="content-main">
-        <div class="frete-container">
-            <div class="title">
-                Endereço de entrega
+            <div class="frete-container">
+                <div class="title">
+                    Endereço de entrega
+                </div>
+                <div class="content">
+                    <button (click)="openModal(template)"> <fa-icon [icon]="faPlus"></fa-icon> Adicionar um novo
+                        endereço</button>
+                </div>
             </div>
-            <div class="content">   
-                <button>Adicionar um novo endereço</button>
+
+            <div class="separator"></div>
+
+            <div class="pay-container">
+                <div class="title">
+                    Metodo de pagamento
+                </div>
+                <div class="content">
+                    <ul class="options-pay">
+                        <li>
+                            <a href="#"> <fa-icon [icon]="faWallet"></fa-icon> Carteira MyStore</a>
+                            <span>Saldo: R$1000,00</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <div class="separator"></div>
+            <div class="separator"></div>
 
-        <div class="pay-container">
-            <div class="title">
-                Metodo de pagamento
-            </div>
-            <div class="content">
-                <ul class="options-pay">
-                    <li>
-                        <a href="#"> <fa-icon [icon]="faWallet" ></fa-icon> Carteira MyStore</a>
-                        <span>Saldo: R$1000,00</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
+            <div class="resume-order">
+                <div class="title">
+                    Resumo do pedido
+                </div>
+                <div class="content">
+                    <ul class="product-list">
+                        <li *ngFor="let orderItem of (Order$ | async)!.listOrderItem">
 
-        <div class="separator"></div>
-
-        <div class="resume-order">
-            <div class="title">
-                Resumo do pedido
-            </div>
-            <div class="content">
-                <ul class="product-list">
-                    <li *ngFor="let orderItem of (Order$ | async)!.listOrderItem">
-
-                        <div class="prod-card">
-                            <div class="content-card">
-                                <div class="image">
-                                    <img [src]="orderItem.product.image?.url" alt="img_product" id="img-product">
-                                </div>
-
-                                <div class="info">
-                                    <span id="name">{{orderItem.product.name}}</span>
-                                    <span id="price">R$ {{orderItem.product.price.toFixed(2)}}</span>
-                                    <span id="buy-by">vendido por: MyStore</span>
-                                    <div class="input-custom-number">
-                                        <button class="decrement" (click)="decrementValue(orderItem.product.id,orderItem.quantidade)">-</button>
-                                            <input type="number" minlength="1" maxlength="7" class="attibut-value" readonly [value]="orderItem.quantidade">
-                                        <button class="increment" (click)="incrementValue(orderItem.product.id,orderItem.quantidade)">+</button>
+                            <div class="prod-card">
+                                <div class="content-card">
+                                    <div class="image">
+                                        <img [src]="orderItem.product.image?.url" alt="img_product" id="img-product">
                                     </div>
+
+                                    <div class="info">
+                                        <span id="name">{{orderItem.product.name}}</span>
+                                        <span id="price">R$ {{orderItem.product.price.toFixed(2)}}</span>
+                                        <span id="buy-by">vendido por: MyStore</span>
+                                        <div class="options">
+
+                                            <div class="input-custom-number">
+                                                <button class="decrement"
+                                                    (click)="decrementValue(orderItem.product.id,orderItem.quantidade)">-</button>
+                                                <input type="number" minlength="1" maxlength="7" class="attibut-value"
+                                                    readonly [value]="orderItem.quantidade">
+                                                <button class="increment"
+                                                    (click)="incrementValue(orderItem.product.id,orderItem.quantidade)">+</button>
+                                            </div>
+                                            <button type="button" class="btn-del"
+                                                (click)="removeItemFromOrder(orderItem.product.id)">
+                                                <fa-icon [icon]="faTrash" title="Remover item"></fa-icon></button>
+                                        </div>
+                                    </div>
+
                                 </div>
-
                             </div>
-                        </div>
-                        <div class="separator"></div>
+                            <div class="separator"></div>
 
-                    </li>
-                </ul>
-                <!-- <div class="separator"></div> -->
-                <div class="finalize">
-                    <button class="btn btn-warning" >Finalizar pedido</button>
-                    <span>Total: R$  {{ ((Order$ | async)!.total).toFixed(2) }}</span>
+                        </li>
+                    </ul>
+                    <!-- <div class="separator"></div> -->
+                    <div class="finalize">
+                        <button class="btn btn-warning">Finalizar pedido</button>
+                        <span>Total: R$ {{ ((Order$ | async)!.total).toFixed(2) }}</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-
 </main>
+
+<!--Modal calc frete-->
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"> Adicionar endereço.</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <form class="form-address" [formGroup]="formAddress" #addresForm="ngForm">
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">CEP:</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" required formControlName="cep"
+                    placeholder="Apenas numeros..." (blur)="searchCep($event)">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Estado:</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" readonly formControlName="uf">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Cidade:</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" readonly formControlName="city">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Logradouro:</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="logradouro">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Numero:</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="number">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Complemento:</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="complement">
+            </div>
+
+            <button type="button" class="btn btn-warning"
+                [disabled]="addresForm.invalid">Adicionar</button>
+
+        </form>
+
+    </div>
+</ng-template>
+<!--Modal calc frete-->

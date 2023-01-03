@@ -1,10 +1,13 @@
 import { createAction, createReducer, props, on  } from "@ngrx/store"; 
+import { CartOrders } from "../model/CartOrders";
 import { Order } from "../model/Order";
 import { OrderItem } from "../model/OrderItem";
 
 enum  actionsTypes {
     setOrder = "setOrder",
-    changeQuantityOrderType ='changeQuantityOrder'
+    ssetOrderToCart = "setOrderToCart",
+    changeQuantityOrderType ='changeQuantityOrder',
+    removeFromListFinalize="removeFromListFinalize"
 }
 
 export interface changeQuantOrder{
@@ -49,6 +52,12 @@ const handlerChange = (listOrderItem:Array<OrderItem>,changeQuant:changeQuantOrd
 }
 
 
+export const removeFromListFinalize = createAction (
+    actionsTypes.removeFromListFinalize,
+    props<{payload:Number}>()
+)
+
+
 export const setOrder = createAction(
     actionsTypes.setOrder,
     props<{payload:Order}>()
@@ -57,6 +66,12 @@ export const setOrder = createAction(
 export const changeQuantity = createAction(
     actionsTypes.changeQuantityOrderType,
     props<{payload:changeQuantOrder}>()
+)
+
+//set order list at the list order finalize
+export const setOrderToCart = createAction(
+    actionsTypes.ssetOrderToCart,
+    props<{payload:CartOrders}>()
 )
 
 
@@ -69,6 +84,18 @@ export const orderReducer = createReducer(
     on(changeQuantity,(state,{payload})=>{
 
         state = {...state, listOrderItem:handlerChange(state.listOrderItem,payload)}
+        state = {...state, total:Number(calcTotal(state.listOrderItem))}
+        return state;
+    }),
+    on(setOrderToCart, ( state, {payload})=>{
+        state = {...state, listOrderItem:payload.listOrderItem, total:Number(calcTotal(payload.listOrderItem))}
+        return state;
+    }),
+
+    on( removeFromListFinalize, (state, {payload})=>{
+        state = {...state, listOrderItem:state.listOrderItem.filter((item)=>{
+            return item.product.id !== payload;
+        })}
         state = {...state, total:Number(calcTotal(state.listOrderItem))}
         return state;
     })

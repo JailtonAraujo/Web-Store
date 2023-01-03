@@ -26,8 +26,6 @@ a
     background: colors.$second-background-color
     border-radius: 15px  
 
-.modal
-    top: 35%
 
 .not-result
     width: 100%
@@ -41,10 +39,50 @@ a
     color: red
     font-size: 1em
 
-/*Elemet input custom styles*/
+
+// styles card order   
+.prod-card
+    .content-card
+        display: flex
+        align-items: center
+        width: 100%
+        .image
+            width: 107px
+            height: 80px
+            margin-right: 1em
+            img
+                width: 100%
+        .info
+            width: 100%
+            display: flex
+            flex-direction: column
+            .form-select
+                width: 142px
+            .options
+                height: 36px
+                display: flex
+                align-items: center
+                gap: 1em
+                .btn-del
+                    background-color: #dc3545
+                    padding: 0.2em 0.5em
+                    border: none
+                    color: #fff
+                    border-radius: 5px
+            #name
+                width: 100%
+                padding-right: 1em
+                display: flex
+                justify-content: space-between
+                align-items: center
+            #price
+                font-weight: bold
+
+    /*Elemet input custom styles*/
 
 .input-custom-number
     width: 4em
+    height: 29px
     display: flex
     justify-content: center
     align-items: center
@@ -79,7 +117,9 @@ a
         padding: 0.2em
         font-weight: bold
     
-/*Elemet input custom styles*/
+    /*Elemet input custom styles*/
+// styles card order
+
 
 
 .container-auth

@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { CartOrders } from 'src/app/model/CartOrders';
+import { Order } from 'src/app/model/Order';
 import { changeQuantity, removeOntCart } from 'src/app/store/cartReducer';
+import { faTrash, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import { changeQuant } from 'src/app/store/cartReducer';
+import { setOrderToCart } from 'src/app/store/orderReducer';
 
 @Component({
   selector: 'app-cart-component',
@@ -13,13 +17,24 @@ import { changeQuant } from 'src/app/store/cartReducer';
 })
 export class CartComponentComponent implements OnInit {
 
-  valueTotal = 1;
+  //icons
+  faTrash = faTrash
+  faPlus = faPlus
+  faMinus = faMinus;
 
-  constructor(private cartReducer:Store<{cartReducer:CartOrders}>) { }
+  //variables
+  valueTotal = 1;
+ 
+  constructor(
+    private cartReducer:Store<{cartReducer:CartOrders}>,
+    private orderReducer:Store<{orderReducer:Order}>,
+    private router:Router
+    ) { }
 
   cart$ = this.cartReducer.select('cartReducer').pipe(map(state => state));
 
   ngOnInit(): void {
+    
   }
 
   public removeProductAtCart(id:any){
@@ -43,14 +58,34 @@ export class CartComponentComponent implements OnInit {
 
   public decrementValue(id:any, num:any){
 
-    if(num === 1){
-      this.removeProductAtCart(id);
+    num === 1 ? num : num--;
+
+    this.changeQuantityItem(id,num);
+
+    // if(num === 1){
+    //   this.removeProductAtCart(id);
+    //   return;
+    // }else{
+    //   num--
+    //   this.changeQuantityItem(id,num);
+    // }
+  }
+
+  public sendOrdersFromFinalizeBuy(){
+   
+   this.cart$.subscribe(((cart)=>{
+
+    if(cart.listOrderItem.length < 1){
       return;
-    }else{
-      num--
-      this.changeQuantityItem(id,num);
     }
-  
+
+    this.orderReducer.dispatch(setOrderToCart({payload:cart}));
+
+    this.router.navigate(['/order/finalize']);
+  }));
+
+
+
   }
 
 }
