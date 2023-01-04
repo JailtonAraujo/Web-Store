@@ -43,6 +43,7 @@ export class ProductComponentComponent implements OnInit {
     }
 
     this.cartReducer.dispatch(addOnCart({payload:orderItem}));
+    return;
 
   }
 

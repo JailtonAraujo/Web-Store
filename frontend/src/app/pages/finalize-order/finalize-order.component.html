@@ -17,11 +17,31 @@
     <div class="container-main">
         <div class="content-main">
             <div class="frete-container">
+                
                 <div class="title">
                     Endereço de entrega
                 </div>
                 <div class="content">
-                    <button (click)="openModal(template)"> <fa-icon [icon]="faPlus"></fa-icon> Adicionar um novo
+                    <div class="loading" *ngIf="loading">
+                        <div class="spinner-border text-warning" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                    </div>
+                    <ul class="card-address" *ngIf="listAddress">
+                        <li class="form-control" *ngFor="let addres of listAddress; let i = index">
+
+                            <input type="radio" id="contactChoice2" name="select" [value]="i" (change)="calcFreteAndPrazo(i)" />  
+                            <span>Cep: {{addres.cep}} | </span>
+                            <span>Estado: {{addres.uf}} | </span>
+                            <span>Cidade: {{addres.city}} | </span>
+                            <span>logradouro: {{addres.logradouro}} | </span>
+                            <span>Numero: {{addres.number}} | </span>
+                            <span>Complemento: {{addres.complement}} | </span>
+                            <button (click)="updateAddress(i,template)" >Editar</button>
+                            
+                        </li>
+                    </ul>
+                    <button (click)="openModal(template)" *ngIf="listAddress.length <= 2"> <fa-icon [icon]="faPlus"></fa-icon> Adicionar um novo
                         endereço</button>
                 </div>
             </div>
@@ -46,7 +66,7 @@
 
             <div class="resume-order">
                 <div class="title">
-                    Resumo do pedido
+                    Revisar itens
                 </div>
                 <div class="content">
                     <ul class="product-list">
@@ -92,6 +112,21 @@
                 </div>
             </div>
         </div>
+        <!--Sumary order-->
+        <div class="sumary-order">
+            <div class="sumary">
+                <h3>Resumo do pedido</h3>
+                <div><span>Itens:</span> <span>R$ {{ ((Order$ | async)!.total).toFixed(2) }}</span> </div>
+                <div><span>Frete e manuseio:</span> <span> {{valueCalcFrete.price ? 'R$ '+valueCalcFrete.price : '--' }}</span></div>
+                <div><span>Prazo para entrega: </span> {{valueCalcFrete.prazo ? valueCalcFrete.prazo+' dias' : '--'}}</div>
+            </div>
+            <div class="separator"></div>
+            <div class="total">
+                <span>Total do pedido:</span><span>R$ {{ ((Order$ | async)!.total + valueCalcFrete.price).toFixed(2) }}</span>
+            </div>
+            <button class="btn btn-warning">Finalizar pedido</button>
+        </div>
+         <!--Sumary order-->
     </div>
 </main>
 
@@ -139,7 +174,7 @@
             </div>
 
             <button type="button" class="btn btn-warning"
-                [disabled]="addresForm.invalid">Adicionar</button>
+                [disabled]="addresForm.invalid" (click)="addAddress()">Adicionar</button>
 
         </form>
 

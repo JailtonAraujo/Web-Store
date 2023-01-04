@@ -1,4 +1,3 @@
-import { isNgTemplate } from "@angular/compiler";
 import { createReducer, createAction, on, props } from "@ngrx/store";
 import { CartOrders } from "../model/CartOrders";
 import { OrderItem } from "../model/OrderItem";
@@ -10,8 +9,8 @@ enum actionsTypes {
 }
 
 export interface changeQuant{
-    idPrduct:Number,
-    quant:Number
+    idPrduct:number,
+    quant:number
 }
 
 export const initialState: CartOrders = {
@@ -33,7 +32,7 @@ const calcTotal = (list:Array<OrderItem>) =>{
     let total = 0;
 
     list.map((item)=>{
-     total = total + (Number(item.quantidade) * item.product.price);
+     total = total + ((item.quantidade.valueOf()) * item.product.price);
  })
 
  return total;
@@ -66,7 +65,7 @@ export const addOnCart = createAction (
 
 export const removeOntCart = createAction (
     actionsTypes.removeOnCartType,
-    props<{payload:Number}>()
+    props<{payload:number}>()
 )
 
 export const changeQuantity = createAction(
@@ -84,7 +83,7 @@ export const cartReducer = createReducer(
             list = [...list, ...state.listOrderItem]
             list.push(payload) 
             state = {...state, listOrderItem:list}
-            state = {...state, total:Number(calcTotal(state.listOrderItem))}
+            state = {...state, total:(calcTotal(state.listOrderItem))}
         }
 
         return state;
@@ -95,14 +94,14 @@ export const cartReducer = createReducer(
         state = {...state, listOrderItem:state.listOrderItem.filter((item)=>{ 
             return item.product.id !== payload;
         })}
-        state = {...state, total:Number(calcTotal(state.listOrderItem))}
+        state = {...state, total:(calcTotal(state.listOrderItem))}
         return state;
     }),
 
     on(changeQuantity,(state,{payload})=>{
 
         state = {...state, listOrderItem:handlerChange(state.listOrderItem,payload)}
-        state = {...state, total:Number(calcTotal(state.listOrderItem))}
+        state = {...state, total:(calcTotal(state.listOrderItem))}
         return state;
     })
 )

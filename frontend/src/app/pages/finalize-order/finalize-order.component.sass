@@ -19,8 +19,8 @@ header
     width: 100%
     padding-top: 1em 
     display: flex
-    flex-direction: column
-    align-items: center
+    justify-content: center
+    gap: 1.4em
     .content-main
         width: 800px
 
@@ -38,9 +38,20 @@ header
 
 .frete-container
     .content
+        position: relative
         button
             border: none
             background: none
+.card-address
+    padding: 0
+    li
+        margin-bottom: 0.4em
+        input[type="radio"]
+            margin-right: 0.4em
+            cursor: pointer
+    button
+        color: #0000FF
+        text-decoration: underline
 
 .pay-container
     .content
@@ -72,5 +83,24 @@ header
             font-weight: bold
 
 
-
+.sumary-order
+    height: 250px
+    display: flex
+    flex-direction: column
+    padding: 0.5em 0.8em
+    margin-top: 16px
+    border: 1px solid #aaa
+    border-radius: 5px
+    .sumary
+        display: flex
+        flex-direction: column
+        font-size: 0.8em
+        div
+            display: flex
+            justify-content: space-between
+    .total
+        margin-bottom: 0.5em
+        display: flex
+        justify-content: space-between
+        font-weight: bold
 

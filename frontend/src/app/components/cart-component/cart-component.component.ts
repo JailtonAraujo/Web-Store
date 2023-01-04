@@ -48,12 +48,14 @@ export class CartComponentComponent implements OnInit {
       quant:Number(num)
     }
 
-    this.cartReducer.dispatch(changeQuantity({payload:changeQuant}))    
+    this.cartReducer.dispatch(changeQuantity({payload:changeQuant}))
+    return;    
   }
 
   public incrementValue(id:any, num:any){
     num == 7 ? num : num++;
     this.changeQuantityItem(id,num);
+    return;
   }
 
   public decrementValue(id:any, num:any){
@@ -61,6 +63,7 @@ export class CartComponentComponent implements OnInit {
     num === 1 ? num : num--;
 
     this.changeQuantityItem(id,num);
+    return;
 
     // if(num === 1){
     //   this.removeProductAtCart(id);

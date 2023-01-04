@@ -8,6 +8,7 @@ import { changeQuantity, removeFromListFinalize } from 'src/app/store/orderReduc
 import { changeQuantOrder } from 'src/app/store/orderReducer'; 
 import { FreteService } from 'src/app/services/frete.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AdressModel } from 'src/app/model/adressModel';
 
 @Component({
   selector: 'app-finalize-order',
@@ -23,9 +24,16 @@ export class FinalizeOrderComponent implements OnInit {
 
   modalRef?: BsModalRef;
 
-  valueTotal = 1;
-
+  addressModel!:AdressModel;
   formAddress!:FormGroup;
+  listAddress:Array<AdressModel> = [];
+
+  valueCalcFrete={
+    price:Number(),
+    prazo:0
+  }
+
+  loading = false;
 
   constructor(
     private orderReducer:Store<{orderReducer:Order}>,
@@ -37,22 +45,22 @@ export class FinalizeOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.formAddress = new FormGroup({
-      cep : new FormControl('',[Validators.required,Validators.minLength(8)]),
-      uf : new FormControl(''),
-      city : new FormControl(''),
-      logradouro : new FormControl('',[Validators.required]),
-      number : new FormControl('',[Validators.required]),
-      complement: new FormControl('',[Validators.required])
-
+      cep : new FormControl(this.addressModel ? this.addressModel.cep : '' ,[Validators.required,Validators.minLength(8)]),
+      uf : new FormControl(this.addressModel ? this.addressModel.uf : '' ),
+      city : new FormControl(this.addressModel ? this.addressModel.city : '' ),
+      logradouro : new FormControl(this.addressModel ? this.addressModel.logradouro : '' ,[Validators.required]),
+      number : new FormControl(this.addressModel ? this.addressModel.number : '' ,[Validators.required]),
+      complement: new FormControl(this.addressModel ? this.addressModel.complement : '',[Validators.required])
     })
+
   }
 
 
   public changeQuantityItem(id:number, num:number){
     
     const changeQuant:changeQuantOrder={
-      idPrduct:Number(id),
-      quant:Number(num)
+      idPrduct:id,
+      quant:num
     }
 
     this.orderReducer.dispatch(changeQuantity({payload:changeQuant}))    
@@ -81,6 +89,7 @@ export class FinalizeOrderComponent implements OnInit {
   }
 
 
+  //Search informations cep in Api via cep and seting listAddress
   public searchCep(event:any){
     const input = event.target as HTMLInputElement;
     const value =  input.value;
@@ -92,8 +101,52 @@ export class FinalizeOrderComponent implements OnInit {
 
       this.formAddress.get('uf')?.setValue(result.uf);
       this.formAddress.get('city')?.setValue(result.localidade);
+    }, error=>{
+      this.formAddress.get('uf')?.setValue("");
+      this.formAddress.get('city')?.setValue("");
     })
+   
+  }
+
+  public addAddress(){
+
+    this.listAddress.push(this.formAddress.value);
+
+    this.modalRef?.hide()
+  }
+
+  //Edit address information on formAddress
+  public updateAddress(index:number,template: TemplateRef<any>){
+    const address = this.listAddress[index];
+
+    this.formAddress.get('cep')?.setValue(address.cep);
+    this.formAddress.get('uf')?.setValue(address.uf);
+    this.formAddress.get('city')?.setValue(address.city);
+    this.formAddress.get('logradouro')?.setValue(address.logradouro);
+    this.formAddress.get('number')?.setValue(address.number);
+    this.formAddress.get('complement')?.setValue(address.complement);
+
+    this.openModal(template);
+
+  }
+
+  public calcFreteAndPrazo (index:number){
     
+    const cep = this.listAddress[index].cep;
+    this.loading = true;
+    this.freteService.calFretePrazo(cep).subscribe((result)=>{
+      this.valueCalcFrete={
+        price:Number(result.Servicos.cServico.Valor.replace(',',".")),
+        prazo:result.Servicos.cServico.PrazoEntrega,
+      }
+
+      ///this.valueTotalOrder =  Number(this.valueTotalOrder) + Number(result.Servicos.cServico.Valor.replace(',',"."))
+
+      this.loading = false;
+    }, error=>{
+      this.loading = false;
+    })
+
   }
 
 }
