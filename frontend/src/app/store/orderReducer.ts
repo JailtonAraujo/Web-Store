@@ -7,8 +7,11 @@ enum  actionsTypes {
     setOrder = "setOrder",
     ssetOrderToCart = "setOrderToCart",
     changeQuantityOrderType ='changeQuantityOrder',
-    removeFromListFinalize="removeFromListFinalize"
+    removeFromListFinalize="removeFromListFinalize",
+    resetOrderType="resetOrder"
 }
+
+
 
 export interface changeQuantOrder{
     idPrduct:Number,
@@ -63,7 +66,7 @@ export const setOrder = createAction(
     props<{payload:Order}>()
 )
 
-export const changeQuantity = createAction(
+export const changeQuantityOrderType = createAction(
     actionsTypes.changeQuantityOrderType,
     props<{payload:changeQuantOrder}>()
 )
@@ -74,6 +77,9 @@ export const setOrderToCart = createAction(
     props<{payload:CartOrders}>()
 )
 
+export const resetOrder = createAction(
+    actionsTypes.resetOrderType)
+
 
 export const orderReducer = createReducer(
     initialState,
@@ -81,7 +87,7 @@ export const orderReducer = createReducer(
         state = {...state, listOrderItem:payload.listOrderItem, total:Number(calcTotal(payload.listOrderItem))}
         return state;
     }),
-    on(changeQuantity,(state,{payload})=>{
+    on(changeQuantityOrderType,(state,{payload})=>{
 
         state = {...state, listOrderItem:handlerChange(state.listOrderItem,payload)}
         state = {...state, total:Number(calcTotal(state.listOrderItem))}
@@ -97,6 +103,11 @@ export const orderReducer = createReducer(
             return item.product.id !== payload;
         })}
         state = {...state, total:Number(calcTotal(state.listOrderItem))}
+        return state;
+    }),
+
+    on(resetOrder,(state)=>{
+        state = {...state, listOrderItem:[], total:0}
         return state;
     })
 )

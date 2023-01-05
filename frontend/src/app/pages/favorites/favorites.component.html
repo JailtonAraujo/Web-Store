@@ -1,0 +1,48 @@
+
+<app-header-simple [titleHeader]="'Favoritos'"></app-header-simple>
+<main>
+
+    <div class="container-favorite">
+            <div class="content">
+
+                
+            <div class="title">
+                Itens favoritados
+            </div>
+
+                <ul class="product-list">
+
+                    <li *ngFor="let product of (favorite$ | async)!.products">
+
+                        <div class="prod-card">
+                            <div class="content-card">
+                                <div class="image">
+                                    <img [src]="product.image?.url" alt="img_product" id="img-product">
+                                </div>
+
+                                <div class="info">
+                                    <span id="name"> <span>{{product.name}}</span>
+                                        <!-- <span>R$ {{(product.price.toFixed(2) * quantidade)}}</span> -->
+                                    </span>
+                                    <span id="price">R$ {{product.price.toFixed(2)}}</span>
+                                    <span id="buy-by">vendido por: MyStore</span>
+
+                                    <div class="options">
+
+                                        <button type="button" class="btn-del" (click)="removeProductOnFavorite(product.id)">
+                                            <fa-icon [icon]="faTrash" title="Remover item" ></fa-icon></button>
+                                        <button type="button" class="btn-add" title="Adicionar ao carrinho" (click)="addProductInCart(product)" > 
+                                            <fa-icon [icon]="faCartPlus" ></fa-icon> </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="separator"></div>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+</main>

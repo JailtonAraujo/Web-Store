@@ -1,17 +1,4 @@
-<header>
-    <div class="container-header">
-        <div class="brand">
-            <a routerLink="/">
-                <img src="assets/online-shopping.png" alt="img_brand">
-                MyStore
-            </a>
-        </div>
-        <h3>
-            Finalizar pedido!
-        </h3>
-        <div></div>
-    </div>
-</header>
+<app-header-simple [titleHeader]="'Finalizar pedido'" ></app-header-simple>
 <main>
 
     <div class="container-main">
@@ -37,7 +24,7 @@
                             <span>logradouro: {{addres.logradouro}} | </span>
                             <span>Numero: {{addres.number}} | </span>
                             <span>Complemento: {{addres.complement}} | </span>
-                            <button (click)="updateAddress(i,template)" >Editar</button>
+                            <button (click)="DeleteAddress(i)" >Excluir</button>
                             
                         </li>
                     </ul>
@@ -130,7 +117,7 @@
     </div>
 </main>
 
-<!--Modal calc frete-->
+<!--Modal new address-->
 <ng-template #template>
     <div class="modal-header">
         <h4 class="modal-title pull-left"> Adicionar endereço.</h4>
@@ -180,4 +167,5 @@
 
     </div>
 </ng-template>
-<!--Modal calc frete-->
+<!--Modal new address-->
+

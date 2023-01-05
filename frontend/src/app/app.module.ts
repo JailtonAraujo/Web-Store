@@ -20,7 +20,11 @@ import { FinalizeOrderComponent } from './pages/finalize-order/finalize-order.co
 //redux
 import { orderReducer } from './store/orderReducer';
 import { cartReducer } from './store/cartReducer';
+import { favoriteReducer } from './store/favorityReducer';
+
 import { CartComponentComponent } from './components/cart-component/cart-component.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
+import { HeaderSimpleComponent } from './components/header-simple/header-simple.component';
 
 
 @NgModule({
@@ -32,7 +36,9 @@ import { CartComponentComponent } from './components/cart-component/cart-compone
     RegisterComponent,
     FlashMessageComponent,
     FinalizeOrderComponent,
-    CartComponentComponent
+    CartComponentComponent,
+    FavoritesComponent,
+    HeaderSimpleComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +50,8 @@ import { CartComponentComponent } from './components/cart-component/cart-compone
     HttpClientModule,
     StoreModule.forRoot({
       orderReducer:orderReducer,
-      cartReducer:cartReducer
+      cartReducer:cartReducer,
+      favoriteReducer:favoriteReducer
     })
   ], exports:[
     HomeComponent

@@ -1,0 +1,51 @@
+import { createReducer, createAction, on, props } from "@ngrx/store";
+import { Product } from "../model/Product";
+
+enum actionsTypes{
+    addFavoriteType="addFavorite",
+    removeFavorityType="removeFavorite"
+}
+
+export interface FavoriteModel{
+    products:Array<Product>
+}
+
+export const initialState:FavoriteModel={
+    products:[]
+}
+
+const verifyIfAlreadyExists = (product:Product,products:Array<Product>)=>{ 
+    return products.filter( item => item.id === product.id ).length == 1 ? true : false;
+ }
+
+export const addFavorite = createAction(
+    actionsTypes.addFavoriteType,
+    props<{payload:Product}>()
+)
+
+export const removeFavorite = createAction(
+    actionsTypes.removeFavorityType,
+    props<{payload:number}>()
+)
+
+
+export const favoriteReducer = createReducer(
+    initialState,
+    on(addFavorite,(state,{payload})=>{
+        if(!verifyIfAlreadyExists(payload, state.products)){
+
+            let list:Array<Product> = [];
+            list = [...list, ...state.products]
+            list.push(payload) 
+            state = {...state, products:list}
+        }
+        console.log(state.products)
+        return state;
+    }),
+    on(removeFavorite, (state, {payload})=>{
+        state = {...state, products:state.products.filter( item => item.id !== payload)}
+        console.log(state.products)
+        return state;
+    })
+)
+

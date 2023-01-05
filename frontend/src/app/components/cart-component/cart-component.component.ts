@@ -8,7 +8,7 @@ import { changeQuantity, removeOntCart } from 'src/app/store/cartReducer';
 import { faTrash, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import { changeQuant } from 'src/app/store/cartReducer';
-import { setOrderToCart } from 'src/app/store/orderReducer';
+import { resetOrder, setOrderToCart } from 'src/app/store/orderReducer';
 
 @Component({
   selector: 'app-cart-component',
@@ -24,68 +24,63 @@ export class CartComponentComponent implements OnInit {
 
   //variables
   valueTotal = 1;
- 
+
   constructor(
-    private cartReducer:Store<{cartReducer:CartOrders}>,
-    private orderReducer:Store<{orderReducer:Order}>,
-    private router:Router
-    ) { }
+    private cartReducer: Store<{ cartReducer: CartOrders }>,
+    private orderReducer: Store<{ orderReducer: Order }>,
+    private router: Router
+  ) { }
 
   cart$ = this.cartReducer.select('cartReducer').pipe(map(state => state));
 
   ngOnInit(): void {
-    
+
   }
 
-  public removeProductAtCart(id:any){
-    this.cartReducer.dispatch(removeOntCart({payload:id}));
+  public removeProductAtCart(id: any) {
+    this.cartReducer.dispatch(removeOntCart({ payload: id }));
   }
 
-  public changeQuantityItem(id:number, num:number){
+  public changeQuantityItem(id: number, num: number) {
 
-    const changeQuant:changeQuant={
-      idPrduct:Number(id),
-      quant:Number(num)
+    const changeQuant: changeQuant = {
+      idPrduct: Number(id),
+      quant: Number(num)
     }
 
-    this.cartReducer.dispatch(changeQuantity({payload:changeQuant}))
-    return;    
-  }
-
-  public incrementValue(id:any, num:any){
-    num == 7 ? num : num++;
-    this.changeQuantityItem(id,num);
+    this.cartReducer.dispatch(changeQuantity({ payload: changeQuant }))
     return;
   }
 
-  public decrementValue(id:any, num:any){
+  public incrementValue(id: any, num: any) {
+    num == 7 ? num : num++;
+    this.changeQuantityItem(id, num);
+  }
+
+  public decrementValue(id: any, num: any) {
 
     num === 1 ? num : num--;
 
-    this.changeQuantityItem(id,num);
-    return;
+    this.changeQuantityItem(id, num);
 
-    // if(num === 1){
-    //   this.removeProductAtCart(id);
-    //   return;
-    // }else{
-    //   num--
-    //   this.changeQuantityItem(id,num);
-    // }
   }
 
-  public sendOrdersFromFinalizeBuy(){
-   
-   this.cart$.subscribe(((cart)=>{
+  /* OBS: In this case, it is mandatory to unsubscribe from the observable, 
+  because if you don't hear a change in the state, this functionality 
+  will be executed, causing a malfunction in the system. */
+  public sendOrdersFromFinalizeBuy() {
 
-    if(cart.listOrderItem.length < 1){
-      return;
-    }
+    this.cart$.subscribe(((cart) => {
+      if (cart.listOrderItem.length < 1) {
+        return;
+      }
 
-    this.orderReducer.dispatch(setOrderToCart({payload:cart}));
+      this.orderReducer.dispatch(setOrderToCart({ payload: cart }));
 
-    this.router.navigate(['/order/finalize']);
-  }));
+      console.log('bateu aqui')
+
+      this.router.navigate(['/order/finalize/']);
+    })).unsubscribe();// uunsubscribing observable.
 
 
 

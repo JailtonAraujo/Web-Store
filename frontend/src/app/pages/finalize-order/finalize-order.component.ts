@@ -4,7 +4,7 @@ import { faWallet, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Order } from 'src/app/model/Order';
-import { changeQuantity, removeFromListFinalize } from 'src/app/store/orderReducer';
+import { changeQuantityOrderType, removeFromListFinalize } from 'src/app/store/orderReducer';
 import { changeQuantOrder } from 'src/app/store/orderReducer'; 
 import { FreteService } from 'src/app/services/frete.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -24,7 +24,6 @@ export class FinalizeOrderComponent implements OnInit {
 
   modalRef?: BsModalRef;
 
-  addressModel!:AdressModel;
   formAddress!:FormGroup;
   listAddress:Array<AdressModel> = [];
 
@@ -45,25 +44,24 @@ export class FinalizeOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.formAddress = new FormGroup({
-      cep : new FormControl(this.addressModel ? this.addressModel.cep : '' ,[Validators.required,Validators.minLength(8)]),
-      uf : new FormControl(this.addressModel ? this.addressModel.uf : '' ),
-      city : new FormControl(this.addressModel ? this.addressModel.city : '' ),
-      logradouro : new FormControl(this.addressModel ? this.addressModel.logradouro : '' ,[Validators.required]),
-      number : new FormControl(this.addressModel ? this.addressModel.number : '' ,[Validators.required]),
-      complement: new FormControl(this.addressModel ? this.addressModel.complement : '',[Validators.required])
+      cep : new FormControl('' ,[Validators.required,Validators.minLength(8)]),
+      uf : new FormControl('' ),
+      city : new FormControl('' ),
+      logradouro : new FormControl('' ,[Validators.required]),
+      number : new FormControl('' ,[Validators.required]),
+      complement: new FormControl('',[Validators.required])
     })
 
   }
 
 
   public changeQuantityItem(id:number, num:number){
-    
     const changeQuant:changeQuantOrder={
       idPrduct:id,
       quant:num
     }
 
-    this.orderReducer.dispatch(changeQuantity({payload:changeQuant}))    
+    this.orderReducer.dispatch(changeQuantityOrderType({payload:changeQuant}))    
   }
 
   //increment quantity at the product and recalc value order;
@@ -101,6 +99,7 @@ export class FinalizeOrderComponent implements OnInit {
 
       this.formAddress.get('uf')?.setValue(result.uf);
       this.formAddress.get('city')?.setValue(result.localidade);
+      
     }, error=>{
       this.formAddress.get('uf')?.setValue("");
       this.formAddress.get('city')?.setValue("");
@@ -115,19 +114,29 @@ export class FinalizeOrderComponent implements OnInit {
     this.modalRef?.hide()
   }
 
-  //Edit address information on formAddress
-  public updateAddress(index:number,template: TemplateRef<any>){
-    const address = this.listAddress[index];
+  // //Edit address information on formAddress
+  // public updateAddress(index:number,template: TemplateRef<any>){
+  //   const address = this.listAddress[index];
 
-    this.formAddress.get('cep')?.setValue(address.cep);
-    this.formAddress.get('uf')?.setValue(address.uf);
-    this.formAddress.get('city')?.setValue(address.city);
-    this.formAddress.get('logradouro')?.setValue(address.logradouro);
-    this.formAddress.get('number')?.setValue(address.number);
-    this.formAddress.get('complement')?.setValue(address.complement);
+  //   this.formAddress.get('cep')?.setValue(address.cep);
+  //   this.formAddress.get('uf')?.setValue(address.uf);
+  //   this.formAddress.get('city')?.setValue(address.city);
+  //   this.formAddress.get('logradouro')?.setValue(address.logradouro);
+  //   this.formAddress.get('number')?.setValue(address.number);
+  //   this.formAddress.get('complement')?.setValue(address.complement);
 
-    this.openModal(template);
+  //   this.openModal(template);
 
+  // }
+
+
+  public DeleteAddress(index:number){
+    this.listAddress.splice(index,1);
+
+    this.valueCalcFrete={
+      price:Number(0),
+      prazo:0,
+    }
   }
 
   public calcFreteAndPrazo (index:number){
@@ -139,8 +148,6 @@ export class FinalizeOrderComponent implements OnInit {
         price:Number(result.Servicos.cServico.Valor.replace(',',".")),
         prazo:result.Servicos.cServico.PrazoEntrega,
       }
-
-      ///this.valueTotalOrder =  Number(this.valueTotalOrder) + Number(result.Servicos.cServico.Valor.replace(',',"."))
 
       this.loading = false;
     }, error=>{

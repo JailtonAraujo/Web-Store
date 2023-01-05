@@ -7,6 +7,7 @@ import { OrderItem } from 'src/app/model/OrderItem';
 import { Store } from '@ngrx/store';
 import { addOnCart } from 'src/app/store/cartReducer';
 import { CartOrders } from 'src/app/model/CartOrders';
+import { addFavorite, FavoriteModel } from 'src/app/store/favorityReducer';
 
 @Component({
   selector: 'app-product-component',
@@ -17,7 +18,8 @@ export class ProductComponentComponent implements OnInit {
 
   constructor(
     private router:Router,
-    private cartReducer:Store<{cartReducer:CartOrders}>
+    private cartReducer:Store<{cartReducer:CartOrders}>,
+    private favoriteReducer:Store<{favoriteReducer:FavoriteModel}>
     ) { }
 
   iconFavority = faHeartRegular;
@@ -29,22 +31,27 @@ export class ProductComponentComponent implements OnInit {
 
   }
 
-  public chengeIconFavority(){
-      this.isFavority = !this.isFavority;
-      this.isFavority ? this.iconFavority = faHeartSolid : this.iconFavority = faHeartRegular
-  }
+  // public chengeIconFavority(){
+  //     this.isFavority = !this.isFavority;
+  //     this.isFavority ? this.iconFavority = faHeartSolid : this.iconFavority = faHeartRegular
+  // }
 
 
   public addProductInCart(product:Product){
-
     const orderItem:OrderItem = {
       product:product,
       quantidade:1
     }
 
     this.cartReducer.dispatch(addOnCart({payload:orderItem}));
-    return;
+  }
 
+  public addProductInFavorites(product:Product){
+    
+    this.favoriteReducer.dispatch(addFavorite({payload:product}));
+
+    this.isFavority = true;
+    this.iconFavority = faHeartSolid;
   }
 
 }
