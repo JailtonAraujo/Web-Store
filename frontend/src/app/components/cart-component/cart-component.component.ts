@@ -10,7 +10,7 @@ import { faTrash, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { changeQuant } from 'src/app/store/cartReducer';
 import { setOrderToCart } from 'src/app/store/orderReducer';
 
-import { ToastrService } from 'ngx-toastr';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 
 @Component({
   selector: 'app-cart-component',
@@ -31,7 +31,7 @@ export class CartComponentComponent implements OnInit {
     private cartReducer: Store<{ cartReducer: CartOrders }>,
     private orderReducer: Store<{ orderReducer: Order }>,
     private router: Router,
-    private toastr:ToastrService
+    private cartService:ShoppingCartService
   ) { }
 
   cart$ = this.cartReducer.select('cartReducer').pipe(map(state => state));
@@ -41,9 +41,10 @@ export class CartComponentComponent implements OnInit {
   }
 
   public removeProductAtCart(id: any) {
-    this.cartReducer.dispatch(removeOntCart({ payload: id }));
-    this.toastr.success('Item removido do carrinho!','',{progressBar:true,closeButton:true})
+    this.cartService.removeProductCartApi(id);
   }
+
+
 
   public changeQuantityItem(id: number, num: number) {
 

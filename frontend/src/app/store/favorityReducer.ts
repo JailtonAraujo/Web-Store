@@ -39,12 +39,10 @@ export const favoriteReducer = createReducer(
             list.push(payload) 
             state = {...state, products:list}
         }
-        console.log(state.products)
         return state;
     }),
     on(removeFavorite, (state, {payload})=>{
         state = {...state, products:state.products.filter( item => item.id !== payload)}
-        console.log(state.products)
         return state;
     })
 )

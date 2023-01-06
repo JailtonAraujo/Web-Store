@@ -12,6 +12,6 @@ public interface FavoriteService {
 	public List<Product> getFavorites ( Long userId );
 	
 	//Remember verify if the favorite belong at the user 
-	public Boolean removeFavorite(Long favoriteId);
+	public Boolean removeFavorite(Long productId, Long userId);
 	
 }

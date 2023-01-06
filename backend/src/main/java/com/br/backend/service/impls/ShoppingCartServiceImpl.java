@@ -32,7 +32,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void removeProductOnCart(Long cartItenId) {
-        shoppingCartRepository.deleteById(cartItenId);
+    public void removeProductOnCart(Long productId, Long userId) {
+        shoppingCartRepository.deleteByProductIdAndUserId(productId,userId);
     }
 }

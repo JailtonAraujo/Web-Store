@@ -35,8 +35,8 @@ public class FavoritesServiceImpl implements FavoriteService{
 	}
 
 	@Override
-	public Boolean removeFavorite(Long favoriteId) {
-		favoritesRepository.deleteById(favoriteId);
+	public Boolean removeFavorite(Long productId, Long userId) {
+		favoritesRepository.deleteFavoriteByProductIdAndUserId(productId, userId);
 		return true;
 	}
 	

@@ -19,7 +19,7 @@ public class ShoppingCartController {
     protected ShoppingCartService shoppingCartService;
 
     @PostMapping("/")
-    public ResponseEntity<String> addProdcuctInCart(@RequestBody Product product){
+    public ResponseEntity<Boolean> addProductInCart(@RequestBody Product product){
 
         User user = new User();
         user.setId(1L);
@@ -28,7 +28,7 @@ public class ShoppingCartController {
 
         this.shoppingCartService.addProductInCart(shoppingCart);
 
-        return new ResponseEntity<String>("Success!", HttpStatus.CREATED);
+        return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
     }
 
     @GetMapping("/")
@@ -41,7 +41,7 @@ public class ShoppingCartController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> removeProductOnCart ( @PathVariable(name = "id") Long id ){
 
-        this.shoppingCartService.removeProductOnCart(id);
+        this.shoppingCartService.removeProductOnCart(id,1L);
 
         return ResponseEntity.ok(true);
     }

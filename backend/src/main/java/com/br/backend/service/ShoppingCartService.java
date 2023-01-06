@@ -11,6 +11,6 @@ public interface ShoppingCartService {
 
     public List<Product> getProductsCart (Long userId);
 
-    public void removeProductOnCart (Long cartItenId);
+    public void removeProductOnCart (Long productId, Long userId);
 
 }

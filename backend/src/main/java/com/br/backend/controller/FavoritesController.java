@@ -26,7 +26,7 @@ public class FavoritesController {
 	protected FavoriteService favoriteService;
 
 	@PostMapping("/")
-	public ResponseEntity<String> addProductInFavorites ( @RequestBody Product product ){
+	public ResponseEntity<Boolean> addProductInFavorites ( @RequestBody Product product ){
 		
 		User user = new User();
 		user.setId(1L);
@@ -35,7 +35,7 @@ public class FavoritesController {
 		
 		this.favoriteService.addProductInFavorites(favorite);
 		
-		return new ResponseEntity<String>("Success",HttpStatus.CREATED);
+		return new ResponseEntity<Boolean>(true,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/")
@@ -47,7 +47,7 @@ public class FavoritesController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> removeFavorite ( @PathVariable(name = "id") Long id ){
 
-		return ResponseEntity.ok(this.favoriteService.removeFavorite(id));
+		return ResponseEntity.ok(this.favoriteService.removeFavorite(id, 1L));
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.br.backend.exception;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,7 +27,7 @@ public class CustomExceptionHandler  extends ResponseEntityExceptionHandler{
     }
 	
 	
-	@ExceptionHandler({SQLIntegrityConstraintViolationException.class})
+	@ExceptionHandler({SQLIntegrityConstraintViolationException.class, DataIntegrityViolationException.class})
     public final ResponseEntity<ExceptionResponse> handlerBadRequestsExceptions(Exception ex, WebRequest webRequest){
 
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),webRequest.getDescription(false),400);
