@@ -10,6 +10,8 @@
             <div class="content">
                 <ul class="product-list">
 
+                    <h4 *ngIf="((cart$ | async)!.listOrderItem).length === 0" > Você não tem itens no carrinho...</h4>
+
                     <li *ngFor="let orderItem of (cart$ | async)!.listOrderItem">
 
                         <div class="prod-card">

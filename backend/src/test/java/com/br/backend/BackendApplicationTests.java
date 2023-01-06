@@ -6,8 +6,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +18,6 @@ import com.br.backend.model.Category;
 import com.br.backend.model.ImgProduct;
 import com.br.backend.model.Product;
 import com.br.backend.reporitory.ProductRepositoty;
-import com.br.backend.service.ProductService;
 
 @SpringBootTest
 class BackendApplicationTests {

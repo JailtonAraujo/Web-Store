@@ -1,6 +1,8 @@
 import { createReducer, createAction, on, props } from "@ngrx/store";
 import { CartOrders } from "../model/CartOrders";
 import { OrderItem } from "../model/OrderItem";
+import { ToastrService } from "ngx-toastr";
+
 
 enum actionsTypes {
     addOnCartType="addOnCart",
@@ -85,6 +87,7 @@ export const cartReducer = createReducer(
             state = {...state, listOrderItem:list}
             state = {...state, total:(calcTotal(state.listOrderItem))}
         }
+        
 
         return state;
     }),

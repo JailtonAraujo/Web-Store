@@ -29,12 +29,12 @@ public class ShoppingCart implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.MERGE, optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.MERGE, optional = false)
 	@JoinColumn(name = "product_id")
 	@ForeignKey(name = "FK_tblShppingCart_tblProduct")
 	private Product product;
 	
-	@ManyToOne(cascade = CascadeType.MERGE, optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.MERGE, optional = false)
 	@JoinColumn(name = "user_id")
 	@ForeignKey(name = "FK_tblShppingCart_tblUser")
 	private User user; 

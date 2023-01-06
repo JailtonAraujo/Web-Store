@@ -29,12 +29,12 @@ public class Favorite implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.MERGE, optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.MERGE, optional = false)
 	@JoinColumn(name = "product_id")
 	@ForeignKey(name = "FK_tblFavorite_Product")
 	private Product product;
 	
-	@ManyToOne(cascade = CascadeType.MERGE, optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.MERGE, optional = false)
 	@JoinColumn(name = "user_id")
 	@ForeignKey(name = "FK_tblFavorite_tblUser")
 	private User user;

@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { addOnCart } from 'src/app/store/cartReducer';
 import { CartOrders } from 'src/app/model/CartOrders';
 import { addFavorite, FavoriteModel } from 'src/app/store/favorityReducer';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-component',
@@ -19,7 +20,8 @@ export class ProductComponentComponent implements OnInit {
   constructor(
     private router:Router,
     private cartReducer:Store<{cartReducer:CartOrders}>,
-    private favoriteReducer:Store<{favoriteReducer:FavoriteModel}>
+    private favoriteReducer:Store<{favoriteReducer:FavoriteModel}>,
+    private toastrService:ToastrService
     ) { }
 
   iconFavority = faHeartRegular;
@@ -44,6 +46,7 @@ export class ProductComponentComponent implements OnInit {
     }
 
     this.cartReducer.dispatch(addOnCart({payload:orderItem}));
+    this.toastrService.success('Item adicionado ao carrinho!','',{progressBar:true,closeButton:true});
   }
 
   public addProductInFavorites(product:Product){
@@ -52,6 +55,7 @@ export class ProductComponentComponent implements OnInit {
 
     this.isFavority = true;
     this.iconFavority = faHeartSolid;
+    this.toastrService.success('Item adicionado aos favoritos!','',{progressBar:true,closeButton:true});
   }
 
 }

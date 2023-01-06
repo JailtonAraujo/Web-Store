@@ -59,6 +59,6 @@ public class ProductController {
 			@RequestParam(name="offset", defaultValue = "0") int offset, @RequestParam(name = "name") String name) throws Exception{
 		
 		return ResponseEntity.ok(this.productService.findProductByNameOrCategory(limit, offset, name));
-		
 	}
+	
 }

@@ -12,6 +12,8 @@
 
                 <ul class="product-list">
 
+                    <h4 *ngIf="((favorite$ | async)!.products).length === 0" > Você ainda não tem favoritos...</h4>
+
                     <li *ngFor="let product of (favorite$ | async)!.products">
 
                         <div class="prod-card">

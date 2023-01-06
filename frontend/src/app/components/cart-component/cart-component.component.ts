@@ -8,7 +8,9 @@ import { changeQuantity, removeOntCart } from 'src/app/store/cartReducer';
 import { faTrash, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import { changeQuant } from 'src/app/store/cartReducer';
-import { resetOrder, setOrderToCart } from 'src/app/store/orderReducer';
+import { setOrderToCart } from 'src/app/store/orderReducer';
+
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cart-component',
@@ -28,7 +30,8 @@ export class CartComponentComponent implements OnInit {
   constructor(
     private cartReducer: Store<{ cartReducer: CartOrders }>,
     private orderReducer: Store<{ orderReducer: Order }>,
-    private router: Router
+    private router: Router,
+    private toastr:ToastrService
   ) { }
 
   cart$ = this.cartReducer.select('cartReducer').pipe(map(state => state));
@@ -39,6 +42,7 @@ export class CartComponentComponent implements OnInit {
 
   public removeProductAtCart(id: any) {
     this.cartReducer.dispatch(removeOntCart({ payload: id }));
+    this.toastr.success('Item removido do carrinho!','',{progressBar:true,closeButton:true})
   }
 
   public changeQuantityItem(id: number, num: number) {
