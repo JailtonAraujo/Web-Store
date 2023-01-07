@@ -13,7 +13,7 @@ const modules = [
   ModalModule.forRoot(),
   CarouselModule.forRoot(),
   BsDropdownModule.forRoot(),
-  ToastrModule.forRoot({timeOut:3000})
+  ToastrModule.forRoot({timeOut:3000,progressBar:true,closeButton:true,maxOpened:5})
 ]
 
 @NgModule({

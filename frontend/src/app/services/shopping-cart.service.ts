@@ -20,22 +20,22 @@ export class ShoppingCartService {
     private toastrService:ToastrService, ) { }
 
   // add product in backend and update state aplication
-  public addProductInCartApi(product:Product){
+  public addProductInCartApi(product:Product, quant?:number){
     this.http.post(`${this.UrlApiBaseShoppingCart}/`,{id:product.id})
     .subscribe((response)=>{
 
       const orderItem:OrderItem = {
         product:product,
-        quantidade:1
+        quantidade: quant ? quant : 1
       }
 
       this.cartReducer.dispatch(addOnCart({payload:orderItem}));
-      this.toastrService.success('Item adicionado ao carrinho!','',{progressBar:true,closeButton:true});
+      this.toastrService.success('Item adicionado ao carrinho!','');
 
     }, error =>{
         console.log(error)
         if(error.status === 400){
-          this.toastrService.warning('Item já adicionado no carrinho!','',{progressBar:true,closeButton:true});
+          this.toastrService.warning('Item já adicionado no carrinho!','');
         }
     })
   }
@@ -60,7 +60,7 @@ export class ShoppingCartService {
      this.http.delete(`${this.UrlApiBaseShoppingCart}/${id}`)
      .subscribe((response)=>{
       this.cartReducer.dispatch(removeOntCart({ payload: id }));
-      this.toastrService.success('Item removido do carrinho!','',{progressBar:true,closeButton:true})
+      this.toastrService.success('Item removido do carrinho!','')
      })
   }
 

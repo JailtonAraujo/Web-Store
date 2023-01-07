@@ -27,11 +27,11 @@ export class FavoritesService {
 
       this.favoriteReducer.dispatch(addFavorite({payload:product}));
 
-      this.toastrService.success('Item adicionado aos favoritos!','',{progressBar:true,closeButton:true});
+      this.toastrService.success('Item adicionado aos favoritos!','');
 
     }, error =>{
       if(error.status === 400){
-        this.toastrService.warning('Item já favoritado!','',{progressBar:true,closeButton:true});
+        this.toastrService.warning('Item já favoritado!','');
       }
     })
   } 
@@ -54,7 +54,7 @@ export class FavoritesService {
 
       this.favoriteReducer.dispatch(removeFavorite({payload:productId}));//
 
-      this.toastrService.success('Item removido dos favoritos!','',{progressBar:true,closeButton:true});
+      this.toastrService.success('Item removido dos favoritos!','');
     })
   }
 

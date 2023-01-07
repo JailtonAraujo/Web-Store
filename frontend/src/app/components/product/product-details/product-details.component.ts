@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { faHeart as faHeartSolid, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { Product } from 'src/app/model/Product';
@@ -10,8 +10,8 @@ import { Order } from 'src/app/model/Order';
 import { Store } from '@ngrx/store';
 import { setOrder } from 'src/app/store/orderReducer';
 import { OrderItem } from 'src/app/model/OrderItem';
-import { CartOrders } from 'src/app/model/CartOrders';
-import { addOnCart } from 'src/app/store/cartReducer';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-details',
@@ -46,7 +46,8 @@ export class ProductDetailsComponent implements OnInit {
     private modalService: BsModalService,
     private freteService: FreteService,
     private store:Store<{orderReducer:Order}>,
-    private cartReducer:Store<{cartReducer:CartOrders}>
+    private cartService:ShoppingCartService,
+    private toastrService:ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -72,7 +73,7 @@ export class ProductDetailsComponent implements OnInit {
     this.freteService.searchCep(this.cep).subscribe((res) => {
 
       if(res.erro){
-        this.messageError = "Cep não encontrado!"
+        this.toastrService.error('Cep não encontrado!','');
         this.loading = false;
         return;
       }
@@ -89,7 +90,7 @@ export class ProductDetailsComponent implements OnInit {
       })
 
     },error=>{
-        this.messageError = "Cep invalido!"
+      this.toastrService.error('Cep inválido!','');
         this.loading = false;
         console.log(error)
     })
@@ -115,14 +116,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   public addProductInCart (){
-
-    const orderItem:OrderItem = {
-      product:this.product,
-      quantidade:this.quaitityProduct
-    }
-
-    this.cartReducer.dispatch(addOnCart({payload:orderItem}));
-
+    this.cartService.addProductInCartApi(this.product, Number(this.quaitityProduct));
   }
 
 
