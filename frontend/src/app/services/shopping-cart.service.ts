@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment.prod';
 import { CartOrders } from '../model/CartOrders';
 import { OrderItem } from '../model/OrderItem';
 import { Product } from '../model/Product';
-import { addOnCart, removeOntCart } from '../store/cartReducer';
+import { addOnCart, removeOntCart, setProductsInCart } from '../store/cartReducer';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +41,17 @@ export class ShoppingCartService {
   }
 
   public getCartProductsApi(){
-    return this.http.get(`${this.UrlApiBaseShoppingCart}/`);
+
+    this.http.get<Array<Product>>(`${this.UrlApiBaseShoppingCart}/`).subscribe((response)=>{
+
+      const listOrdem:Array<OrderItem> = response.map((product)=>{
+        return {product, quantidade:1}
+      })
+
+      this.cartReducer.dispatch(setProductsInCart({payload:listOrdem}));
+
+    })
+
   }
 
 

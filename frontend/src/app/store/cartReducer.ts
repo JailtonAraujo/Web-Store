@@ -2,12 +2,14 @@ import { createReducer, createAction, on, props } from "@ngrx/store";
 import { CartOrders } from "../model/CartOrders";
 import { OrderItem } from "../model/OrderItem";
 import { ToastrService } from "ngx-toastr";
+import { Product } from "../model/Product";
 
 
 enum actionsTypes {
     addOnCartType="addOnCart",
     removeOnCartType='removeOnCard',
-    changeQuantityType = 'changeQuantity'
+    changeQuantityType = 'changeQuantity',
+    setProductsInCartType = "setProductsInCart"
 }
 
 export interface changeQuant{
@@ -75,6 +77,11 @@ export const changeQuantity = createAction(
     props<{payload:changeQuant}>()
 )
 
+export const setProductsInCart = createAction (
+    actionsTypes.setProductsInCartType,
+    props<{payload:Array<OrderItem>}>()
+)
+
 
 export const cartReducer = createReducer(
     initialState,
@@ -105,6 +112,11 @@ export const cartReducer = createReducer(
 
         state = {...state, listOrderItem:handlerChange(state.listOrderItem,payload)}
         state = {...state, total:(calcTotal(state.listOrderItem))}
+        return state;
+    }),
+
+    on( setProductsInCart, (state, {payload})=>{
+        state = {...state, listOrderItem:payload, total:(calcTotal(payload))}
         return state;
     })
 )

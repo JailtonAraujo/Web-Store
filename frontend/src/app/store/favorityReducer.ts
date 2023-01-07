@@ -3,7 +3,8 @@ import { Product } from "../model/Product";
 
 enum actionsTypes{
     addFavoriteType="addFavorite",
-    removeFavorityType="removeFavorite"
+    removeFavorityType="removeFavorite",
+    setItensInFavoritesType="setProductsInFavorites"
 }
 
 export interface FavoriteModel{
@@ -28,6 +29,11 @@ export const removeFavorite = createAction(
     props<{payload:number}>()
 )
 
+export const setItensInFavorites = createAction(
+    actionsTypes.setItensInFavoritesType,
+    props<{payload:Array<Product>}>()
+)
+
 
 export const favoriteReducer = createReducer(
     initialState,
@@ -44,6 +50,11 @@ export const favoriteReducer = createReducer(
     on(removeFavorite, (state, {payload})=>{
         state = {...state, products:state.products.filter( item => item.id !== payload)}
         return state;
-    })
+    }),
+
+    on( setItensInFavorites,(state, {payload})=>{
+        state = {...state, products:payload}
+        return state;
+    } )
 )
 

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { CartOrders } from 'src/app/model/CartOrders';
 import { Order } from 'src/app/model/Order';
-import { changeQuantity, removeOntCart } from 'src/app/store/cartReducer';
+import { changeQuantity } from 'src/app/store/cartReducer';
 import { faTrash, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import { changeQuant } from 'src/app/store/cartReducer';

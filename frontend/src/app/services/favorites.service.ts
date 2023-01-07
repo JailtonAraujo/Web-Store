@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { environment } from 'src/environments/environment.prod';
 import { Product } from '../model/Product';
-import { addFavorite, FavoriteModel, removeFavorite } from '../store/favorityReducer';
+import { addFavorite, FavoriteModel, removeFavorite, setItensInFavorites } from '../store/favorityReducer';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,11 @@ export class FavoritesService {
 
 
   public getFavoritesApi(){
-    return this.http.get(`${this.UrlApiBaseFavorites}/`);
+    this.http.get<Array<Product>>(`${this.UrlApiBaseFavorites}/`).subscribe((response)=>{
+
+      this.favoriteReducer.dispatch(setItensInFavorites({payload:response}));
+
+    })
   }
 
 
