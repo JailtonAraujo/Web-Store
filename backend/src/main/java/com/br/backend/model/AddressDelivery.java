@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressModel{
+public class AddressDelivery {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,6 +31,8 @@ public class AddressModel{
     private int number;
 
     private String complement;
+
+    private String whoReceive;
 
     @JsonIgnore
     @ManyToOne(optional = false, cascade = CascadeType.MERGE)

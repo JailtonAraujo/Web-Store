@@ -24,6 +24,7 @@
                             <span>logradouro: {{addres.logradouro}} | </span>
                             <span>Numero: {{addres.number}} | </span>
                             <span>Complemento: {{addres.complement}} | </span>
+                            <span> Quem vai receber: {{addres.whoReceive}} | </span>
                             <button (click)="DeleteAddress(i)" >Excluir</button>
                             
                         </li>
@@ -131,34 +132,41 @@
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">CEP:</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" required formControlName="cep"
+                <input type="text" class="form-control" id="exampleFormControlInput1" required formControlName="cep"
                     placeholder="Apenas numeros..." (blur)="searchCep($event)">
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Estado:</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" readonly formControlName="uf">
+                <input type="text" class="form-control" id="exampleFormControlInput1" readonly formControlName="uf">
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Cidade:</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" readonly formControlName="city">
+                <input type="text" class="form-control" id="exampleFormControlInput1" readonly formControlName="city">
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Logradouro:</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="logradouro">
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="logradouro">
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Numero:</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="number">
+                <input type="number" class="form-control" id="exampleFormControlInput1" formControlName="number">
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Complemento:</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="complement">
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="complement">
             </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Quem vai receber:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="whoReceive">
+            </div>
+
+            
 
             <button type="button" class="btn btn-warning"
                 [disabled]="addresForm.invalid" (click)="addAddress()">Adicionar</button>

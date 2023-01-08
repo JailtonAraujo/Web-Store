@@ -82,10 +82,8 @@ export class CartComponentComponent implements OnInit {
 
       this.orderReducer.dispatch(setOrderToCart({ payload: cart }));
 
-      console.log('bateu aqui')
-
       this.router.navigate(['/order/finalize/']);
-    })).unsubscribe();// uunsubscribing observable.
+    })).unsubscribe();// unsubscribing observable.
 
 
 

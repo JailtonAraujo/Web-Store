@@ -5,5 +5,6 @@ export interface AdressModel{
     city:string,
     logradouro:string,
     number:number,
-    complement:string
+    complement:string,
+    whoReceive:string
 }

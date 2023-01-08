@@ -1,6 +1,6 @@
 package com.br.backend.service;
 
-import com.br.backend.model.AddressModel;
+import com.br.backend.model.AddressDelivery;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface AddressServices {
 
-    public AddressModel saveAddress(AddressModel addressModel);
+    public AddressDelivery saveAddress(AddressDelivery addressDelivery);
 
-    public List<AddressModel> getAllAddressByUserId(Long userId);
+    public List<AddressDelivery> getAllAddressByUserId(Long userId);
 
     public void deleteAddressByIdAndUserId(Long addressId, Long userId);
 

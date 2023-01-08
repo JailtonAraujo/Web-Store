@@ -51,7 +51,8 @@ export class FinalizeOrderComponent implements OnInit {
       city : new FormControl('' ),
       logradouro : new FormControl('' ,[Validators.required]),
       number : new FormControl('' ,[Validators.required]),
-      complement: new FormControl('',[Validators.required])
+      complement: new FormControl('',[Validators.required]),
+      whoReceive: new FormControl('',[Validators.required])
     })
 
     this.freteService.findAllAddress().subscribe((response)=>{
@@ -116,8 +117,6 @@ export class FinalizeOrderComponent implements OnInit {
   public addAddress(){
 
     this.freteService.saveAddress(this.formAddress.value).subscribe((response)=>{
-
-      console.log(response)
 
       this.listAddress.push(response);
 

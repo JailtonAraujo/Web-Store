@@ -1,6 +1,6 @@
 package com.br.backend.service.impls;
 
-import com.br.backend.model.AddressModel;
+import com.br.backend.model.AddressDelivery;
 import com.br.backend.reporitory.AddressRepository;
 import com.br.backend.service.AddressServices;
 import org.json.JSONObject;
@@ -23,13 +23,13 @@ public class AddressServiceImpl implements AddressServices {
     protected AddressRepository addressRepository;
 
     @Override
-    public AddressModel saveAddress(AddressModel addressModel) {
+    public AddressDelivery saveAddress(AddressDelivery addressDelivery) {
 
-        return addressRepository.save(addressModel);
+        return addressRepository.save(addressDelivery);
     }
 
     @Override
-    public List<AddressModel> getAllAddressByUserId(Long userId) {
+    public List<AddressDelivery> getAllAddressByUserId(Long userId) {
         return addressRepository.findAllByUserId(userId);
     }
 

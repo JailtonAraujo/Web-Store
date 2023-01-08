@@ -25,6 +25,7 @@ import { favoriteReducer } from './store/favorityReducer';
 import { CartComponentComponent } from './components/cart-component/cart-component.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { HeaderSimpleComponent } from './components/header-simple/header-simple.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { HeaderSimpleComponent } from './components/header-simple/header-simple.
     FinalizeOrderComponent,
     CartComponentComponent,
     FavoritesComponent,
-    HeaderSimpleComponent
+    HeaderSimpleComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

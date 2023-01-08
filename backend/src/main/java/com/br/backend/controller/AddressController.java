@@ -1,6 +1,6 @@
 package com.br.backend.controller;
 
-import com.br.backend.model.AddressModel;
+import com.br.backend.model.AddressDelivery;
 import com.br.backend.model.User;
 import com.br.backend.service.AddressServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +19,17 @@ public class AddressController {
     protected AddressServices addressServices;
 
     @PostMapping("/")
-    public ResponseEntity<AddressModel> saveAddress (@RequestBody AddressModel addressModel){
+    public ResponseEntity<AddressDelivery> saveAddress (@RequestBody AddressDelivery addressDelivery){
 
         User user = new User();
         user.setId(1L);
-        addressModel.setUser(user);
+        addressDelivery.setUser(user);
 
-        return new ResponseEntity<AddressModel>(this.addressServices.saveAddress(addressModel), HttpStatus.CREATED);
+        return new ResponseEntity<AddressDelivery>(this.addressServices.saveAddress(addressDelivery), HttpStatus.CREATED);
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<AddressModel>> getAllAddress(){
+    public ResponseEntity<List<AddressDelivery>> getAllAddress(){
 
         return ResponseEntity.ok(this.addressServices.getAllAddressByUserId(1L));
     }

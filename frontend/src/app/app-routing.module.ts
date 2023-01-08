@@ -7,11 +7,13 @@ import { RegisterComponent } from './pages/register/register.component';
 import { FinalizeOrderComponent } from './pages/finalize-order/finalize-order.component';
 import { CartComponentComponent } from './components/cart-component/cart-component.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
   {path:'login',component:LoginComponent},
   {path:'register', component:RegisterComponent},
+  {path:'profile', component:ProfileComponent},
   {path:'cart', component:CartComponentComponent},
   {path:'favorites', component:FavoritesComponent},
   {path:'order/finalize',component:FinalizeOrderComponent},

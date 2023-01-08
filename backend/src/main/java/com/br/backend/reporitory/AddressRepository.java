@@ -1,6 +1,6 @@
 package com.br.backend.reporitory;
 
-import com.br.backend.model.AddressModel;
+import com.br.backend.model.AddressDelivery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface AddressRepository extends JpaRepository<AddressModel, Long> {
+public interface AddressRepository extends JpaRepository<AddressDelivery, Long> {
 
     @Query(value = "select address from tbl_address address where address.user.id = ?1")
-    public List<AddressModel> findAllByUserId (Long userId);
+    public List<AddressDelivery> findAllByUserId (Long userId);
 
     @Transactional
     @Modifying
