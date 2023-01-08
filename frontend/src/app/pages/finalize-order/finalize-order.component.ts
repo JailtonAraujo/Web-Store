@@ -9,6 +9,7 @@ import { changeQuantOrder } from 'src/app/store/orderReducer';
 import { FreteService } from 'src/app/services/frete.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdressModel } from 'src/app/model/adressModel';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-finalize-order',
@@ -37,7 +38,8 @@ export class FinalizeOrderComponent implements OnInit {
   constructor(
     private orderReducer:Store<{orderReducer:Order}>,
     private modalService: BsModalService,
-    private freteService:FreteService
+    private freteService:FreteService,
+    private toastrService:ToastrService
     ) { }
 
   Order$ = this.orderReducer.select('orderReducer').pipe( map(state => state));
@@ -50,6 +52,10 @@ export class FinalizeOrderComponent implements OnInit {
       logradouro : new FormControl('' ,[Validators.required]),
       number : new FormControl('' ,[Validators.required]),
       complement: new FormControl('',[Validators.required])
+    })
+
+    this.freteService.findAllAddress().subscribe((response)=>{
+      this.listAddress = response;
     })
 
   }
@@ -109,9 +115,19 @@ export class FinalizeOrderComponent implements OnInit {
 
   public addAddress(){
 
-    this.listAddress.push(this.formAddress.value);
+    this.freteService.saveAddress(this.formAddress.value).subscribe((response)=>{
 
-    this.modalRef?.hide()
+      console.log(response)
+
+      this.listAddress.push(response);
+
+      this.modalRef?.hide()
+
+      this.toastrService.success('Novo Endereço adicionado','');
+
+    })
+
+    
   }
 
   // //Edit address information on formAddress
@@ -131,12 +147,19 @@ export class FinalizeOrderComponent implements OnInit {
 
 
   public DeleteAddress(index:number){
-    this.listAddress.splice(index,1);
 
-    this.valueCalcFrete={
-      price:Number(0),
-      prazo:0,
-    }
+    this.freteService.deleteAddress(Number(this.listAddress[index].id)).subscribe((response)=>{
+
+      this.listAddress.splice(index,1);
+
+      this.valueCalcFrete={
+        price:Number(0),
+        prazo:0,
+      }
+
+      this.toastrService.success('Endereço removido!','');
+
+    })
   }
 
   public calcFreteAndPrazo (index:number){
