@@ -1,5 +1,112 @@
 <app-header-simple [titleHeader]="'Dados pessoais'"></app-header-simple>
-
 <main>
+    <div class="container">
+        <div class="content-profile">
+           <div class="title-profile">
+                <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="img_profile" class="image">
+                <h4>
+                    Jailton de Araujo Santos
+                </h4>
+           </div>
+           <ul class="info-profile">
+            <!-- perdonal informations -->
+                <li class="personal-info"> 
+                    <accordion>
+                        <accordion-group heading="Informações pessoais" [panelClass]="'customClassAccording'">
+                          
+                            <form class="form-info-personal">
 
+                                <div class="form-group">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Email:</label>
+                                        <input type="email" class="form-control" id="exampleFormControlInput1">
+                                      </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Senha atual:</label>
+                                        <input type="password" class="form-control" id="exampleFormControlInput1" readonly value="*********">
+                                      </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Nova senha:</label>
+                                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                      </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Confirmar nova senha:</label>
+                                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                      </div>
+                                </div>
+
+                                <button type="button" class="btn btn-success">Salvar alterações!</button>
+
+                            </form>
+
+                        </accordion-group>
+                    </accordion>
+                </li>
+                <!--Personal informations-->
+
+
+                <!-- address informations-->
+                <li class="address-info">
+                    <accordion>
+                        <accordion-group heading="Informações de endereço" [panelClass]="'customClassAccording'" >
+                         
+                            <div class="frete-container">
+                                <div class="content">
+
+                                    <!-- <div class="loading" *ngIf="loading">
+                                        <div class="spinner-border text-warning" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                      </div>
+                                    </div> -->
+
+                                    <ul class="card-address" >
+                                        <li class="form-control" >
+                                            <span>Cep: info address here! | </span>
+                                            <span>Estado: info address here! | </span>
+                                            <span>Cidade: info address here! | </span>
+                                            <span>logradouro: info address here! | </span>
+                                            <span>Numero: info address here! | </span>
+                                            <span>Complemento: info address here! | </span>
+                                            <span> Quem vai receber: info address here! | </span>
+                                            <button>Excluir</button>
+                                            
+                                        </li>
+                                    </ul>
+                                    <button > <fa-icon [icon]="faPlus"></fa-icon> Adicionar um novo
+                                        endereço</button>
+                                </div>
+                            </div>
+
+                        </accordion-group>
+                    </accordion>    
+                </li>
+                <!--Address informations-->
+
+                <!-- wallet informations -->
+                <li class="info-carteira">
+                    <accordion>
+                        <accordion-group heading="Carteira MyStore" [panelClass]="'customClassAccording'" >
+                          <div class="content-wallet">
+                            <div class="info">
+                                <span>Saldo:</span> <span>R$1000,00</span>
+                            </div>
+                            <div class="separator"></div>
+                            <button type="button" class="btn btn-info">Pedir Saldo!</button>
+                          </div>
+                        </accordion-group>
+                    </accordion>
+                </li>
+                 <!-- wallet informations -->
+           </ul>
+        </div>
+    </div>
 </main>

@@ -23,17 +23,26 @@ export class FavoritesService {
 
   // add product in backend and update state aplication
   public addFavoriteApi(product:Product){
-    this.http.post(`${this.UrlApiBaseFavorites}/`,{id:product.id}).subscribe((response)=>{
 
-      this.favoriteReducer.dispatch(addFavorite({payload:product}));
+    this.favoriteReducer.select('favoriteReducer').subscribe((item)=>{// varify max quantity itens
+       if (item.products.length >= 10 ){ 
+        this.toastrService.warning('limite maximo de 10 itens favoritados atingido!','');
+        return;
+       }
 
-      this.toastrService.success('Item adicionado aos favoritos!','');
+       this.http.post(`${this.UrlApiBaseFavorites}/`,{id:product.id}).subscribe((response)=>{
 
-    }, error =>{
-      if(error.status === 400){
-        this.toastrService.warning('Item já favoritado!','');
-      }
-    })
+        this.favoriteReducer.dispatch(addFavorite({payload:product}));
+  
+        this.toastrService.success('Item adicionado aos favoritos!','');
+  
+      }, error =>{
+        if(error.status === 400){
+          this.toastrService.warning('Item já favoritado!','');
+        }
+      }) 
+
+    }).unsubscribe()
   } 
 
 

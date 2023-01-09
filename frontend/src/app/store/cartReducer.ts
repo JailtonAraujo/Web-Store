@@ -87,7 +87,7 @@ export const cartReducer = createReducer(
     initialState,
     on(addOnCart,(state, {payload})=>{
         //Verify if product already in listOrdem
-        if(!verifyIfAlreadyExists(payload,state.listOrderItem)){
+            if(!verifyIfAlreadyExists(payload,state.listOrderItem)){
             let list:Array<OrderItem> = [];
             list = [...list, ...state.listOrderItem]
             list.push(payload) 

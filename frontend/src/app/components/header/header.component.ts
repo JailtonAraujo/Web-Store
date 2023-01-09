@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { faSearch, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
@@ -22,7 +23,8 @@ export class HeaderComponent implements OnInit {
   faCart = faCartShopping
 
   constructor(
-    private cartReducer:Store<{cartReducer:CartOrders}>
+    private cartReducer:Store<{cartReducer:CartOrders}>,
+    private router:Router
   ) { }
 
   cart$ = this.cartReducer.select('cartReducer').pipe(map(state => state));
@@ -31,15 +33,21 @@ export class HeaderComponent implements OnInit {
   }
 
   handleNameSearch(){
+    
     this.emiterNameSearch.emit(this.nameSearch);
+    this.router.navigate(['/']);
   }
 
   public handleSearchByCategory(num:Number){
+    
     this.emiterCategory.emit(num);
+    this.router.navigate(['/']);
   }
 
   public handlerOfferOfDay(){
+    
     this.emiterOfferOfDay.emit(1);
+    this.router.navigate(['/']);
   }
 
 }

@@ -4,16 +4,18 @@
     <div class="container-main">
         <div class="content-main">
             <div class="frete-container">
-                
-                <div class="title">
-                    Endereço de entrega
-                </div>
-                <div class="content">
-                    <div class="loading" *ngIf="loading">
-                        <div class="spinner-border text-warning" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                      </div>
-                    </div>
+
+               
+                    <accordion>
+                        <accordion-group heading="Endereço de entrega" [panelClass]="'customClassAccording'" >
+                        
+                            <div class="loading" *ngIf="loading">
+                                <div class="spinner-border text-warning" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                              </div>
+                            </div>
+
+                             
                     <ul class="card-address" *ngIf="listAddress">
                         <li class="form-control" *ngFor="let addres of listAddress; let i = index">
 
@@ -31,32 +33,38 @@
                     </ul>
                     <button (click)="openModal(template)" *ngIf="listAddress.length <= 2"> <fa-icon [icon]="faPlus"></fa-icon> Adicionar um novo
                         endereço</button>
-                </div>
+                        
+                        </accordion-group>
+                    </accordion>
+
+                
             </div>
 
             <div class="separator"></div>
 
             <div class="pay-container">
-                <div class="title">
-                    Metodo de pagamento
-                </div>
-                <div class="content">
-                    <ul class="options-pay">
-                        <li>
-                            <a href="#"> <fa-icon [icon]="faWallet"></fa-icon> Carteira MyStore</a>
-                            <span>Saldo: R$1000,00</span>
-                        </li>
-                    </ul>
-                </div>
+
+                <accordion>
+                    <accordion-group heading="Metodo de pagamento" [panelClass]="'customClassAccording'">
+                      
+                        <ul class="options-pay">
+                            <li>
+                                <a href="#"> <fa-icon [icon]="faWallet"></fa-icon> Carteira MyStore</a>
+                                <span>Saldo: R$1000,00</span>
+                            </li>
+                        </ul>
+
+                    </accordion-group>
+                </accordion>
             </div>
 
             <div class="separator"></div>
 
             <div class="resume-order">
-                <div class="title">
-                    Revisar itens
-                </div>
-                <div class="content">
+                    <accordion>
+                        <accordion-group heading=" Revisar itens" [panelClass]="'customClassAccording'">
+                          
+                            
                     <ul class="product-list">
                         <li *ngFor="let orderItem of (Order$ | async)!.listOrderItem">
 
@@ -97,7 +105,10 @@
                         <button class="btn btn-warning">Finalizar pedido</button>
                         <span>Total: R$ {{ ((Order$ | async)!.total).toFixed(2) }}</span>
                     </div>
-                </div>
+
+                        </accordion-group>
+                    </accordion>
+                
             </div>
         </div>
         <!--Sumary order-->

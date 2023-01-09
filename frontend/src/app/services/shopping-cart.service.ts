@@ -21,7 +21,14 @@ export class ShoppingCartService {
 
   // add product in backend and update state aplication
   public addProductInCartApi(product:Product, quant?:number){
-    this.http.post(`${this.UrlApiBaseShoppingCart}/`,{id:product.id})
+
+    this.cartReducer.select('cartReducer').subscribe((state)=>{
+      if(state.listOrderItem.length >= 10){
+        this.toastrService.warning('Quatidade maxima de 10 itens no carrinho atingida!','');
+        return
+      }
+
+      this.http.post(`${this.UrlApiBaseShoppingCart}/`,{id:product.id})
     .subscribe((response)=>{
 
       const orderItem:OrderItem = {
@@ -38,6 +45,10 @@ export class ShoppingCartService {
           this.toastrService.warning('Item já adicionado no carrinho!','');
         }
     })
+
+
+    }).unsubscribe()
+
   }
 
   public getCartProductsApi(){

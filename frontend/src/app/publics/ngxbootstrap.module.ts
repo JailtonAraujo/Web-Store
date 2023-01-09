@@ -6,6 +6,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { ToastrModule } from 'ngx-toastr';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 
 const modules = [
@@ -13,7 +14,8 @@ const modules = [
   ModalModule.forRoot(),
   CarouselModule.forRoot(),
   BsDropdownModule.forRoot(),
-  ToastrModule.forRoot({timeOut:3000,progressBar:true,closeButton:true,maxOpened:5})
+  AccordionModule.forRoot(),
+  ToastrModule.forRoot({timeOut:2000,progressBar:true,closeButton:true,maxOpened:5})
 ]
 
 @NgModule({

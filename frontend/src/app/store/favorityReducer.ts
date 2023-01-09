@@ -38,8 +38,8 @@ export const setItensInFavorites = createAction(
 export const favoriteReducer = createReducer(
     initialState,
     on(addFavorite,(state,{payload})=>{
-        if(!verifyIfAlreadyExists(payload, state.products)){
 
+            if(!verifyIfAlreadyExists(payload, state.products)){
             let list:Array<Product> = [];
             list = [...list, ...state.products]
             list.push(payload) 
