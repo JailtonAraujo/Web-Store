@@ -1,4 +1,4 @@
-<app-header-simple [titleHeader]="'Dados pessoais'"></app-header-simple>
+<app-header></app-header>
 <main>
     <div class="container">
         <div class="content-profile">
@@ -14,37 +14,42 @@
                     <accordion>
                         <accordion-group heading="Informações pessoais" [panelClass]="'customClassAccording'">
                           
-                            <form class="form-info-personal">
+                            <form class="form-info-personal" [formGroup]="formProfile" #profileForm="ngForm" (submit)="updateProfile()">
 
                                 <div class="form-group">
                                     <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Email:</label>
-                                        <input type="email" class="form-control" id="exampleFormControlInput1">
-                                      </div>
+                                        <label for="email" class="form-label">Email:</label>
+                                        <input type="email" class="form-control" id="email" readonly formControlName="email">
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Senha atual:</label>
-                                        <input type="password" class="form-control" id="exampleFormControlInput1" readonly value="*********">
-                                      </div>
+                                    <div class="mb-3 customPassword">
+                                        <label for="newPassword" class="form-label">Nova Senha:</label>
+                                        <input [type]="hideBtn01 ? 'password' : 'text' " class="form-control" id="newPassword" 
+                                        formControlName="newPassword" placeholder="mínimo 8 caracteres">
+                                        <button class="bth-change-icon" (click)="hideBtn01 = !hideBtn01" > <fa-icon [icon]="hideBtn01 ? faEyeSlash : faEye" ></fa-icon> </button>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Nova senha:</label>
-                                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                                      </div>
+                                    <div class="mb-3 customPassword">
+                                        <label for="confirmPassword" class="form-label">Confirme nova senha:</label>
+                                        <input [type]="hideBtn02 ? 'password' : 'text' " class="form-control" id="confirmPassword"
+                                        formControlName="confirmPassword" placeholder="mínimo 8 caracteres">
+                                        <button class="bth-change-icon" (click)="hideBtn02 = !hideBtn02" > <fa-icon [icon]="hideBtn02 ? faEyeSlash : faEye" ></fa-icon> </button>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Confirmar nova senha:</label>
-                                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                                      </div>
+                                    <div class="mb-3 customPassword">
+                                        <label for="oldPassword" class="form-label">Senha atual:</label>
+                                        <input [type]="hideBtn03 ? 'password' : 'text' " class="form-control" id="oldPassword" formControlName="oldPassword">
+                                        <button class="bth-change-icon" (click)="hideBtn03 = !hideBtn03" > <fa-icon [icon]="hideBtn03 ? faEyeSlash : faEye" ></fa-icon> </button>
+                                    </div>
                                 </div>
 
-                                <button type="button" class="btn btn-success">Salvar alterações!</button>
+                                <button type="submit" class="btn btn-success" [disabled]="profileForm.invalid" >Salvar alterações!</button>
 
                             </form>
 
@@ -69,19 +74,19 @@
                                     </div> -->
 
                                     <ul class="card-address" >
-                                        <li class="form-control" >
-                                            <span>Cep: info address here! | </span>
-                                            <span>Estado: info address here! | </span>
-                                            <span>Cidade: info address here! | </span>
-                                            <span>logradouro: info address here! | </span>
-                                            <span>Numero: info address here! | </span>
-                                            <span>Complemento: info address here! | </span>
-                                            <span> Quem vai receber: info address here! | </span>
-                                            <button>Excluir</button>
+                                        <li class="form-control" *ngFor="let address of allAdress; let i = index" >
+                                            <span>Cep: {{address.cep}} | </span>
+                                            <span>Estado: {{address.uf}} | </span>
+                                            <span>Cidade: {{address.city}} | </span>
+                                            <span>logradouro: {{address.logradouro}} | </span>
+                                            <span>Numero: {{address.number}} | </span>
+                                            <span>Complemento: {{address.complement}} | </span>
+                                            <span> Quem vai receber: {{address.whoReceive}} | </span>
+                                            <button (click)="DeleteAddress(i)" >Excluir</button>
                                             
                                         </li>
                                     </ul>
-                                    <button > <fa-icon [icon]="faPlus"></fa-icon> Adicionar um novo
+                                    <button (click)="openModal(template)" *ngIf="allAdress.length <= 2"> <fa-icon [icon]="faPlus"></fa-icon> Adicionar um novo
                                         endereço</button>
                                 </div>
                             </div>
@@ -110,3 +115,63 @@
         </div>
     </div>
 </main>
+
+
+<!--Modal new address-->
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"> Adicionar endereço.</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <form class="form-address" [formGroup]="formAddress" #addresForm="ngForm">
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">CEP:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" required formControlName="cep"
+                    placeholder="Apenas numeros..." (blur)="searchCep($event)">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Estado:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" readonly formControlName="uf">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Cidade:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" readonly formControlName="city">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Logradouro:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="logradouro">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Numero:</label>
+                <input type="number" class="form-control" id="exampleFormControlInput1" formControlName="number">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Complemento:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="complement">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Quem vai receber:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="whoReceive">
+            </div>
+
+            
+
+            <button type="button" class="btn btn-warning"
+                [disabled]="addresForm.invalid" (click)="addAddress()">Adicionar</button>
+
+        </form>
+
+    </div>
+</ng-template>
+<!--Modal new address-->

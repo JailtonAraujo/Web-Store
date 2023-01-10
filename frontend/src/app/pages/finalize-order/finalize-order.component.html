@@ -7,7 +7,7 @@
 
                
                     <accordion>
-                        <accordion-group heading="Endereço de entrega" [panelClass]="'customClassAccording'" >
+                        <accordion-group heading="Endereço de entrega" [panelClass]="'customClassAccording'" [isOpen]="true">
                         
                             <div class="loading" *ngIf="loading">
                                 <div class="spinner-border text-warning" role="status">
@@ -103,7 +103,7 @@
                     <!-- <div class="separator"></div> -->
                     <div class="finalize">
                         <button class="btn btn-warning">Finalizar pedido</button>
-                        <span>Total: R$ {{ ((Order$ | async)!.total).toFixed(2) }}</span>
+                        <span>Total: R$ {{ ((Order$ | async)!.total + valueCalcFrete.price).toFixed(2) }}</span>
                     </div>
 
                         </accordion-group>
@@ -111,6 +111,7 @@
                 
             </div>
         </div>
+
         <!--Sumary order-->
         <div class="sumary-order">
             <div class="sumary">
@@ -126,6 +127,7 @@
             <button class="btn btn-warning">Finalizar pedido</button>
         </div>
          <!--Sumary order-->
+
     </div>
 </main>
 

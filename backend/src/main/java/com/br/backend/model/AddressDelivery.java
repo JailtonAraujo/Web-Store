@@ -7,12 +7,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity(name = "tbl_address")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressDelivery {
+public class AddressDelivery implements Serializable {
+
+    private static final long serialVersionUID = 6758292195097492795L;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
