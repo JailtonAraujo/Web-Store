@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { AdressModel } from 'src/app/model/adressModel';
 import { FreteService } from 'src/app/services/frete.service';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from 'src/app/services/user.service';
+import { UserModel } from 'src/app/model/UserModel';
 
 @Component({
   selector: 'app-profile',
@@ -30,10 +32,13 @@ export class ProfileComponent implements OnInit {
 
   formAddress!:FormGroup;
 
+  currentUSer!:UserModel;
+
   constructor(
     private freteService:FreteService,
     private modalService: BsModalService,
-    private toastrService:ToastrService
+    private toastrService:ToastrService,
+    private userService:UserService
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +61,8 @@ export class ProfileComponent implements OnInit {
     })
 
     this.getAllAddressUser();
+    this.getCurrentUser();
+
   }
 
   public getAllAddressUser(){
@@ -117,7 +124,18 @@ public DeleteAddress(index:number){
 
 public updateProfile(){
 
-  console.log(this.formProfile.value);
+  this.userService.updateProfile(this.formProfile.value).subscribe((response)=>{
+    console.log(response);
+  })
+
+}
+
+private getCurrentUser (){
+
+  this.userService.getCurrentUser().subscribe((response)=>{
+    this.currentUSer = response;
+    this.formProfile.get('email')?.setValue(response.username);
+  })
 
 }
 

@@ -1,0 +1,72 @@
+<app-header-simple [titleHeader]="'Minhas compras'" ></app-header-simple>
+<main>
+    <div class="container-orders">
+        <div class="content-orders">
+            <div class="search-order">
+                <label for="basic-url" class="form-label">Filtre pela data</label>
+                <div class="input-group mb-3">
+                    <input type="date" class="form-control" id="dateField" placeholder="Recipient's username" aria-label="Busque pela data" aria-describedby="button-addon2">
+                    <button class="btn btn-primary" type="button" id="button-addon2">Buscar</button>
+                  </div>
+            </div>
+            <div class="tbl-orders table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Coprovante</th>
+                            <th scope="col">Detalhes</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td> <button class="btn btn-secondary" title="Imprimir comprovante"> <fa-icon [icon]="faReceipt"></fa-icon> </button> </td>
+                            <td><button class="btn btn-secondary" title="Detalhes" (click)="openModalWithClass(template)" ><fa-icon [icon]="faCircleInfo"></fa-icon> </button></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td >Larry the Bird</td>
+                            <td>@twitter</td>
+                            <td>@mdo</td>
+                            <td>@mdo</td>
+                          </tr>
+                      </tbody>
+                </table>
+                <div class="paginate">
+                    <pagination-controls 
+                    [responsive]="true"
+                    nextLabel="Proximo"
+                    previousLabel="Enterior" 
+                    class="my-pagination"
+                    ></pagination-controls>
+                </div> 
+            </div>
+        </div>
+    </div>
+</main>
+
+<!--Modal order details-->
+<ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Modal</h4>
+      <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Just a modal with a bunch of words inside, nothing serious.
+    </div>
+  </ng-template>
+<!-- Modal order details-->

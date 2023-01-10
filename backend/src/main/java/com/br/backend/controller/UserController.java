@@ -25,7 +25,7 @@ public class UserController {
         return ResponseEntity.ok(this.userService.getCurrentUser(1L));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/")
     public ResponseEntity<Boolean> updateProfile (@RequestBody User user){
         return null;
     }

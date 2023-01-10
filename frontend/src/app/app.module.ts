@@ -21,11 +21,13 @@ import { FinalizeOrderComponent } from './pages/finalize-order/finalize-order.co
 import { orderReducer } from './store/orderReducer';
 import { cartReducer } from './store/cartReducer';
 import { favoriteReducer } from './store/favorityReducer';
+import { authReducer } from './store/authReducer';
 
 import { CartComponentComponent } from './components/cart-component/cart-component.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { HeaderSimpleComponent } from './components/header-simple/header-simple.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { MyordersComponent } from './pages/myorders/myorders.component';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     CartComponentComponent,
     FavoritesComponent,
     HeaderSimpleComponent,
-    ProfileComponent
+    ProfileComponent,
+    MyordersComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     StoreModule.forRoot({
       orderReducer:orderReducer,
       cartReducer:cartReducer,
-      favoriteReducer:favoriteReducer
+      favoriteReducer:favoriteReducer,
+      authReducer:authReducer
     })
   ], exports:[
     HomeComponent

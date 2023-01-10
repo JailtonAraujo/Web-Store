@@ -45,19 +45,19 @@ const calcTotal = (list:Array<OrderItem>) =>{
 // change quantity at a object orderItem
 const handlerChange = (listOrderItem:Array<OrderItem>,changeQuant:changeQuant) =>{
     
-    let objTemp = listOrderItem.filter((item)=>{
+    let objTemp = listOrderItem.filter((item)=>{//extract item to change at the list
         return item.product.id === changeQuant.idPrduct
     })
 
-    const index = listOrderItem.indexOf(objTemp[0]) ;
+    const index = listOrderItem.indexOf(objTemp[0]);// cathing index at the item
 
-    listOrderItem = listOrderItem.filter((item)=>{
+    listOrderItem = listOrderItem.filter((item)=>{//remove item to change at the list
         return item.product.id !== changeQuant.idPrduct;
     })
 
-   const obj:OrderItem = {...objTemp[0], quantidade:changeQuant.quant}
+   const obj:OrderItem = {...objTemp[0], quantidade:changeQuant.quant}//build item with new quantity 
 
-   listOrderItem.splice(index, 0, obj);
+   listOrderItem.splice(index, 0, obj);// adding item changed in list again
 
   return listOrderItem;
 }

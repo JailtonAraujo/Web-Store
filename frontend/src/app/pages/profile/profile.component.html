@@ -4,8 +4,8 @@
         <div class="content-profile">
            <div class="title-profile">
                 <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="img_profile" class="image">
-                <h4>
-                    Jailton de Araujo Santos
+                <h4 *ngIf="currentUSer">
+                    {{currentUSer.name + " " +currentUSer.lastname}}
                 </h4>
            </div>
            <ul class="info-profile">

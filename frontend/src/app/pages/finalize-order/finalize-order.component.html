@@ -19,7 +19,7 @@
                     <ul class="card-address" *ngIf="listAddress">
                         <li class="form-control" *ngFor="let addres of listAddress; let i = index">
 
-                            <input type="radio" id="contactChoice2" name="select" [value]="i" (change)="calcFreteAndPrazo(i)" />  
+                            <input class="form-check-input" type="radio" id="contactChoice2" name="select" [value]="i" (change)="calcFreteAndPrazo(i)" />  
                             <span>Cep: {{addres.cep}} | </span>
                             <span>Estado: {{addres.uf}} | </span>
                             <span>Cidade: {{addres.city}} | </span>

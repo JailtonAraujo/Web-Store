@@ -8,12 +8,14 @@ import { FinalizeOrderComponent } from './pages/finalize-order/finalize-order.co
 import { CartComponentComponent } from './components/cart-component/cart-component.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { MyordersComponent } from './pages/myorders/myorders.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
   {path:'login',component:LoginComponent},
   {path:'register', component:RegisterComponent},
   {path:'profile', component:ProfileComponent},
+  {path:'myordes', component:MyordersComponent},
   {path:'cart', component:CartComponentComponent},
   {path:'favorites', component:FavoritesComponent},
   {path:'order/finalize',component:FinalizeOrderComponent},
