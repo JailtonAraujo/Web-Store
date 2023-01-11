@@ -20,7 +20,8 @@ export interface changeQuantOrder{
 
 export const initialState: Order = {
     listOrderItem:[],
-    total:0
+    total:0,
+    frete:0
 }
 
 const calcTotal = (list:Array<OrderItem>) =>{
@@ -84,7 +85,7 @@ export const resetOrder = createAction(
 export const orderReducer = createReducer(
     initialState,
     on(setOrder, (state, {payload})=>{
-        state = {...state, listOrderItem:payload.listOrderItem, total:Number(calcTotal(payload.listOrderItem))}
+        state = {...state, listOrderItem:payload.listOrderItem, total:Number(calcTotal(payload.listOrderItem)), frete:payload.frete}
         return state;
     }),
     on(changeQuantityOrderType,(state,{payload})=>{

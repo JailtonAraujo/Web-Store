@@ -102,7 +102,7 @@
                     </ul>
                     <!-- <div class="separator"></div> -->
                     <div class="finalize">
-                        <button class="btn btn-warning">Finalizar pedido</button>
+                        <button class="btn btn-warning" [disabled]="(Order$ | async)!.listOrderItem.length === 0" (click)="finalizeOrder()" >Finalizar pedido</button>
                         <span>Total: R$ {{ ((Order$ | async)!.total + valueCalcFrete.price).toFixed(2) }}</span>
                     </div>
 
@@ -124,7 +124,7 @@
             <div class="total">
                 <span>Total do pedido:</span><span>R$ {{ ((Order$ | async)!.total + valueCalcFrete.price).toFixed(2) }}</span>
             </div>
-            <button class="btn btn-warning">Finalizar pedido</button>
+            <button class="btn btn-warning" [disabled]="(Order$ | async)!.listOrderItem.length === 0" (click)="finalizeOrder()" >Finalizar pedido</button>
         </div>
          <!--Sumary order-->
 

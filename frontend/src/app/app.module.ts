@@ -28,6 +28,7 @@ import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { HeaderSimpleComponent } from './components/header-simple/header-simple.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MyordersComponent } from './pages/myorders/myorders.component';
+import { SuccessOrderComponent } from './pages/success-order/success-order.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { MyordersComponent } from './pages/myorders/myorders.component';
     FavoritesComponent,
     HeaderSimpleComponent,
     ProfileComponent,
-    MyordersComponent
+    MyordersComponent,
+    SuccessOrderComponent
   ],
   imports: [
     BrowserModule,

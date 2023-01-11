@@ -4,12 +4,13 @@ import { faWallet, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Order } from 'src/app/model/Order';
-import { changeQuantityOrderType, removeFromListFinalize } from 'src/app/store/orderReducer';
+import { changeQuantityOrderType, removeFromListFinalize, setOrder } from 'src/app/store/orderReducer';
 import { changeQuantOrder } from 'src/app/store/orderReducer'; 
 import { FreteService } from 'src/app/services/frete.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdressModel } from 'src/app/model/adressModel';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-finalize-order',
@@ -39,7 +40,8 @@ export class FinalizeOrderComponent implements OnInit {
     private orderReducer:Store<{orderReducer:Order}>,
     private modalService: BsModalService,
     private freteService:FreteService,
-    private toastrService:ToastrService
+    private toastrService:ToastrService,
+    private router:Router
     ) { }
 
   Order$ = this.orderReducer.select('orderReducer').pipe( map(state => state));
@@ -129,21 +131,6 @@ export class FinalizeOrderComponent implements OnInit {
     
   }
 
-  // //Edit address information on formAddress
-  // public updateAddress(index:number,template: TemplateRef<any>){
-  //   const address = this.listAddress[index];
-
-  //   this.formAddress.get('cep')?.setValue(address.cep);
-  //   this.formAddress.get('uf')?.setValue(address.uf);
-  //   this.formAddress.get('city')?.setValue(address.city);
-  //   this.formAddress.get('logradouro')?.setValue(address.logradouro);
-  //   this.formAddress.get('number')?.setValue(address.number);
-  //   this.formAddress.get('complement')?.setValue(address.complement);
-
-  //   this.openModal(template);
-
-  // }
-
 
   public DeleteAddress(index:number){
 
@@ -175,6 +162,17 @@ export class FinalizeOrderComponent implements OnInit {
     }, error=>{
       this.loading = false;
     })
+
+  }
+
+  public finalizeOrder(){
+
+    if( this.valueCalcFrete.price === 0 ){
+      this.toastrService.warning('Selecione um endereço de entrega!','');
+      return;
+    }
+
+    this.router.navigate(['/order/success'])
 
   }
 

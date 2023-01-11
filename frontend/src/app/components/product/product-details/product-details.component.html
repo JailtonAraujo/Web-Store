@@ -19,7 +19,7 @@
                 <div class="content-info">
                 <div class="top-info">
                     <span>{{product!.isNew ? 'Novo' : 'Usado'}} | 121 Vendidos</span>
-                    <span id="icon-favority"> <fa-icon [icon]="faHeartRegular"></fa-icon> </span>
+                    <button (click)="addProductInFavorites()" id="icon-favority"> <fa-icon [icon]="faHeartRegular"></fa-icon> </button >
                 </div>
                 <p id="name-product">
                    {{product.name}}

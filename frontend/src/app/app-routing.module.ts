@@ -9,6 +9,7 @@ import { CartComponentComponent } from './components/cart-component/cart-compone
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MyordersComponent } from './pages/myorders/myorders.component';
+import { SuccessOrderComponent } from './pages/success-order/success-order.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -18,8 +19,10 @@ const routes: Routes = [
   {path:'myordes', component:MyordersComponent},
   {path:'cart', component:CartComponentComponent},
   {path:'favorites', component:FavoritesComponent},
-  {path:'order/finalize',component:FinalizeOrderComponent},
   {path:'product/details/:id',component:ProductDetailsComponent},
+  {path:'order/finalize',component:FinalizeOrderComponent},
+  {path:'order/success', component:SuccessOrderComponent},
+
 ];
 
 @NgModule({

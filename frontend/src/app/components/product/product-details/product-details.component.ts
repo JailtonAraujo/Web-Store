@@ -12,6 +12,7 @@ import { setOrder } from 'src/app/store/orderReducer';
 import { OrderItem } from 'src/app/model/OrderItem';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { FavoritesService } from 'src/app/services/favorites.service';
 
 @Component({
   selector: 'app-product-details',
@@ -47,6 +48,7 @@ export class ProductDetailsComponent implements OnInit {
     private freteService: FreteService,
     private store:Store<{orderReducer:Order}>,
     private cartService:ShoppingCartService,
+    private favoriteService:FavoritesService,
     private toastrService:ToastrService
   ) { }
 
@@ -109,7 +111,8 @@ export class ProductDetailsComponent implements OnInit {
 
       const order:Order ={
         listOrderItem:listOrderItem,
-        total:0
+        total:0,
+        frete:0
       }
 
     this.store.dispatch(setOrder({payload:order}))
@@ -117,6 +120,10 @@ export class ProductDetailsComponent implements OnInit {
 
   public addProductInCart (){
     this.cartService.addProductInCartApi(this.product, Number(this.quaitityProduct));
+  }
+
+  public addProductInFavorites(){
+    this.favoriteService.addFavoriteApi(this.product);
   }
 
 
