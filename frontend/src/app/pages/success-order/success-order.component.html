@@ -9,10 +9,10 @@
             </div>
             <div class="sumary-order">
                 <div class="price-itens">
-                    <span>Itens:</span><span class="atribute-value" >R$ {{ ((order$ | async)!.total).toFixed(2)   }}  </span>
+                    <span>Itens:</span><span class="atribute-value" >R$ {{ ((order$ | async)!.valueItems).toFixed(2)   }}  </span>
                 </div>
                 <div class="frete"><span>Frete e manuzeio: </span> <span class="atribute-value">R$ {{((order$ | async)!.frete)!.toFixed(2)}} </span> </div>
-                <div class="total-price"> <span>Total:</span> <span class="atribute-value" >  R$ {{ ((order$ | async)!.total + (order$ | async)!.frete).toFixed(2) }}  </span> </div>
+                <div class="total-price"> <span>Total:</span> <span class="atribute-value" >  R$ {{ ((order$ | async)!.valueItems + (order$ | async)!.frete).toFixed(2) }}  </span> </div>
                 <div class="pay"> <span>Forma de pagamento:</span> <span class="atribute-value" > Carteira MyStore </span> </div>
             </div>
             <div class="btn-actions">

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity(name = "tbl_order")
@@ -32,5 +33,7 @@ public class Order implements Serializable {
     private float valueItems;
 
     private float frete;
+
+    private LocalDate Date;
 
 }

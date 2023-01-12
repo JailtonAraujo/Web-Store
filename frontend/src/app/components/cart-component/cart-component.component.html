@@ -31,11 +31,11 @@
 
                                         <div class="input-custom-number">
                                             <button class="decrement" type="button" id="bntIncValue"
-                                                (click)="decrementValue(orderItem.product.id,orderItem.quantidade)">-</button>
+                                                (click)="decrementValue(orderItem.product.id,orderItem.quantity)">-</button>
                                             <input type="number" minlength="1" maxlength="7" class="attibut-value"
-                                                readonly [value]="orderItem.quantidade">
+                                                readonly [value]="orderItem.quantity">
                                             <button class="increment" type="button" id="btnDecrValue"
-                                                (click)="incrementValue(orderItem.product.id,orderItem.quantidade)">+</button>
+                                                (click)="incrementValue(orderItem.product.id,orderItem.quantity)">+</button>
                                         </div>
                                         <button type="button" class="btn-del" (click)="removeProductAtCart(orderItem.product.id)">
                                             <fa-icon [icon]="faTrash" title="Remover item" ></fa-icon></button>

@@ -33,7 +33,7 @@ export class ShoppingCartService {
 
       const orderItem:OrderItem = {
         product:product,
-        quantidade: quant ? quant : 1
+        quantity: quant ? quant : 1
       }
 
       this.cartReducer.dispatch(addOnCart({payload:orderItem}));
@@ -56,7 +56,7 @@ export class ShoppingCartService {
     this.http.get<Array<Product>>(`${this.UrlApiBaseShoppingCart}/`).subscribe((response)=>{
 
       const listOrdem:Array<OrderItem> = response.map((product)=>{
-        return {product, quantidade:1}
+        return {product, quantity:1}
       })
 
       this.cartReducer.dispatch(setProductsInCart({payload:listOrdem}));

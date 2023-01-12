@@ -66,7 +66,7 @@
                           
                             
                     <ul class="product-list">
-                        <li *ngFor="let orderItem of (Order$ | async)!.listOrderItem">
+                        <li *ngFor="let orderItem of (Order$ | async)!.items">
 
                             <div class="prod-card">
                                 <div class="content-card">
@@ -82,11 +82,11 @@
 
                                             <div class="input-custom-number">
                                                 <button class="decrement"
-                                                    (click)="decrementValue(orderItem.product.id,orderItem.quantidade)">-</button>
+                                                    (click)="decrementValue(orderItem.product.id,orderItem.quantity)">-</button>
                                                 <input type="number" minlength="1" maxlength="7" class="attibut-value"
-                                                    readonly [value]="orderItem.quantidade">
+                                                    readonly [value]="orderItem.quantity">
                                                 <button class="increment"
-                                                    (click)="incrementValue(orderItem.product.id,orderItem.quantidade)">+</button>
+                                                    (click)="incrementValue(orderItem.product.id,orderItem.quantity)">+</button>
                                             </div>
                                             <button type="button" class="btn-del"
                                                 (click)="removeItemFromOrder(orderItem.product.id)">
@@ -102,8 +102,8 @@
                     </ul>
                     <!-- <div class="separator"></div> -->
                     <div class="finalize">
-                        <button class="btn btn-warning" [disabled]="(Order$ | async)!.listOrderItem.length === 0" (click)="finalizeOrder()" >Finalizar pedido</button>
-                        <span>Total: R$ {{ ((Order$ | async)!.total + valueCalcFrete.price).toFixed(2) }}</span>
+                        <button class="btn btn-warning" [disabled]="(Order$ | async)!.items.length === 0" (click)="finalizeOrder()" >Finalizar pedido</button>
+                        <span>Total: R$ {{ ((Order$ | async)!.valueItems + valueCalcFrete.price).toFixed(2) }}</span>
                     </div>
 
                         </accordion-group>
@@ -116,15 +116,15 @@
         <div class="sumary-order">
             <div class="sumary">
                 <h3>Resumo do pedido</h3>
-                <div><span>Itens:</span> <span>R$ {{ ((Order$ | async)!.total).toFixed(2) }}</span> </div>
+                <div><span>Itens:</span> <span>R$ {{ ((Order$ | async)!.valueItems).toFixed(2) }}</span> </div>
                 <div><span>Frete e manuseio:</span> <span> {{valueCalcFrete.price ? 'R$ '+valueCalcFrete.price : '--' }}</span></div>
                 <div><span>Prazo para entrega: </span> {{valueCalcFrete.prazo ? valueCalcFrete.prazo+' dias' : '--'}}</div>
             </div>
             <div class="separator"></div>
             <div class="total">
-                <span>Total do pedido:</span><span>R$ {{ ((Order$ | async)!.total + valueCalcFrete.price).toFixed(2) }}</span>
+                <span>Total do pedido:</span><span>R$ {{ ((Order$ | async)!.valueItems + valueCalcFrete.price).toFixed(2) }}</span>
             </div>
-            <button class="btn btn-warning" [disabled]="(Order$ | async)!.listOrderItem.length === 0" (click)="finalizeOrder()" >Finalizar pedido</button>
+            <button class="btn btn-warning" [disabled]="(Order$ | async)!.items.length === 0" (click)="finalizeOrder()" >Finalizar pedido</button>
         </div>
          <!--Sumary order-->
 

@@ -21,31 +21,18 @@
                           </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td> <button class="btn btn-secondary" title="Imprimir comprovante"> <fa-icon [icon]="faReceipt"></fa-icon> </button> </td>
-                            <td><button class="btn btn-secondary" title="Detalhes" (click)="openModalWithClass(template)" ><fa-icon [icon]="faCircleInfo"></fa-icon> </button></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@mdo</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td >Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
+                        <tr *ngFor="let order of orders | paginate:{ itemsPerPage:10, currentPage: p, totalItems:totalElements};let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{ formataStringData(order.date)}}</td>
+                            <td>{{(order.valueItems+order.frete).toFixed(2)}}</td>
+                            <td><button class="btn btn-secondary" title="Imprimir comprovante"> <fa-icon [icon]="faReceipt"></fa-icon> </button> </td>
+                            <td><button class="btn btn-secondary" title="Detalhes" (click)="openModalWithClass(template,order.id)" ><fa-icon [icon]="faCircleInfo"></fa-icon> </button></td>
                           </tr>
                       </tbody>
                 </table>
                 <div class="paginate">
-                    <pagination-controls 
+                    <pagination-controls
+                    (pageChange)="changePageOrder($event)" 
                     [responsive]="true"
                     nextLabel="Proximo"
                     previousLabel="Enterior" 
@@ -60,13 +47,62 @@
 <!--Modal order details-->
 <ng-template #template>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Modal</h4>
+      <h4 class="modal-title pull-left">Pedido: {{orderDetails.id}}</h4>
       <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
         <span aria-hidden="true" class="visually-hidden">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      Just a modal with a bunch of words inside, nothing serious.
+      
+      <div class="content-details">
+
+        <div class="details-order">
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="basic-addon1">Data</span>
+            <input type="text" class="form-control" placeholder="Username" 
+            aria-label="Username" aria-describedby="basic-addon1" 
+            [value]="formataStringData(orderDetails!.date)" readonly>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="basic-addon1">Total itens:</span>
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"
+             [value]="'R$ ' +orderDetails.valueItems.toFixed(2)" readonly>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="basic-addon1">Frete e manuseio:</span>
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" 
+            [value]="'R$ ' +orderDetails.frete.toFixed(2)" readonly>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="basic-addon1">Valor total:</span>
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" 
+            [value]="'R$ ' +(orderDetails.valueItems + orderDetails.frete).toFixed(2)" readonly>
+          </div>
+
+        </div>
+
+        <div class="itens-list">
+          <div class="title">
+              <h4>Itens:</h4>
+          </div>
+          <ul class="itens" >
+            <li class="card-sm-item" *ngFor=" let item of orderDetails.items " >
+                <img src="https://cdn-icons-png.flaticon.com/512/3659/3659898.png" alt="img_product">
+                <div class="info">
+                  <div class="name"> {{item.product.name}} </div>
+                  <div class="price"> <span>Preço:</span> R$ {{item.product.price.toFixed(2)}}</div>
+                  <div class="quantity"> <span> Quantidade: </span>{{item.quantity}} </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
     </div>
   </ng-template>
 <!-- Modal order details-->

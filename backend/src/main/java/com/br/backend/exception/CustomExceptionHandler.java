@@ -27,7 +27,7 @@ public class CustomExceptionHandler  extends ResponseEntityExceptionHandler{
     }
 	
 	
-	@ExceptionHandler({SQLIntegrityConstraintViolationException.class, DataIntegrityViolationException.class})
+	@ExceptionHandler({SQLIntegrityConstraintViolationException.class, DataIntegrityViolationException.class, QuantityProductException.class})
     public final ResponseEntity<ExceptionResponse> handlerBadRequestsExceptions(Exception ex, WebRequest webRequest){
 
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),webRequest.getDescription(false),400);

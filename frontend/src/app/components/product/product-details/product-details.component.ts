@@ -104,14 +104,14 @@ export class ProductDetailsComponent implements OnInit {
 
     const orderItem:OrderItem = {
       product:this.product,
-      quantidade:this.quaitityProduct
+      quantity:this.quaitityProduct
     }
 
       listOrderItem.push(orderItem);   
 
       const order:Order ={
-        listOrderItem:listOrderItem,
-        total:0,
+        items:listOrderItem,
+        valueItems:0,
         frete:0
       }
 

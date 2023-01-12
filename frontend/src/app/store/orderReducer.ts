@@ -19,8 +19,8 @@ export interface changeQuantOrder{
 } 
 
 export const initialState: Order = {
-    listOrderItem:[],
-    total:0,
+    items:[],
+    valueItems:0,
     frete:0
 }
 
@@ -30,7 +30,7 @@ const calcTotal = (list:Array<OrderItem>) =>{
        
        list.map((item)=>{
 
-        total = total + (Number(item.quantidade) * item.product.price);
+        total = total + (Number(item.quantity) * item.product.price);
     })
 
     return total;
@@ -48,7 +48,7 @@ const handlerChange = (listOrderItem:Array<OrderItem>,changeQuant:changeQuantOrd
         return item.product.id !== changeQuant.idPrduct;
     })
 
-   const obj:OrderItem = {...objTemp[0], quantidade:changeQuant.quant}
+   const obj:OrderItem = {...objTemp[0], quantity:changeQuant.quant}
 
    listOrderItem.splice(index, 0, obj);
 
@@ -85,30 +85,30 @@ export const resetOrder = createAction(
 export const orderReducer = createReducer(
     initialState,
     on(setOrder, (state, {payload})=>{
-        state = {...state, listOrderItem:payload.listOrderItem, total:Number(calcTotal(payload.listOrderItem)), frete:payload.frete}
+        state = {...state, items:payload.items, valueItems:Number(calcTotal(payload.items)), frete:payload.frete}
         return state;
     }),
     on(changeQuantityOrderType,(state,{payload})=>{
 
-        state = {...state, listOrderItem:handlerChange(state.listOrderItem,payload)}
-        state = {...state, total:Number(calcTotal(state.listOrderItem))}
+        state = {...state, items:handlerChange(state.items,payload)}
+        state = {...state, valueItems:Number(calcTotal(state.items))}
         return state;
     }),
     on(setOrderToCart, ( state, {payload})=>{
-        state = {...state, listOrderItem:payload.listOrderItem, total:Number(calcTotal(payload.listOrderItem))}
+        state = {...state, items:payload.listOrderItem, valueItems:Number(calcTotal(payload.listOrderItem))}
         return state;
     }),
 
     on( removeFromListFinalize, (state, {payload})=>{
-        state = {...state, listOrderItem:state.listOrderItem.filter((item)=>{
+        state = {...state, items:state.items.filter((item)=>{
             return item.product.id !== payload;
         })}
-        state = {...state, total:Number(calcTotal(state.listOrderItem))}
+        state = {...state, valueItems:Number(calcTotal(state.items))}
         return state;
     }),
 
     on(resetOrder,(state)=>{
-        state = {...state, listOrderItem:[], total:0}
+        state = {...state, items:[], valueItems:0}
         return state;
     })
 )

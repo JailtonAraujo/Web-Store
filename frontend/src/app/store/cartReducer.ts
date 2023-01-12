@@ -36,7 +36,7 @@ const calcTotal = (list:Array<OrderItem>) =>{
     let total = 0;
 
     list.map((item)=>{
-     total = total + ((item.quantidade.valueOf()) * item.product.price);
+     total = total + ((item.quantity.valueOf()) * item.product.price);
  })
 
  return total;
@@ -55,7 +55,7 @@ const handlerChange = (listOrderItem:Array<OrderItem>,changeQuant:changeQuant) =
         return item.product.id !== changeQuant.idPrduct;
     })
 
-   const obj:OrderItem = {...objTemp[0], quantidade:changeQuant.quant}//build item with new quantity 
+   const obj:OrderItem = {...objTemp[0], quantity:changeQuant.quant}//build item with new quantity 
 
    listOrderItem.splice(index, 0, obj);// adding item changed in list again
 

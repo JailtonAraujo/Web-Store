@@ -1,5 +1,6 @@
 package com.br.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,7 @@ public class OrderItem implements Serializable {
     @org.hibernate.annotations.ForeignKey(name = "FK_ordemItem_Product")
     private Product product;
 
+    @JsonIgnore
     @ManyToOne(optional = false,cascade = CascadeType.MERGE)
     @JoinColumn(name = "order_id")
     @org.hibernate.annotations.ForeignKey(name = "FK_ordemItem_Order")
