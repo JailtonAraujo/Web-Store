@@ -1,5 +1,6 @@
 package com.br.backend.service.impls;
 
+import com.br.backend.DTO.AuthDTO;
 import com.br.backend.DTO.ChangePasswordUser;
 import com.br.backend.DTO.CurrentUserDTO;
 import com.br.backend.model.User;
@@ -18,9 +19,12 @@ public class UserServiceImpl implements UserService {
     protected UserRepository userRepository;
 
     @Override
-    public String registerUser(User user) {
-        userRepository.save(user);
-        return "Success!";
+    public AuthDTO registerUser(User user) {
+        User newUser =  userRepository.save(user);
+
+        AuthDTO dto = new AuthDTO(user,"");
+
+        return dto;
     }
 
     @Override
@@ -46,4 +50,10 @@ public class UserServiceImpl implements UserService {
 
         return true;
     }
+
+    //Generate token user
+    private String generateToken(){
+        return "";
+    }
+
 }

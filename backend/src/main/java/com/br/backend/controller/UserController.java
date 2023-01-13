@@ -1,5 +1,6 @@
 package com.br.backend.controller;
 
+import com.br.backend.DTO.AuthDTO;
 import com.br.backend.DTO.ChangePasswordUser;
 import com.br.backend.DTO.CurrentUserDTO;
 import com.br.backend.model.User;
@@ -17,8 +18,9 @@ public class UserController {
     protected UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser (@RequestBody User user){
-        return new ResponseEntity<String>( this.userService.registerUser(user), HttpStatus.CREATED);
+    public ResponseEntity<AuthDTO> registerUser (@RequestBody User user){
+
+        return new ResponseEntity<AuthDTO>( this.userService.registerUser(user), HttpStatus.CREATED);
     }
 
     @GetMapping("/current-user")

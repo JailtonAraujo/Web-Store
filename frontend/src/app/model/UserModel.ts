@@ -3,5 +3,6 @@ export interface UserModel{
     name:string,
     lastname:string,
     password?:string,
-    username:string
+    username:string,
+    cpf:string
 }
