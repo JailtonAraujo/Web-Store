@@ -21,8 +21,8 @@ export class UserService {
   }
 
 
-  public updateProfile(user:UserModel){
-    return this.http.put(`${this.urlApiBaseuser}/`,user);
+  public updateProfile(passChange:any){
+    return this.http.put(`${this.urlApiBaseuser}/`,passChange);
   }
 
 }

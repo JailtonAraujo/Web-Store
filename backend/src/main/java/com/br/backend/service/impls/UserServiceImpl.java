@@ -1,5 +1,6 @@
 package com.br.backend.service.impls;
 
+import com.br.backend.DTO.ChangePasswordUser;
 import com.br.backend.DTO.CurrentUserDTO;
 import com.br.backend.model.User;
 import com.br.backend.reporitory.UserRepository;
@@ -36,7 +37,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean updateProfile(User user) {
-        return null;
+    public Boolean updateProfile(ChangePasswordUser passwordUser) {
+
+        //TO DO
+        //Verify old password user
+
+        userRepository.updateUserPassword(passwordUser.getNewPassword(), passwordUser.getUserId());
+
+        return true;
     }
 }

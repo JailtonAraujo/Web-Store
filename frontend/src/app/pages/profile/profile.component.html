@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-success" [disabled]="profileForm.invalid" >Salvar alterações!</button>
+                                <button type="submit" class="btn btn-success" [disabled]="profileForm.invalid" (click)="updateProfile()" >Salvar alterações!</button>
 
                             </form>
 

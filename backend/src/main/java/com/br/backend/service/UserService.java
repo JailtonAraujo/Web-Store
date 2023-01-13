@@ -1,5 +1,6 @@
 package com.br.backend.service;
 
+import com.br.backend.DTO.ChangePasswordUser;
 import com.br.backend.DTO.CurrentUserDTO;
 import com.br.backend.model.User;
 
@@ -12,5 +13,5 @@ public interface UserService {
     public CurrentUserDTO getCurrentUser(Long userId);
 
     // Update information user
-    public Boolean updateProfile ( User user );
+    public Boolean updateProfile ( ChangePasswordUser passwordUser );
 }

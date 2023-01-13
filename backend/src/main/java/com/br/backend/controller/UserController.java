@@ -1,5 +1,6 @@
 package com.br.backend.controller;
 
+import com.br.backend.DTO.ChangePasswordUser;
 import com.br.backend.DTO.CurrentUserDTO;
 import com.br.backend.model.User;
 import com.br.backend.service.UserService;
@@ -26,8 +27,17 @@ public class UserController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<Boolean> updateProfile (@RequestBody User user){
+    public ResponseEntity<Boolean> updateProfile (@RequestBody ChangePasswordUser passwordUser){
+
+        passwordUser.setUserId(1L);
+
+        return ResponseEntity.ok(this.userService.updateProfile(passwordUser));
+    }
+
+    @GetMapping("Wallet/ask")
+    public ResponseEntity<Float> askForMoney(){
         return null;
     }
+
 
 }
