@@ -5,8 +5,10 @@
             <div class="search-order">
                 <label for="basic-url" class="form-label">Filtre pela data</label>
                 <div class="input-group mb-3">
-                    <input type="date" class="form-control" id="dateField" placeholder="Recipient's username" aria-label="Busque pela data" aria-describedby="button-addon2">
-                    <button class="btn btn-primary" type="button" id="button-addon2">Buscar</button>
+                    <input type="date" class="form-control" #inputDate id="dateField" 
+                    placeholder="Recipient's username" aria-label="Busque pela data" aria-describedby="button-addon2">
+
+                    <button class="btn btn-primary"  type="button" id="button-addon2" (click)="filterOrders(inputDate)">Buscar</button>
                   </div>
             </div>
             <div class="tbl-orders table-responsive">
@@ -30,16 +32,16 @@
                           </tr>
                       </tbody>
                 </table>
-                <div class="paginate">
-                    <pagination-controls
-                    (pageChange)="changePageOrder($event)" 
-                    [responsive]="true"
-                    nextLabel="Proximo"
-                    previousLabel="Enterior" 
-                    class="my-pagination"
-                    ></pagination-controls>
-                </div> 
             </div>
+            <div class="paginate">
+              <pagination-controls
+              (pageChange)="changePageOrder(p = $event)" 
+              [responsive]="true"
+              nextLabel="Proximo"
+              previousLabel="Enterior" 
+              class="my-pagination"
+              ></pagination-controls>
+          </div> 
         </div>
     </div>
 </main>
@@ -91,7 +93,7 @@
           </div>
           <ul class="itens" >
             <li class="card-sm-item" *ngFor=" let item of orderDetails.items " >
-                <img src="https://cdn-icons-png.flaticon.com/512/3659/3659898.png" alt="img_product">
+                <img [src]="item.product.image!.url" alt="img_product">
                 <div class="info">
                   <div class="name"> {{item.product.name}} </div>
                   <div class="price"> <span>Preço:</span> R$ {{item.product.price.toFixed(2)}}</div>

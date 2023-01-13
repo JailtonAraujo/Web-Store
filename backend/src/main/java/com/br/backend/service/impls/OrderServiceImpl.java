@@ -42,11 +42,11 @@ public class OrderServiceImpl implements OrderService {
             orderRepository.updateQuantityProduct((quantity - item.getQuantity()), item.getProduct().getId());
         }
         order.setDate(LocalDate.now());
-        return orderRepository.save(order);
+        return orderRepository.save(order);//Finalize operations
     }
 
     @Override
-    public Page<OrderDTO> getOrders(int limit, int offset, LocalDate date, Long userId) throws Exception {
+    public Page<OrderDTO> getOrders(int limit, int offset, Long userId) throws Exception {
         return customOrderRepository.getOrdersPaginate(limit,offset,userId);
     }
 
@@ -63,6 +63,11 @@ public class OrderServiceImpl implements OrderService {
         }
 
         throw new NoResultException("Order [id:"+orderId+"] not found ");
+    }
+
+    @Override
+    public Page<OrderDTO> getOrdersFilterByDate(int limit, int offset, LocalDate date, Long userId) throws Exception {
+        return customOrderRepository.getOrdersFilterDatePaginate(limit, offset, userId, date);
     }
 
 

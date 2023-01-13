@@ -22,6 +22,7 @@ import { orderReducer } from './store/orderReducer';
 import { cartReducer } from './store/cartReducer';
 import { favoriteReducer } from './store/favorityReducer';
 import { authReducer } from './store/authReducer';
+import { loadingReducer } from './store/loadingReducer';
 
 import { CartComponentComponent } from './components/cart-component/cart-component.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
@@ -29,6 +30,7 @@ import { HeaderSimpleComponent } from './components/header-simple/header-simple.
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MyordersComponent } from './pages/myorders/myorders.component';
 import { SuccessOrderComponent } from './pages/success-order/success-order.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { SuccessOrderComponent } from './pages/success-order/success-order.compo
     HeaderSimpleComponent,
     ProfileComponent,
     MyordersComponent,
-    SuccessOrderComponent
+    SuccessOrderComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { SuccessOrderComponent } from './pages/success-order/success-order.compo
       orderReducer:orderReducer,
       cartReducer:cartReducer,
       favoriteReducer:favoriteReducer,
-      authReducer:authReducer
+      authReducer:authReducer,
+      loadingReducer:loadingReducer
     })
   ], exports:[
     HomeComponent

@@ -5,6 +5,7 @@ import com.br.backend.exception.QuantityProductException;
 import com.br.backend.model.Order;
 import com.br.backend.model.OrderItem;
 import com.br.backend.model.User;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class OrderController {
 	protected OrderService pedidoService;
 
 	@PostMapping("/")
-	public ResponseEntity<Order> newOrder ( @RequestBody Order order ) throws QuantityProductException {
+	public ResponseEntity<Order> newOrder ( @RequestBody @NotNull Order order ) throws QuantityProductException {
 
 		User user = new User();
 		user.setId(1L);
@@ -42,7 +43,16 @@ public class OrderController {
 			@RequestParam(name = "limit") int limit,
 			@RequestParam( name = "offset") int offset) throws Exception {
 
-		return ResponseEntity.ok(this.pedidoService.getOrders(limit,offset, LocalDate.now(),1L));
+		return ResponseEntity.ok(this.pedidoService.getOrders(limit,offset,1L));
+	}
+
+	@GetMapping("/filter")
+	public ResponseEntity<Page<OrderDTO>> getOrdersFilterByDatePaginate(
+			@RequestParam(name = "date") LocalDate date,
+			@RequestParam(name = "limit") int limit,
+			@RequestParam( name = "offset") int offset) throws Exception {
+
+		return ResponseEntity.ok(this.pedidoService.getOrdersFilterByDate(limit,offset,date,1L)) ;
 	}
 
 	@GetMapping("/details/{id}")

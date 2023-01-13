@@ -4,13 +4,15 @@ import { faWallet, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Order } from 'src/app/model/Order';
-import { changeQuantityOrderType, removeFromListFinalize, setOrder } from 'src/app/store/orderReducer';
+import { changeQuantityOrderType, removeFromListFinalize, setFreteInOrder, setOrder } from 'src/app/store/orderReducer';
 import { changeQuantOrder } from 'src/app/store/orderReducer'; 
 import { FreteService } from 'src/app/services/frete.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdressModel } from 'src/app/model/adressModel';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { OrderService } from 'src/app/services/order.service';
+import { offLoading, onLoading } from 'src/app/store/loadingReducer';
 
 @Component({
   selector: 'app-finalize-order',
@@ -41,7 +43,9 @@ export class FinalizeOrderComponent implements OnInit {
     private modalService: BsModalService,
     private freteService:FreteService,
     private toastrService:ToastrService,
-    private router:Router
+    private router:Router,
+    private orderService:OrderService,
+    private loadingReducer:Store<{loadingReducer:Boolean}>
     ) { }
 
   Order$ = this.orderReducer.select('orderReducer').pipe( map(state => state));
@@ -172,7 +176,20 @@ export class FinalizeOrderComponent implements OnInit {
       return;
     }
 
-    this.router.navigate(['/order/success'])
+    this.orderReducer.dispatch(setFreteInOrder({payload:this.valueCalcFrete.price}));
+    
+
+    this.Order$.subscribe((order)=>{
+      this.loadingReducer.dispatch(onLoading());
+      this.orderService.newOrder(order).subscribe((response)=>{
+        this.loadingReducer.dispatch(offLoading());
+        this.router.navigate(['/order/success'])
+      },error=>{
+        this.loadingReducer.dispatch(offLoading());
+        console.log(error);
+      })
+
+    }).unsubscribe()
 
   }
 

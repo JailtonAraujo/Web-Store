@@ -13,6 +13,10 @@ export class OrderService {
 
   constructor(private http:HttpClient) { }
 
+  public newOrder(order:Order){
+    return this.http.post<Order>(`${this.baseApiUrlOrder}/`,order);
+  }
+
   public getAllOrdersPaginate({limit,offset}:any){
 
     return this.http.get<any>(`${this.baseApiUrlOrder}/?limit=${limit}&offset=${offset}`);
@@ -23,6 +27,10 @@ export class OrderService {
 
     return this.http.get<Order>(`${this.baseApiUrlOrder}/details/${id}`);
 
+  }
+
+  public getOrdersFilterByDatePaginate({limit,offset,date}:any){
+    return this.http.get<any>(`${this.baseApiUrlOrder}/filter?date=${date}&limit=${limit}&offset=${offset}`);
   }
   
 }

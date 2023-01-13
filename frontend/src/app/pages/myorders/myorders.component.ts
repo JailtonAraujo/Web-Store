@@ -20,9 +20,10 @@ export class MyordersComponent implements OnInit {
   orderDetails:Order={frete:0,items:[],valueItems:0};
 
   //Paginations
-  itensPerPage:Number = 5;
+  itensPerPage:Number = 10;
   p:any;
   totalElements!:number;
+  dateToFilter = "";
 
   constructor(
     private modalService: BsModalService,
@@ -30,7 +31,7 @@ export class MyordersComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    this.findAllOrders();
+    this.findAllOrders({limit:10,offset:0});
   }
 
   openModalWithClass(template: TemplateRef<any>,id:any) {
@@ -44,28 +45,51 @@ export class MyordersComponent implements OnInit {
 
   }
 
-  public findAllOrders(){
-    this.orderService.getAllOrdersPaginate({limit:10,offset:0}).subscribe((result)=>{
+  public findAllOrders({limit,offset}:any){
+    this.orderService.getAllOrdersPaginate({limit,offset}).subscribe((result)=>{
       this.orders = result.content;
       this.totalElements = result.totalElements;
-
+      this.dateToFilter = "";//Reseting value
     })
   }
+
 
   public changePageOrder(event:any){
     const offset = (Number(event-1) * Number(10));
-    this.orderService.getAllOrdersPaginate({limit:10,offset}).subscribe((result)=>{
-      this.orders = result.content;
-      this.totalElements = result.totalElements;
-    })
+
+    if(this.dateToFilter){
+      this.getOrdersFilterByDatePaginate({date:this.dateToFilter,limit:10,offset});// if date is present 
+    }else{
+      this.findAllOrders({limit:10,offset})
+    }
   }
 
+  //Find details of a order by id
   public getOrderDetails (id:number){
-
     this.orderService.getOrderDetails(id).subscribe((response)=>{
       this.orderDetails = response;
     })
 
+  }
+
+
+  public filterOrders(element:any){
+    const value = element as HTMLInputElement
+    this.dateToFilter = value.value;
+
+    this.getOrdersFilterByDatePaginate({date:this.dateToFilter,limit:10,offset:0});
+  }
+
+  //Find Orders and filter by date
+  public getOrdersFilterByDatePaginate({date,limit,offset}:any){
+    if(date){
+    this.orderService.getOrdersFilterByDatePaginate({limit,offset,date}).subscribe((result)=>{
+      this.orders = result.content;
+      this.totalElements = result.totalElements;
+    })
+    }else{
+      this.findAllOrders({limit:10,offset:0});
+    }
   }
  
   public  formataStringData(data:any) {

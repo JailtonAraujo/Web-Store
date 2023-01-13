@@ -8,6 +8,7 @@ enum  actionsTypes {
     ssetOrderToCart = "setOrderToCart",
     changeQuantityOrderType ='changeQuantityOrder',
     removeFromListFinalize="removeFromListFinalize",
+    setFreteInOrderType="setFreteInOrder",
     resetOrderType="resetOrder"
 }
 
@@ -81,6 +82,10 @@ export const setOrderToCart = createAction(
 export const resetOrder = createAction(
     actionsTypes.resetOrderType)
 
+export const setFreteInOrder = createAction(
+    actionsTypes.setFreteInOrderType,
+    props<{payload:number}>()
+)
 
 export const orderReducer = createReducer(
     initialState,
@@ -106,6 +111,11 @@ export const orderReducer = createReducer(
         state = {...state, valueItems:Number(calcTotal(state.items))}
         return state;
     }),
+
+    on(setFreteInOrder,(state, {payload})=>{
+        state = {...state, frete:payload}
+        return state;
+    }) ,
 
     on(resetOrder,(state)=>{
         state = {...state, items:[], valueItems:0}
