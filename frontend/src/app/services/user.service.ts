@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { UserModel } from '../model/UserModel';
-import { AuthModel } from '../model/authModel';
+import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
-import { setAuth } from '../store/authReducer';
+import { offLoading, onLoading } from '../store/loadingReducer';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,26 +16,28 @@ export class UserService {
 
   constructor( 
     private http:HttpClient,
-    private authReducer:Store<{authReducer:AuthModel}>
+    private toastService:ToastrService,
+    private loadingReducer:Store<{loadingReducer:Boolean}>
     ) { }
 
-  public registerUser (user:UserModel){
-    
-    this.http.post<AuthModel>(`${this.urlApiBaseuser}/register`,user).subscribe((response)=>{
-
-      this.authReducer.dispatch(setAuth({payload:response}));
-
-    })
-
-  }
-
+  
   public getCurrentUser(){
     return this.http.get<UserModel>(`${this.urlApiBaseuser}/current-user`);
   }
 
 
   public updateProfile(passChange:any){
-    return this.http.put(`${this.urlApiBaseuser}/`,passChange);
+    this.loadingReducer.dispatch(onLoading());
+    return this.http.put(`${this.urlApiBaseuser}/`,passChange).subscribe((response)=>{
+      this.toastService.success('Informações atualizadas com sucesso!','')
+      this.loadingReducer.dispatch(offLoading());
+
+    },error=>{
+      this.loadingReducer.dispatch(offLoading());
+      if(error.error.status){
+        this.toastService.error('Senha atual incorreta!','')
+      }
+    })
   }
 
 }

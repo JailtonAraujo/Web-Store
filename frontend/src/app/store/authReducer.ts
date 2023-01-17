@@ -6,7 +6,7 @@ enum actionsTypes{
     clearAuthType="" 
 }
 
-export const initialState:AuthModel = JSON.parse( JSON.stringify(localStorage.getItem('auth')));
+export const initialState:AuthModel = JSON.parse( String(localStorage.getItem('auth'))) as AuthModel || new AuthModel
 
 export const setAuth = createAction(
     actionsTypes.setAuthType,
@@ -25,8 +25,8 @@ export const authReducer = createReducer(
         return state;
     }),
     on( clearAuth, (state)=>{
-        state = {...state, ...{}};
-        localStorage.clear();
+        localStorage.clear()
+        state = {...state, name:'', lastname:'', token:''};
         return state;
     })
 )

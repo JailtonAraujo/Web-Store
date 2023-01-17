@@ -7,7 +7,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NgxbootstrapModule } from './publics/ngxbootstrap.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { PublicComponentsModule } from './publics/public-components.module';
 import { ProductModule } from './components/product/product.module';
@@ -31,6 +31,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { MyordersComponent } from './pages/myorders/myorders.component';
 import { SuccessOrderComponent } from './pages/success-order/success-order.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { HeaderInterceptor } from './guards/header.interceptor';
 
 
 @NgModule({
@@ -68,7 +69,14 @@ import { LoadingComponent } from './components/loading/loading.component';
   ], exports:[
     HomeComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:HeaderInterceptor,
+      multi:true
+    }
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

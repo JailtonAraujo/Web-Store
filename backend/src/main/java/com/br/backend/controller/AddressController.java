@@ -6,6 +6,7 @@ import com.br.backend.service.AddressServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -19,25 +20,25 @@ public class AddressController {
     protected AddressServices addressServices;
 
     @PostMapping("/")
-    public ResponseEntity<AddressDelivery> saveAddress (@RequestBody AddressDelivery addressDelivery){
-
-        User user = new User();
-        user.setId(1L);
+    public ResponseEntity<AddressDelivery> saveAddress
+            (@RequestBody AddressDelivery addressDelivery,
+             @AuthenticationPrincipal User user)
+    {
         addressDelivery.setUser(user);
 
         return new ResponseEntity<AddressDelivery>(this.addressServices.saveAddress(addressDelivery), HttpStatus.CREATED);
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<AddressDelivery>> getAllAddress(){
+    public ResponseEntity<List<AddressDelivery>> getAllAddress( @AuthenticationPrincipal User user ){
 
-        return ResponseEntity.ok(this.addressServices.getAllAddressByUserId(1L));
+        return ResponseEntity.ok(this.addressServices.getAllAddressByUserId(user.getId()));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteAddress( @PathVariable(name = "id") Long id ){
+    public ResponseEntity<Boolean> deleteAddress(@PathVariable(name = "id") Long id, @AuthenticationPrincipal User user){
 
-        this.addressServices.deleteAddressByIdAndUserId(id, 1L);
+        this.addressServices.deleteAddressByIdAndUserId(id, user.getId());
 
         return ResponseEntity.ok(true);
 

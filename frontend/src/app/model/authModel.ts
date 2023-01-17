@@ -1,5 +1,5 @@
-export interface AuthModel{
-    name:string,
-    lastname:string,
-    token:string
+export class AuthModel{
+    name?:String
+    lastname?:String
+    token?:String
 } 

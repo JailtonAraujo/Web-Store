@@ -1,13 +1,15 @@
 package com.br.backend.service.impls;
 
-import com.br.backend.DTO.AuthDTO;
+import com.br.backend.DTO.AuthResponse;
 import com.br.backend.DTO.ChangePasswordUser;
 import com.br.backend.DTO.CurrentUserDTO;
+import com.br.backend.exception.WrongPasswordException;
 import com.br.backend.model.User;
 import com.br.backend.reporitory.UserRepository;
 import com.br.backend.service.UserService;
 import jakarta.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,14 +20,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     protected UserRepository userRepository;
 
-    @Override
-    public AuthDTO registerUser(User user) {
-        User newUser =  userRepository.save(user);
-
-        AuthDTO dto = new AuthDTO(user,"");
-
-        return dto;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public CurrentUserDTO getCurrentUser(Long userId) {
@@ -41,12 +37,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean updateProfile(ChangePasswordUser passwordUser) {
+    public Boolean updateProfile(ChangePasswordUser passwordUser) throws WrongPasswordException {
 
         //TO DO
         //Verify old password user
 
-        userRepository.updateUserPassword(passwordUser.getNewPassword(), passwordUser.getUserId());
+        if( !passwordEncoder.matches(passwordUser.getOldPassword(),passwordUser.getUser().getPassword())){
+            throw new WrongPasswordException("Wrong password!");
+        }
+
+        userRepository.updateUserPassword(passwordEncoder.encode(passwordUser.getNewPassword()), passwordUser.getUser().getId());
 
         return true;
     }

@@ -11,17 +11,20 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { MyordersComponent } from './pages/myorders/myorders.component';
 import { SuccessOrderComponent } from './pages/success-order/success-order.component';
 
+//guards
+import { AuthGuardGuard } from './guards/auth-guard.guard';
+
 const routes: Routes = [
   {path:'', component:HomeComponent},
   {path:'login',component:LoginComponent},
   {path:'register', component:RegisterComponent},
-  {path:'profile', component:ProfileComponent},
-  {path:'myordes', component:MyordersComponent},
-  {path:'cart', component:CartComponentComponent},
-  {path:'favorites', component:FavoritesComponent},
+  {path:'profile', component:ProfileComponent,canActivate:[AuthGuardGuard]},
+  {path:'myordes', component:MyordersComponent,canActivate:[AuthGuardGuard]},
+  {path:'cart', component:CartComponentComponent,canActivate:[AuthGuardGuard]},
+  {path:'favorites', component:FavoritesComponent,canActivate:[AuthGuardGuard]},
   {path:'product/details/:id',component:ProductDetailsComponent},
-  {path:'order/finalize',component:FinalizeOrderComponent},
-  {path:'order/success', component:SuccessOrderComponent},
+  {path:'order/finalize',component:FinalizeOrderComponent,canActivate:[AuthGuardGuard]},
+  {path:'order/success', component:SuccessOrderComponent,canActivate:[AuthGuardGuard]},
 
 ];
 

@@ -20,6 +20,8 @@ public class CurrentUserDTO implements Serializable {
        this.name = user.getName();
        this.lastname = user.getLastname();
        this.username = user.getUsername();
+       this.wallet = user.getWallet();
+       this.cpf = user.getCpf();
     }
 
     private String name;
@@ -28,5 +30,8 @@ public class CurrentUserDTO implements Serializable {
 
     private String username;
 
+    private Float wallet;
+
+    private String cpf;
 
 }

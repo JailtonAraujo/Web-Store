@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -15,15 +16,17 @@ export class RegisterComponent implements OnInit {
 
   formUser!:FormGroup;
 
-  constructor() { }
+  constructor(
+    private authService:AuthService
+  ) { }
 
   ngOnInit(): void {
 
     this.formUser = new FormGroup({
       name : new FormControl('',[Validators.required]),
       lastname : new FormControl('',[Validators.required]),
-      email : new FormControl('',Validators.required),
-      cpf : new FormControl('',[Validators.required]),
+      username : new FormControl('',Validators.required),
+      cpf : new FormControl('',[Validators.required,Validators.maxLength(14)]),
       password : new FormControl('',[Validators.required,Validators.minLength(8)])
 
     })
@@ -32,7 +35,8 @@ export class RegisterComponent implements OnInit {
 
 
   public handlerSubmit(){
-    console.log(this.formUser.value);
+
+    this.authService.register(this.formUser.value);
   }
 
 }

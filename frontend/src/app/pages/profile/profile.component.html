@@ -28,7 +28,7 @@
                                         <label for="newPassword" class="form-label">Nova Senha:</label>
                                         <input [type]="hideBtn01 ? 'password' : 'text' " class="form-control" id="newPassword" 
                                         formControlName="newPassword" placeholder="mínimo 8 caracteres">
-                                        <button class="bth-change-icon" (click)="hideBtn01 = !hideBtn01" > <fa-icon [icon]="hideBtn01 ? faEyeSlash : faEye" ></fa-icon> </button>
+                                        <button type="button" class="bth-change-icon" (click)="hideBtn01 = !hideBtn01" > <fa-icon [icon]="hideBtn01 ? faEyeSlash : faEye" ></fa-icon> </button>
                                     </div>
                                 </div>
 
@@ -37,7 +37,7 @@
                                         <label for="confirmPassword" class="form-label">Confirme nova senha:</label>
                                         <input [type]="hideBtn02 ? 'password' : 'text' " class="form-control" id="confirmPassword"
                                         formControlName="confirmPassword" placeholder="mínimo 8 caracteres">
-                                        <button class="bth-change-icon" (click)="hideBtn02 = !hideBtn02" > <fa-icon [icon]="hideBtn02 ? faEyeSlash : faEye" ></fa-icon> </button>
+                                        <button type="button" class="bth-change-icon" (click)="hideBtn02 = !hideBtn02" > <fa-icon [icon]="hideBtn02 ? faEyeSlash : faEye" ></fa-icon> </button>
                                     </div>
                                 </div>
 
@@ -45,7 +45,7 @@
                                     <div class="mb-3 customPassword">
                                         <label for="oldPassword" class="form-label">Senha atual:</label>
                                         <input [type]="hideBtn03 ? 'password' : 'text' " class="form-control" id="oldPassword" formControlName="oldPassword">
-                                        <button class="bth-change-icon" (click)="hideBtn03 = !hideBtn03" > <fa-icon [icon]="hideBtn03 ? faEyeSlash : faEye" ></fa-icon> </button>
+                                        <button type="button" class="bth-change-icon" (click)="hideBtn03 = !hideBtn03" > <fa-icon [icon]="hideBtn03 ? faEyeSlash : faEye" ></fa-icon> </button>
                                     </div>
                                 </div>
 

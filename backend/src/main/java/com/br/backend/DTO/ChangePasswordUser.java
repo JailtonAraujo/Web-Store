@@ -1,5 +1,6 @@
 package com.br.backend.DTO;
 
+import com.br.backend.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,10 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChangePasswordUser {
 
-    private Long userId;
-
     private String newPassword;
 
     private String oldPassword;
+
+    private User user;
 
 }

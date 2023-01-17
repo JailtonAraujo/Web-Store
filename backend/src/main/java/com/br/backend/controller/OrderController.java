@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import com.br.backend.service.OrderService;
@@ -23,10 +24,7 @@ public class OrderController {
 	protected OrderService pedidoService;
 
 	@PostMapping("/")
-	public ResponseEntity<Order> newOrder ( @RequestBody @NotNull Order order ) throws QuantityProductException {
-
-		User user = new User();
-		user.setId(1L);
+	public ResponseEntity<Order> newOrder (@RequestBody @NotNull Order order, @AuthenticationPrincipal User user) throws QuantityProductException {
 
 		order.setUser(user);
 
@@ -41,24 +39,26 @@ public class OrderController {
 	@GetMapping("/")
 	public ResponseEntity<Page<OrderDTO>> getOrdersPaginate(
 			@RequestParam(name = "limit") int limit,
-			@RequestParam( name = "offset") int offset) throws Exception {
+			@RequestParam( name = "offset") int offset,
+			@AuthenticationPrincipal User user ) throws Exception {
 
-		return ResponseEntity.ok(this.pedidoService.getOrders(limit,offset,1L));
+		return ResponseEntity.ok(this.pedidoService.getOrders(limit,offset,user.getId()));
 	}
 
 	@GetMapping("/filter")
 	public ResponseEntity<Page<OrderDTO>> getOrdersFilterByDatePaginate(
 			@RequestParam(name = "date") LocalDate date,
 			@RequestParam(name = "limit") int limit,
-			@RequestParam( name = "offset") int offset) throws Exception {
+			@RequestParam( name = "offset") int offset,
+			@AuthenticationPrincipal User user) throws Exception {
 
-		return ResponseEntity.ok(this.pedidoService.getOrdersFilterByDate(limit,offset,date,1L)) ;
+		return ResponseEntity.ok(this.pedidoService.getOrdersFilterByDate(limit,offset,date,user.getId())) ;
 	}
 
 	@GetMapping("/details/{id}")
-	public ResponseEntity<OrderDTO> getOrderDetails ( @PathVariable(name = "id") Long id ) {
+	public ResponseEntity<OrderDTO> getOrderDetails ( @PathVariable(name = "id") Long id, @AuthenticationPrincipal User user ) {
 
-		return  ResponseEntity.ok(this.pedidoService.getOrderDetails(id,1L));
+		return  ResponseEntity.ok(this.pedidoService.getOrderDetails(id, user.getId()));
 	}
 
 }

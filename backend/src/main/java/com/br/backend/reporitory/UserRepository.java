@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository <User, Long> {
 
@@ -15,8 +17,7 @@ public interface UserRepository extends JpaRepository <User, Long> {
     @Transactional
     public void updateUserPassword(String newPassword, Long userId);
 
-    @Query(value="select user from tbl_user user where user.username = ?1")
-    public User findUserByUsername(String username);
+    public Optional<User> findByUsername(String username);
 
 //    public void changeWallet(Float value);
 }

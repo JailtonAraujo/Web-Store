@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthDTO {
+public class AuthResponse {
 
-    public AuthDTO(User user, String token){
+    public AuthResponse(User user, String token){
         this.name = user.getName();
         this.lastname = user.getLastname();
         this.token = token;

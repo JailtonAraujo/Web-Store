@@ -3,6 +3,7 @@ package com.br.backend.exception;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class CustomExceptionHandler  extends ResponseEntityExceptionHandler{
     }
 	
 	
-	@ExceptionHandler({SQLIntegrityConstraintViolationException.class, DataIntegrityViolationException.class, QuantityProductException.class})
+	@ExceptionHandler({SQLIntegrityConstraintViolationException.class, DataIntegrityViolationException.class, QuantityProductException.class, WrongPasswordException.class})
     public final ResponseEntity<ExceptionResponse> handlerBadRequestsExceptions(Exception ex, WebRequest webRequest){
 
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),webRequest.getDescription(false),400);
@@ -41,6 +42,14 @@ public class CustomExceptionHandler  extends ResponseEntityExceptionHandler{
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),webRequest.getDescription(false),404);
 
         return new ResponseEntity<ExceptionResponse>(exceptionResponse,HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public final ResponseEntity<ExceptionResponse> handlerJwtException(Exception ex, WebRequest webRequest){
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),webRequest.getDescription(false),403);
+
+        return new ResponseEntity<ExceptionResponse>(exceptionResponse,HttpStatus.FORBIDDEN);
     }
 
 }

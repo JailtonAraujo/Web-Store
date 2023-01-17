@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,11 +27,8 @@ public class FavoritesController {
 	protected FavoriteService favoriteService;
 
 	@PostMapping("/")
-	public ResponseEntity<Boolean> addProductInFavorites ( @RequestBody Product product ){
-		
-		User user = new User();
-		user.setId(1L);
-		
+	public ResponseEntity<Boolean> addProductInFavorites (@RequestBody Product product, @AuthenticationPrincipal User user){
+
 		Favorite favorite = new Favorite().builder().product(product).user(user).build();
 		
 		this.favoriteService.addProductInFavorites(favorite);
@@ -39,15 +37,15 @@ public class FavoritesController {
 	}
 	
 	@GetMapping("/")
-	public ResponseEntity<List<Product>> getFavorites() {
+	public ResponseEntity<List<Product>> getFavorites( @AuthenticationPrincipal User user ) {
 		
-		return ResponseEntity.ok(this.favoriteService.getFavorites(1L));
+		return ResponseEntity.ok(this.favoriteService.getFavorites(user.getId()));
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> removeFavorite ( @PathVariable(name = "id") Long id ){
+	public ResponseEntity<Boolean> removeFavorite ( @PathVariable(name = "id") Long id, @AuthenticationPrincipal User user ){
 
-		return ResponseEntity.ok(this.favoriteService.removeFavorite(id, 1L));
+		return ResponseEntity.ok(this.favoriteService.removeFavorite(id, user.getId()));
 	}
 	
 }

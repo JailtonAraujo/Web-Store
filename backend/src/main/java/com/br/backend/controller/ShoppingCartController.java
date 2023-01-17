@@ -7,6 +7,7 @@ import com.br.backend.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,10 +20,7 @@ public class ShoppingCartController {
     protected ShoppingCartService shoppingCartService;
 
     @PostMapping("/")
-    public ResponseEntity<Boolean> addProductInCart(@RequestBody Product product){
-
-        User user = new User();
-        user.setId(1L);
+    public ResponseEntity<Boolean> addProductInCart(@RequestBody Product product, @AuthenticationPrincipal User user){
 
         ShoppingCart shoppingCart = new ShoppingCart().builder().product(product).user(user).build();
 
@@ -32,16 +30,16 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Product>> getProductsCart (){
+    public ResponseEntity<List<Product>> getProductsCart ( @AuthenticationPrincipal User user ){
 
-        return ResponseEntity.ok(this.shoppingCartService.getProductsCart(1L));
+        return ResponseEntity.ok(this.shoppingCartService.getProductsCart(user.getId()));
 
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> removeProductOnCart ( @PathVariable(name = "id") Long id ){
+    public ResponseEntity<Boolean> removeProductOnCart ( @PathVariable(name = "id") Long id, @AuthenticationPrincipal User user ){
 
-        this.shoppingCartService.removeProductOnCart(id,1L);
+        this.shoppingCartService.removeProductOnCart(id,user.getId());
 
         return ResponseEntity.ok(true);
     }

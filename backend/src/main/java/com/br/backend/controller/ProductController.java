@@ -17,7 +17,6 @@ import com.br.backend.service.ProductService;
 
 import jakarta.persistence.NoResultException;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/product")
 public class ProductController {

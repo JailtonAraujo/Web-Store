@@ -1,6 +1,6 @@
 <main>
     <div class="container-auth">
-        <form class="form-auth">
+        <form class="form-auth" [formGroup]="formUser" #userForm="ngForm" (submit)="handerLogin()">
 
             <div class="title">
                 Faça seu login!
@@ -8,16 +8,16 @@
 
            <div class="form-group">
             <label for="username">Email:</label>
-            <input type="text" placeholder="Nome de usuario" name="username">
+            <input type="text" placeholder="Nome de usuario" name="username" formControlName="username">
            </div>
 
            <div class="form-group">
             <label for="password">Senha:</label>
-            <button class="bth-change-icon" (click)="hideBtn = !hideBtn" > <fa-icon [icon]="hideBtn ? faEyeSlash : faEye" ></fa-icon> </button>
-            <input [type]="hideBtn ? 'password' : 'text' " placeholder="Digite sua senha..." name="password">
+            <button class="bth-change-icon" type="button" (click)="hideBtn = !hideBtn" > <fa-icon [icon]="hideBtn ? faEyeSlash : faEye" ></fa-icon> </button>
+            <input [type]="hideBtn ? 'password' : 'text' " placeholder="Minimo de 8 carateres..." name="password" formControlName="password">
            </div>
            <div class="btns">
-                <input type="submit" value="Logar" (click)="testart()">
+                <input type="submit" value="Logar" [disabled]="userForm.invalid" >
                 <a routerLink="/register">Cadastre-se agora!</a>
            </div>
         </form>

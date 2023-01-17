@@ -124,9 +124,7 @@ public DeleteAddress(index:number){
 
 public updateProfile(){
 
-  this.userService.updateProfile(this.formProfile.value).subscribe((response)=>{
-    console.log(response);
-  })
+  this.userService.updateProfile(this.formProfile.value);
 
 }
 
