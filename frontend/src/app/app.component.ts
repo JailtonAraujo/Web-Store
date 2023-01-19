@@ -21,14 +21,7 @@ export class AppComponent {
 
   ngOnInit(): void {
 
-    this.authReducer.select('authReducer').pipe(map(state => state)).subscribe((auth)=>{
-
-      if(auth.token){
-        this.cartService.getCartProductsApi();
-        this.favoriteService.getFavoritesApi();
-      }
-
-    }).unsubscribe()
+   
      
   }
 

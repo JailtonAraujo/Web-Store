@@ -1,8 +1,8 @@
 package com.br.backend.service.impls;
 
+import com.br.backend.service.AddressServices;
 import com.br.backend.model.AddressDelivery;
 import com.br.backend.reporitory.AddressRepository;
-import com.br.backend.service.AddressServices;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;

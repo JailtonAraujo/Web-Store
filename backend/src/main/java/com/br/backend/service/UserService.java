@@ -13,4 +13,6 @@ public interface UserService {
 
     // Update information user
     public Boolean updateProfile ( ChangePasswordUser passwordUser ) throws WrongPasswordException;
+
+    public Float askMoreMoney(User user);
 }

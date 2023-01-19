@@ -67,12 +67,6 @@
                             <div class="frete-container">
                                 <div class="content">
 
-                                    <!-- <div class="loading" *ngIf="loading">
-                                        <div class="spinner-border text-warning" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                      </div>
-                                    </div> -->
-
                                     <ul class="card-address" >
                                         <li class="form-control" *ngFor="let address of allAdress; let i = index" >
                                             <span>Cep: {{address.cep}} | </span>
@@ -101,11 +95,11 @@
                     <accordion>
                         <accordion-group heading="Carteira MyStore" [panelClass]="'customClassAccording'" >
                           <div class="content-wallet">
-                            <div class="info">
-                                <span>Saldo:</span> <span>R$1000,00</span>
+                            <div class="info" *ngIf="currentUSer">
+                                <span>Saldo:</span> <span>R$ {{(currentUSer.wallet)?.toFixed(2) }}</span>
                             </div>
                             <div class="separator"></div>
-                            <button type="button" class="btn btn-info">Pedir Saldo!</button>
+                            <button type="button" class="btn btn-info" (click)="askMoney()" >Pedir Saldo!</button>
                           </div>
                         </accordion-group>
                     </accordion>

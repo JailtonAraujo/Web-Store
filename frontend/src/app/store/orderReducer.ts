@@ -90,7 +90,8 @@ export const setFreteInOrder = createAction(
 export const orderReducer = createReducer(
     initialState,
     on(setOrder, (state, {payload})=>{
-        state = {...state, items:payload.items, valueItems:Number(calcTotal(payload.items)), frete:payload.frete}
+        state = {...state, items:payload.items, valueItems:Number(calcTotal(payload.items)), frete:payload.frete, id:payload.id}
+        console.log(payload)
         return state;
     }),
     on(changeQuantityOrderType,(state,{payload})=>{

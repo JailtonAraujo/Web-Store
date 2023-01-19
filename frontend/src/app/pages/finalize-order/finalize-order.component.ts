@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { OrderService } from 'src/app/services/order.service';
 import { offLoading, onLoading } from 'src/app/store/loadingReducer';
+import { AuthModel } from '../../model/authModel';
 
 @Component({
   selector: 'app-finalize-order',
@@ -45,10 +46,11 @@ export class FinalizeOrderComponent implements OnInit {
     private toastrService:ToastrService,
     private router:Router,
     private orderService:OrderService,
-    private loadingReducer:Store<{loadingReducer:Boolean}>
+    private loadingReducer:Store<{loadingReducer:Boolean}>,
     ) { }
 
   Order$ = this.orderReducer.select('orderReducer').pipe( map(state => state));
+  currentSaldo:number = JSON.parse(String(localStorage.getItem('auth'))).wallet;
 
   ngOnInit(): void {
     this.formAddress = new FormGroup({
@@ -181,11 +183,32 @@ export class FinalizeOrderComponent implements OnInit {
 
     this.Order$.subscribe((order)=>{
       this.loadingReducer.dispatch(onLoading());
+
       this.orderService.newOrder(order).subscribe((response)=>{
+
+        this.orderReducer.dispatch(setOrder({payload:response}));
+
+        console.log(response)
+
         this.loadingReducer.dispatch(offLoading());
+
+       let tempUser:AuthModel = JSON.parse(String(localStorage.getItem('auth'))) as AuthModel;
+
+        const newUser:AuthModel ={
+          name:tempUser.name,
+          lastname:tempUser.lastname,
+          token:tempUser.token,
+          wallet:(Number(tempUser.wallet) - (order.valueItems+order.frete))
+        }
+
+        localStorage.setItem('auth',JSON.stringify(newUser));
+
+
         this.router.navigate(['/order/success'])
+
       },error=>{
         this.loadingReducer.dispatch(offLoading());
+        this.toastrService.error('Oops, erro inesperado, revise as informações e tente mais tarde!','')
         console.log(error);
       })
 

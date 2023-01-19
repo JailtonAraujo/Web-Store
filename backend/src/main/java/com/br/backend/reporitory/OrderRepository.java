@@ -21,4 +21,7 @@ public interface OrderRepository extends JpaRepository<Order, Long > {
     @Query(value = " select order from tbl_order order where order.id = ?1 and user.id = ?2")
     public Optional<Order> getOrderDetails(Long orderId, Long userId);
 
+    @Query("select order from tbl_order order where order.id = ?1 and user.id = ?2")
+    public Optional<Order> findOrderByIdAndUserId(Long orderId, Long userId);
+
 }

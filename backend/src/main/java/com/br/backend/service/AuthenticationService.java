@@ -25,6 +25,8 @@ public class AuthenticationService {
 
         request.setPassword(passwordEncoder.encode(request.getPassword()));
 
+        request.setWallet(1000F);
+
         var userCreated = repository.save(request);
 
         var jwtToken = jwtService.generateToken(userCreated);

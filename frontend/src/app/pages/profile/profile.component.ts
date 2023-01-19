@@ -137,4 +137,15 @@ private getCurrentUser (){
 
 }
 
+public askMoney(){
+
+  if(Number(this.currentUSer.wallet) > 700){
+    this.toastrService.warning('Você ainda tem saldo sulficiente!','');
+    return;
+  }
+
+  this.userService.asMoreMoney();
+
+}
+
 }

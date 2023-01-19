@@ -1,6 +1,6 @@
 <app-header></app-header>
 <main>
-    <div class="container">
+    <div class="container-product">
         <div class="content-product-details" *ngIf="product" >
             <div class="content-left">
                 <img [src]="product.image!.url" alt="img_product">
@@ -44,7 +44,7 @@
                         <option value="6">6 Unidades</option>
                         <option value="7">7 Unidades</option>
                       </select>
-                      <span>({{product.quantity}}) dispo...</span>
+                      <span>({{product.quantity}}) disponiveis</span>
                 </div>
                 <div class="actions">
                 <a routerLink="/order/finalize"  type="button" class="btn btn-outline-success"

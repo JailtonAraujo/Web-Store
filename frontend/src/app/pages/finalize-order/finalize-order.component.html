@@ -50,7 +50,7 @@
                         <ul class="options-pay">
                             <li>
                                 <a href="#"> <fa-icon [icon]="faWallet"></fa-icon> Carteira MyStore</a>
-                                <span>Saldo: R$1000,00</span>
+                                <span>Saldo: R$ {{currentSaldo.toFixed(2)}}</span>
                             </li>
                         </ul>
 
@@ -113,6 +113,7 @@
         </div>
 
         <!--Sumary order-->
+       
         <div class="sumary-order">
             <div class="sumary">
                 <h3>Resumo do pedido</h3>
@@ -125,7 +126,10 @@
                 <span>Total do pedido:</span><span>R$ {{ ((Order$ | async)!.valueItems + valueCalcFrete.price).toFixed(2) }}</span>
             </div>
             <button class="btn btn-warning" [disabled]="(Order$ | async)!.items.length === 0" (click)="finalizeOrder()" >Finalizar pedido</button>
-        </div>
+            <span></span>
+            <a routerLink="/" class="btn btn-danger">Cancelar</a>
+      
+    </div>
          <!--Sumary order-->
 
     </div>

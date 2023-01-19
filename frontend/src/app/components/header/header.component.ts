@@ -1,12 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { faSearch, faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faCartShopping, faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { AuthModel } from 'src/app/model/authModel';
 import { CartOrders } from 'src/app/model/CartOrders';
-import { OrderItem } from 'src/app/model/OrderItem';
+import { FavoritesService } from 'src/app/services/favorites.service';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 import { clearAuth } from 'src/app/store/authReducer';
+import { resetCart } from 'src/app/store/cartReducer';
 
 @Component({
   selector: 'app-header',
@@ -22,18 +24,33 @@ export class HeaderComponent implements OnInit {
   nameSearch:String = "";
 
   faSearch = faSearch;
-  faCart = faCartShopping
+  faCart = faCartShopping;
+
+  iconBtnMenu = faBars;
+
+  classListMenu=['drop-menu'];
+  isOpen:Boolean = false
 
   constructor(
     private cartReducer:Store<{cartReducer:CartOrders}>,
     private router:Router,
-    private authReducer:Store<{authReducer:AuthModel}>
+    private authReducer:Store<{authReducer:AuthModel}>,
+    private cartService:ShoppingCartService,
+    private favoriteService:FavoritesService,
   ) { }
 
   cart$ = this.cartReducer.select('cartReducer').pipe(map(state => state));
   auth$ = this.authReducer.select('authReducer').pipe(map(state => state));
 
   ngOnInit(): void {
+    this.authReducer.select('authReducer').pipe(map(state => state)).subscribe((auth)=>{
+
+      if(auth.name){
+        this.cartService.getCartProductsApi();
+        this.favoriteService.getFavoritesApi();
+      }
+
+    }).unsubscribe()
   }
 
   handleNameSearch(){
@@ -56,7 +73,14 @@ export class HeaderComponent implements OnInit {
 
   logOut(){
     this.authReducer.dispatch(clearAuth());
+    this.cartReducer.dispatch(resetCart())
     this.router.navigate(['/'])
   }
+
+  public openAndCloseMenu(){
+    this.classListMenu = this.isOpen ? ['drop-menu'] : ['drop-menu','menu-open'];
+    this.isOpen = this.isOpen ? false : true;
+    this.iconBtnMenu = this.isOpen ? faXmark : faBars;
+   }
 
 }

@@ -10,6 +10,9 @@ header
     justify-content: center
     align-items: center
 
+.nav-mobile
+    display: none
+
 .content-header-top
     width: 70%
     display: flex
@@ -96,3 +99,84 @@ header
         .dropdown-item
             color: #000
 
+
+
+@media ( max-width:1211px)
+    .content-header-top
+        width: 100%
+
+
+@media ( max-width: 870px )
+    .content-header-top
+        display: none
+    .nav-mobile
+        width: 100%
+        display: block
+    .drop-menu
+        display: none
+    .container-nav,.content-mobile
+        display: flex
+        align-content: center
+        width: 100%    
+
+    .brand
+        display: flex
+        align-items: center
+        padding-right: 0.4em
+
+    .bars-menu
+        color: #fff
+        font-size: 1.2em
+        margin-left: 0.2em
+    .search-form
+        width: 100%
+        display: flex
+        padding: 0.5em 0em
+        background: #fff
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px
+        border-radius: 5px
+        input
+            width: 100%
+            border: none
+            outline: none
+            padding: 0em 0.4em
+            background: none
+            color: #000
+        button
+            border: none
+            background: none
+            padding: 0em 0.8em
+            border-left: 1px solid #aaa
+            text-align: center
+    .options-user
+        flex-direction: column
+        margin-top:1em
+        padding: 0    
+        .hero-user
+            width: 100%
+            display: flex
+            justify-content: space-between
+            align-items: center
+            gap: 0.3em
+            .btn
+                width: 100%
+        li
+            width: 100% 
+            border-radius: 5px
+            text-align: center
+            a
+                width: 100%
+    .separator
+        background-color: #000
+    .categorys
+        padding: 0
+        margin: 0
+        margin-top: 1em
+        li
+            list-style: none
+            a,button
+                color: #fff
+
+    
+.menu-open
+    display: block

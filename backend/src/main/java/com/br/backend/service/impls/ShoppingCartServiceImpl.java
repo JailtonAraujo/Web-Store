@@ -1,9 +1,9 @@
 package com.br.backend.service.impls;
 
+import com.br.backend.service.ShoppingCartService;
 import com.br.backend.model.Product;
 import com.br.backend.model.ShoppingCart;
 import com.br.backend.reporitory.ShoppingCartRepository;
-import com.br.backend.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

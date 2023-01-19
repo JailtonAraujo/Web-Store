@@ -16,9 +16,12 @@ public class AuthResponse {
         this.name = user.getName();
         this.lastname = user.getLastname();
         this.token = token;
+        this.wallet = user.getWallet();
     }
 
     private String name;
     private String lastname;
     private String token;
+
+    private Float wallet;
 }

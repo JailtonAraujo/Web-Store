@@ -1,6 +1,5 @@
 package com.br.backend.service.impls;
 
-import com.br.backend.DTO.AuthResponse;
 import com.br.backend.DTO.ChangePasswordUser;
 import com.br.backend.DTO.CurrentUserDTO;
 import com.br.backend.exception.WrongPasswordException;
@@ -51,9 +50,18 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-    //Generate token user
-    private String generateToken(){
-        return "";
+    @Override
+    public Float askMoreMoney(User user) {
+
+        if(user.getWallet() > 700){
+            return 0F;
+        }
+
+        userRepository.changeWallet( (user.getWallet()+1000F),user.getId());
+
+        return 1000F;
     }
+
+
 
 }

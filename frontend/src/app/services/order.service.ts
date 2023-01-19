@@ -32,5 +32,10 @@ export class OrderService {
   public getOrdersFilterByDatePaginate({limit,offset,date}:any){
     return this.http.get<any>(`${this.baseApiUrlOrder}/filter?date=${date}&limit=${limit}&offset=${offset}`);
   }
+
+  public downloadProofOrder(idOrder:number){
+    return this.http.get(`${this.baseApiUrlOrder}/proof/${idOrder}`,{responseType:'text'});
+    
+  }
   
 }

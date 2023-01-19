@@ -3,6 +3,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { faCircleInfo, faReceipt } from '@fortawesome/free-solid-svg-icons';
 import { OrderService } from 'src/app/services/order.service';
 import { Order } from 'src/app/model/Order';
+import { Store } from '@ngrx/store';
+import { offLoading, onLoading } from 'src/app/store/loadingReducer';
 
 @Component({
   selector: 'app-myorders',
@@ -15,6 +17,7 @@ export class MyordersComponent implements OnInit {
 
   faCircleInfo = faCircleInfo;
   faReceipt = faReceipt;
+  reportDownlod!:string;
 
   orders:Array<Order> = [];
   orderDetails:Order={frete:0,items:[],valueItems:0};
@@ -27,7 +30,8 @@ export class MyordersComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-    private orderService:OrderService
+    private orderService:OrderService,
+    private loadingReducer:Store<{loadingReducer:Boolean}>
     ) {}
 
   ngOnInit(): void {
@@ -102,6 +106,24 @@ export class MyordersComponent implements OnInit {
   
     return ("0"+dia).slice(-2) + '/' + ("0"+mes).slice(-2) + '/' + ano;
     // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
+  }
+
+  public downloadProofOrder(idOrder:any){
+    
+    this.loadingReducer.dispatch(onLoading());
+
+    this.orderService.downloadProofOrder(idOrder).subscribe((response)=>{
+      const anco = document.createElement('a');
+      anco.download="comprovante";
+      anco.type="application/pdf"
+      anco.href=response;
+      anco.dispatchEvent(new MouseEvent('click'));
+
+      this.loadingReducer.dispatch(offLoading());
+    },error=>{
+      this.loadingReducer.dispatch(offLoading());
+    })
+
   }
 
 

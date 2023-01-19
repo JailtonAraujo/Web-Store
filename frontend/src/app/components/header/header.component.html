@@ -41,7 +41,7 @@
                 <li> <a routerLink="/login" *ngIf="!(auth$ | async)!.name" >Entre</a> </li>
 
                 <li class="nav-item dropdown" *ngIf="(auth$ | async)!.name" >
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" >
+                  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" >
                       Olá, {{(auth$ | async)!.name}}
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -67,4 +67,67 @@
             </ul>
       
     </div>
+
+    <!--NavBar Mobile-->
+    <div class="nav-mobile">
+      <div class="container-nav">
+
+      <a routerLink="/" class="brand">
+        <img src="assets/online-shopping.png" alt="brand_img">
+       </a>
+
+       <div class="content-mobile">
+        <form class="search-form">
+          <input type="name" id="nameC" name="namC" placeholder="Buscar por nome, categoria..." [(ngModel)]="nameSearch">
+          <button class="btn-search" (click)="handleNameSearch()" > <fa-icon [icon]="faSearch"></fa-icon> </button>
+      </form>
+
+      <button class="btn btn-primary bars-menu" (click)="openAndCloseMenu()" >
+        <fa-icon [icon]="iconBtnMenu"></fa-icon>
+      </button>
+
+
+       </div>
+      </div>
+
+      <div [classList]="classListMenu">
+
+        <ul class="options-user">
+
+           <div class="hero-user">
+            <li> <a routerLink="/register" *ngIf="!(auth$ | async)!.name" class="btn btn-primary" >Crie sua conta</a> </li>
+            <li> <a routerLink="/login" *ngIf="!(auth$ | async)!.name" class="btn btn-primary" >Entre</a> </li>
+           </div>
+
+           <div class="hero-user">
+        <li  *ngIf="(auth$ | async)!.name">   <button  (click)="logOut()" id="btnLogout" class="btn btn-danger" type="button">Sair</button></li>
+
+
+            <li id="cart-element"><a routerLink="/cart" type="button" class="btn btn-primary position-relative" title="Carrinho de comprars">
+            <fa-icon [icon]="faCart" ></fa-icon> Carrinho
+
+             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+               {{ ((cart$ | async)!.listOrderItem)!.length  }}
+               <span class="visually-hidden">unread messages</span>
+
+             </span>
+           </a></li>
+      </div>
+      <li> <a class="btn btn-light" routerLink="/favorites" >Favoritos</a></li>
+      <li> <a class="btn btn-light" routerLink="/myordes" >Minhas compras</a></li>
+      <li><a class="btn btn-light" routerLink="/profile">Minha conta</a></li>
+      </ul>
+
+      <div class="separator"></div>
+      <ul class="categorys">
+                  <li role="menuitem"><button class="btn" (click)="handleSearchByCategory(1)" >Eletronicos</button></li>
+                  <li role="menuitem"><button class="btn" (click)="handleSearchByCategory(2)">Eletrodomésticos</button></li>
+                  <li role="menuitem"><button class="btn"(click)="handleSearchByCategory(3)">Moda</button></li>
+                  <li><button (click)="handlerOfferOfDay()" class="btn" >Ofertas do dia</button></li>
+                  <li><button class="btn" >Mais populares</button></li>
+    </ul>
+
+      </div>
+    </div>
+    <!-- NavBar Mobile -->
 </header>

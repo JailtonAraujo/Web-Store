@@ -15,17 +15,19 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class OrderDTO implements Serializable {
+@AllArgsConstructor
+public class OrderReport implements Serializable{
+
 
     private static final long serialVersionUID = 3106415551386821588L;
 
-    public  OrderDTO(Order order){
+    public  OrderReport(Order order){
         this.id = order.getId();
         this.Date = order.getDate();
         this.frete = order.getFrete();
         this.valueItems = order.getValueItems();
+        this.user = new CurrentUserDTO(order.getUser());
 
         if(order.getItems() != null){
         this.items = order.getItems().stream().map( orderItem -> new OrderItemDTO(orderItem)).collect(Collectors.toList());
@@ -35,6 +37,8 @@ public class OrderDTO implements Serializable {
     }
 
     private long id;
+    
+    private CurrentUserDTO user;
 
     private List<OrderItemDTO> items;
 

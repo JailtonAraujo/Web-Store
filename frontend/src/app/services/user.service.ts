@@ -5,6 +5,7 @@ import { UserModel } from '../model/UserModel';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 import { offLoading, onLoading } from '../store/loadingReducer';
+import { AuthModel } from '../model/authModel';
 
 
 @Injectable({
@@ -38,6 +39,32 @@ export class UserService {
         this.toastService.error('Senha atual incorreta!','')
       }
     })
+  }
+
+  public asMoreMoney (){
+    
+    this.http.get<Number>(`${this.urlApiBaseuser}/walle/ask`).subscribe((response)=>{
+
+      let tempUser:AuthModel = JSON.parse(String(localStorage.getItem('auth'))) as AuthModel;
+      const newUser:AuthModel ={
+        name:tempUser.name,
+        lastname:tempUser.lastname,
+        token:tempUser.token,
+        wallet:(Number(Number(tempUser.wallet) + Number(response)))
+      }
+      localStorage.setItem('auth',JSON.stringify(newUser));
+
+      if(response === 0){
+        this.toastService.warning('Você ainda tem saldo suficiente!','');
+      }
+
+      this.toastService.success(`Adicionamos um valor de R$ ${response.toFixed(2)} ao seu saldo!`,'')
+
+    },error=>{
+      console.log(error);
+      this.toastService.error('Não foi possivel almentarmos seu saldo!','');
+    });
+
   }
 
 }

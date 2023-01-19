@@ -5,6 +5,7 @@ import com.br.backend.exception.QuantityProductException;
 import com.br.backend.model.Order;
 import com.br.backend.model.OrderItem;
 import com.br.backend.model.User;
+import net.sf.jasperreports.engine.JRException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,7 +25,7 @@ public class OrderController {
 	protected OrderService pedidoService;
 
 	@PostMapping("/")
-	public ResponseEntity<Order> newOrder (@RequestBody @NotNull Order order, @AuthenticationPrincipal User user) throws QuantityProductException {
+	public ResponseEntity<OrderDTO> newOrder (@RequestBody @NotNull Order order, @AuthenticationPrincipal User user) throws QuantityProductException {
 
 		order.setUser(user);
 
@@ -33,7 +34,9 @@ public class OrderController {
 			item.setOrder(order);
 		}
 
-		return ResponseEntity.ok(this.pedidoService.newOrder(order));
+		var dto = new OrderDTO(this.pedidoService.newOrder(order));
+
+		return ResponseEntity.ok(dto);
 	}
 
 	@GetMapping("/")
@@ -59,6 +62,13 @@ public class OrderController {
 	public ResponseEntity<OrderDTO> getOrderDetails ( @PathVariable(name = "id") Long id, @AuthenticationPrincipal User user ) {
 
 		return  ResponseEntity.ok(this.pedidoService.getOrderDetails(id, user.getId()));
+	}
+
+	@GetMapping(value="/proof/{id}",produces = "application/text")
+	public ResponseEntity<String> emitProofOrder( @PathVariable(name = "id") Long id, @AuthenticationPrincipal User user ) throws JRException {
+
+		return ResponseEntity.ok(this.pedidoService.emitProofOrder(id,user.getId()));
+
 	}
 
 }

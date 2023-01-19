@@ -9,7 +9,8 @@ enum actionsTypes {
     addOnCartType="addOnCart",
     removeOnCartType='removeOnCard',
     changeQuantityType = 'changeQuantity',
-    setProductsInCartType = "setProductsInCart"
+    setProductsInCartType = "setProductsInCart",
+    resetCartType="resetCart"
 }
 
 export interface changeQuant{
@@ -82,6 +83,10 @@ export const setProductsInCart = createAction (
     props<{payload:Array<OrderItem>}>()
 )
 
+export const resetCart = createAction(
+    actionsTypes.resetCartType
+)
+
 
 export const cartReducer = createReducer(
     initialState,
@@ -117,6 +122,10 @@ export const cartReducer = createReducer(
 
     on( setProductsInCart, (state, {payload})=>{
         state = {...state, listOrderItem:payload, total:(calcTotal(payload))}
+        return state;
+    }),
+    on(resetCart,(state)=>{
+        state = {...state, listOrderItem:[],total:0}
         return state;
     })
 )

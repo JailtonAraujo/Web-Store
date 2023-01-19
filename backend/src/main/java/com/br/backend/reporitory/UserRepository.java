@@ -19,5 +19,8 @@ public interface UserRepository extends JpaRepository <User, Long> {
 
     public Optional<User> findByUsername(String username);
 
-//    public void changeWallet(Float value);
+    @Modifying
+    @Transactional
+    @Query("update tbl_user set Wallet=?1 where id = ?2")
+    public void changeWallet(Float value,Long userId);
 }

@@ -11,7 +11,7 @@
                     <button class="btn btn-primary"  type="button" id="button-addon2" (click)="filterOrders(inputDate)">Buscar</button>
                   </div>
             </div>
-            <div class="tbl-orders table-responsive">
+            <div class="tbl-orders">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -27,7 +27,9 @@
                             <th scope="row">{{i+1}}</th>
                             <td>{{ formataStringData(order.date)}}</td>
                             <td>{{(order.valueItems+order.frete).toFixed(2)}}</td>
-                            <td><button class="btn btn-secondary" title="Imprimir comprovante"> <fa-icon [icon]="faReceipt"></fa-icon> </button> </td>
+                            <td><button class="btn btn-secondary" id="linkDownloadProof" title="Imprimir comprovante"
+                              (click)="downloadProofOrder(order.id)"> <fa-icon [icon]="faReceipt"></fa-icon> </button> </td>
+                            
                             <td><button class="btn btn-secondary" title="Detalhes" (click)="openModalWithClass(template,order.id)" ><fa-icon [icon]="faCircleInfo"></fa-icon> </button></td>
                           </tr>
                       </tbody>
