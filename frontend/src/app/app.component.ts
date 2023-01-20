@@ -1,9 +1,4 @@
 import { Component } from '@angular/core';
-import { ShoppingCartService } from './services/shopping-cart.service';
-import { FavoritesService } from './services/favorites.service';
-import { AuthModel } from './model/authModel';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +6,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'MyStore';
-  constructor(
-     private cartService:ShoppingCartService,
-     private favoriteService:FavoritesService,
-     private authReducer:Store<{authReducer:AuthModel}>
-
-     ){}
+  title = 'WebStore';
 
   ngOnInit(): void {
 

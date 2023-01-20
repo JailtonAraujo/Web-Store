@@ -22,8 +22,8 @@ import com.br.backend.reporitory.ProductRepositoty;
 @SpringBootTest
 class BackendApplicationTests {
 
-	@Autowired
-	private ProductRepositoty productRepositoty;
+//	@Autowired
+//	private ProductRepositoty productRepositoty;
 
 	@Test
 	void contextLoads() {
@@ -32,53 +32,52 @@ class BackendApplicationTests {
 	@Test
 	public void demiData() throws InterruptedException {
 
-		for (int i = 0; i <= 10; i++) {
-
-			Category category = new Category().builder().id(3L).name("Moda").build();
-
-			Product product = new Product().builder().name("sollicitudin in integer odio").descrition(
-					"Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut deleniti ullam, eos illo quidem vero\r\n"
-							+ "                    praesentium repellendus inventore, eaque animi dolore. Accusamus numquam fuga sapiente magnam.\r\n"
-							+ "                    Eveniet alias voluptatum nesciunt")
-					.price(87.20).isNew(true).quantity(842).category(category).build();
-
-			ImgProduct imgProduct = new ImgProduct().builder()
-					.url("https://cdn-icons-png.flaticon.com/512/4223/4223397.png").product(product).build();
-			product.setImage(imgProduct);
-
-
-			this.productRepositoty.save(product);
-
-			Thread.sleep(1000);
-		}
+//		for (int i = 0; i <= 10; i++) {
+//
+//			Category category = new Category().builder().id(1L).name("Eletronicos").build();
+//
+//			Product product = new Product().builder().name("sollicitudin in integer odio").descrition(
+//					"Sem etiam turpis etiam interdum fusce cras aliquam varius, sagittis enim aenean quisque dictumst augue aliquet, neque pellentesque leo neque dictum" +
+//							"ac cubilia. diam nulla est sodales odio quam donec bibendum porta")
+//					.price(49.3).isNew(true).quantity(470).category(category).build();
+//
+//			ImgProduct imgProduct = new ImgProduct().builder()
+//					.url("https://cdn-icons-png.flaticon.com/512/3659/3659898.png").product(product).build();
+//			product.setImage(imgProduct);
+//
+//
+//			this.productRepositoty.save(product);
+//
+//			Thread.sleep(1000);
+//		}
 
 	}
 	
 	@Test
 	public void testeRequest () throws IOException, InterruptedException {
-		
-		StringBuilder url = new StringBuilder("http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=09146920&sDsSenha=123456&");
-		url.append("sCepOrigem=").append("70002900").append("&sCepDestino=").append("71939360")
-		.append("&nVlPeso=1&nCdFormato=1&nVlComprimento=30&nVlAltura=30&nVlLargura=30&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=40010&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3");
-		
-		HttpClient client = HttpClient.newHttpClient();
-		
-		HttpRequest httpRequest = HttpRequest.newBuilder()
-				.GET()
-				.timeout(Duration.ofSeconds(10))
-				.uri(URI.create(url.toString()))
-				.build();
-		
-		HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-		
-		JSONObject object;
-		try {
-			object = XML.toJSONObject(response.body());
-			System.out.println(object);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//
+//		StringBuilder url = new StringBuilder("http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=09146920&sDsSenha=123456&");
+//		url.append("sCepOrigem=").append("70002900").append("&sCepDestino=").append("71939360")
+//		.append("&nVlPeso=1&nCdFormato=1&nVlComprimento=30&nVlAltura=30&nVlLargura=30&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=40010&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3");
+//
+//		HttpClient client = HttpClient.newHttpClient();
+//
+//		HttpRequest httpRequest = HttpRequest.newBuilder()
+//				.GET()
+//				.timeout(Duration.ofSeconds(10))
+//				.uri(URI.create(url.toString()))
+//				.build();
+//
+//		HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+//
+//		JSONObject object;
+//		try {
+//			object = XML.toJSONObject(response.body());
+//			System.out.println(object);
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 				
 		
 	}

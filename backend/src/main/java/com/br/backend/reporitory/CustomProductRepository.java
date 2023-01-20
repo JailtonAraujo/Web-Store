@@ -68,7 +68,7 @@ public class CustomProductRepository {
 				"select tbl_product.id, tbl_product.name, tbl_product.price, tbl_imgproduct.url as imgProduct\r\n"
 						+ "from tbl_product\r\n"
 						+ "inner join tbl_imgproduct on tbl_imgproduct.product_id = tbl_product.id\r\n"
-						+ "inner join tbl_category on tbl_product.category_id = tbl_category.id\r\n");
+						+ "inner join tbl_category on tbl_product.category_id = tbl_category.id order by id\r\n");
 
 		try {
 

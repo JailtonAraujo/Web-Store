@@ -14,7 +14,6 @@ import { ProductModule } from './components/product/product.module';
 import { StoreModule } from '@ngrx/store';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { FlashMessageComponent } from './components/flash-message/flash-message.component';
 import { FinalizeOrderComponent } from './pages/finalize-order/finalize-order.component';
 
 //redux
@@ -41,7 +40,6 @@ import { HeaderInterceptor } from './guards/header.interceptor';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    FlashMessageComponent,
     FinalizeOrderComponent,
     CartComponentComponent,
     FavoritesComponent,

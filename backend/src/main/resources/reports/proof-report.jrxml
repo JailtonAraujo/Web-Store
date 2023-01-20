@@ -41,18 +41,11 @@
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="553" height="95" backcolor="#483D8B" uuid="6c6ca4e1-17cd-4913-93d6-5e670ea9ae8a"/>
 				<staticText>
-					<reportElement style="Title" x="0" y="0" width="553" height="66" uuid="a2a2cac8-5a7d-4487-8c54-dab235ce4e21"/>
-					<textElement textAlignment="Center">
+					<reportElement style="Title" x="0" y="0" width="553" height="95" uuid="a2a2cac8-5a7d-4487-8c54-dab235ce4e21"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="SansSerif" isBold="false"/>
 					</textElement>
 					<text><![CDATA[WebStore]]></text>
-				</staticText>
-				<staticText>
-					<reportElement style="SubTitle" x="157" y="66" width="249" height="29" forecolor="#FFFFFF" uuid="8978eac3-c578-41c9-837e-48d2b0184642"/>
-					<textElement>
-						<font fontName="SansSerif" size="22" isBold="false"/>
-					</textElement>
-					<text><![CDATA[Comprovante de pedido]]></text>
 				</staticText>
 			</frame>
 		</band>

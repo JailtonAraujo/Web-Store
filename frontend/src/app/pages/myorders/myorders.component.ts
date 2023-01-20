@@ -50,10 +50,14 @@ export class MyordersComponent implements OnInit {
   }
 
   public findAllOrders({limit,offset}:any){
+    this.loadingReducer.dispatch(onLoading())
     this.orderService.getAllOrdersPaginate({limit,offset}).subscribe((result)=>{
       this.orders = result.content;
       this.totalElements = result.totalElements;
       this.dateToFilter = "";//Reseting value
+      this.loadingReducer.dispatch(offLoading())
+    },error=>{
+      this.loadingReducer.dispatch(offLoading())
     })
   }
 
@@ -70,8 +74,12 @@ export class MyordersComponent implements OnInit {
 
   //Find details of a order by id
   public getOrderDetails (id:number){
+    this.loadingReducer.dispatch(onLoading())
     this.orderService.getOrderDetails(id).subscribe((response)=>{
       this.orderDetails = response;
+      this.loadingReducer.dispatch(offLoading())
+    },error=>{
+      this.loadingReducer.dispatch(offLoading())
     })
 
   }
@@ -87,10 +95,12 @@ export class MyordersComponent implements OnInit {
   //Find Orders and filter by date
   public getOrdersFilterByDatePaginate({date,limit,offset}:any){
     if(date){
+      this.loadingReducer.dispatch(onLoading())
     this.orderService.getOrdersFilterByDatePaginate({limit,offset,date}).subscribe((result)=>{
       this.orders = result.content;
       this.totalElements = result.totalElements;
-    })
+      this.loadingReducer.dispatch(offLoading())
+    },error=>{this.loadingReducer.dispatch(offLoading())})
     }else{
       this.findAllOrders({limit:10,offset:0});
     }

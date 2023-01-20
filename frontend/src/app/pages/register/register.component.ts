@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -17,10 +18,15 @@ export class RegisterComponent implements OnInit {
   formUser!:FormGroup;
 
   constructor(
-    private authService:AuthService
+    private authService:AuthService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
+
+    if(localStorage.getItem('auth') !== null){
+      this.router.navigate(['/'])
+    }
 
     this.formUser = new FormGroup({
       name : new FormControl('',[Validators.required]),

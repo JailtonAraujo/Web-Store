@@ -43,7 +43,7 @@ export class UserService {
 
   public asMoreMoney (){
     
-    this.http.get<Number>(`${this.urlApiBaseuser}/walle/ask`).subscribe((response)=>{
+    this.http.get<Number>(`${this.urlApiBaseuser}/wallet/ask`).subscribe((response)=>{
 
       let tempUser:AuthModel = JSON.parse(String(localStorage.getItem('auth'))) as AuthModel;
       const newUser:AuthModel ={

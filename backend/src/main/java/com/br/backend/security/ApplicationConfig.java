@@ -30,7 +30,7 @@ public class ApplicationConfig {
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService( userDetailsService());//Aqui
+        provider.setUserDetailsService( userDetailsService());
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
@@ -47,11 +47,13 @@ public class ApplicationConfig {
 
 
     @Bean
-    public WebMvcConfigurer corsConfigurer(){
+    public WebMvcConfigurer webMvcConfigurer(){
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200/").allowedMethods("*");
+                registry.addMapping("/**").allowedOrigins("http://localhost:4200/",
+                        "http://jailtonaraujo.tech/","https://jailtonaraujo.tech/","http://143.137.127.20/",
+                        "http://jailtonpraojetos.tech:8083/","http://jailtonprojetos.tech/","https://jailtonprojetos.tech/").allowedMethods("*");
             }
         };
 

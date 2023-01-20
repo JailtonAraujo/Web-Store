@@ -124,6 +124,7 @@ export class FinalizeOrderComponent implements OnInit {
 
   public addAddress(){
 
+    this.loadingReducer.dispatch(onLoading());
     this.freteService.saveAddress(this.formAddress.value).subscribe((response)=>{
 
       this.listAddress.push(response);
@@ -131,7 +132,9 @@ export class FinalizeOrderComponent implements OnInit {
       this.modalRef?.hide()
 
       this.toastrService.success('Novo Endereço adicionado','');
-
+      this.loadingReducer.dispatch(offLoading());
+    },error=>{
+      this.loadingReducer.dispatch(offLoading());
     })
 
     

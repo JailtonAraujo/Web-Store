@@ -1,9 +1,6 @@
 import { createReducer, createAction, on, props } from "@ngrx/store";
 import { CartOrders } from "../model/CartOrders";
 import { OrderItem } from "../model/OrderItem";
-import { ToastrService } from "ngx-toastr";
-import { Product } from "../model/Product";
-
 
 enum actionsTypes {
     addOnCartType="addOnCart",

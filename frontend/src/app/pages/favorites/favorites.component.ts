@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
-import { FavoriteModel, removeFavorite } from 'src/app/store/favorityReducer';
+import { FavoriteModel} from 'src/app/store/favorityReducer';
 
 import { faTrash, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { Product } from 'src/app/model/Product';
-import { CartOrders } from 'src/app/model/CartOrders';
-import { addOnCart } from 'src/app/store/cartReducer';
-import { OrderItem } from 'src/app/model/OrderItem';
-
-import { ToastrService } from 'ngx-toastr';
 import { FavoritesService } from 'src/app/services/favorites.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 

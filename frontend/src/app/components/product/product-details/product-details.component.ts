@@ -13,6 +13,7 @@ import { OrderItem } from 'src/app/model/OrderItem';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { FavoritesService } from 'src/app/services/favorites.service';
+import { offLoading, onLoading } from 'src/app/store/loadingReducer';
 
 @Component({
   selector: 'app-product-details',
@@ -49,7 +50,8 @@ export class ProductDetailsComponent implements OnInit {
     private store:Store<{orderReducer:Order}>,
     private cartService:ShoppingCartService,
     private favoriteService:FavoritesService,
-    private toastrService:ToastrService
+    private toastrService:ToastrService,
+    private loadingReducer:Store<{loadingReducer:Boolean}>
   ) { }
 
   ngOnInit(): void {
@@ -62,8 +64,12 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   public findProductById(id: Number) {
+    this.loadingReducer.dispatch(onLoading());
     this.productService.findProductById(id).subscribe((resp) => {
       this.product = resp;
+      this.loadingReducer.dispatch(offLoading());
+    },error=>{
+      this.loadingReducer.dispatch(offLoading());
     })
   }
 

@@ -8,6 +8,8 @@ import { FreteService } from 'src/app/services/frete.service';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from 'src/app/services/user.service';
 import { UserModel } from 'src/app/model/UserModel';
+import { Store } from '@ngrx/store';
+import { offLoading, onLoading } from 'src/app/store/loadingReducer';
 
 @Component({
   selector: 'app-profile',
@@ -38,7 +40,8 @@ export class ProfileComponent implements OnInit {
     private freteService:FreteService,
     private modalService: BsModalService,
     private toastrService:ToastrService,
-    private userService:UserService
+    private userService:UserService,
+    private loading:Store<{loadingReducer:Boolean}>
   ) { }
 
   ngOnInit(): void {
@@ -98,6 +101,7 @@ export class ProfileComponent implements OnInit {
 
   public addAddress(){
 
+    this.loading.dispatch(onLoading());
     this.freteService.saveAddress(this.formAddress.value).subscribe((response)=>{
 
       this.allAdress.push(response);
@@ -105,8 +109,8 @@ export class ProfileComponent implements OnInit {
       this.modalRef?.hide()
 
       this.toastrService.success('Novo Endereço adicionado','');
-
-    })
+      this.loading.dispatch(offLoading());
+    },error=>{this.loading.dispatch(offLoading());})
 
 }
 
@@ -130,9 +134,13 @@ public updateProfile(){
 
 private getCurrentUser (){
 
+  this.loading.dispatch(onLoading());
   this.userService.getCurrentUser().subscribe((response)=>{
     this.currentUSer = response;
     this.formProfile.get('email')?.setValue(response.username);
+    this.loading.dispatch(offLoading());
+  },error=>{
+    this.loading.dispatch(offLoading());
   })
 
 }
