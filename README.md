@@ -10,4 +10,3 @@ Link: http://jailtonprojetos.tech/webstore/
 
 ![webstore](https://user-images.githubusercontent.com/90009939/231233650-8d8d1c99-4ead-4cf6-a015-0b16266df3f0.png)
 
-
